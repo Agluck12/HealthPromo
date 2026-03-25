@@ -30,11 +30,11 @@ Open `js/data.js` and edit the `SITE_CONFIG` block at the top:
 const SITE_CONFIG = {
   name: 'CarePromo',
   tagline: 'Healthcare & ABA Promotional Items',
-  phone: '(917) 538-8343',           // ← Your phone
-  phoneRaw: '9175388343',            // ← No spaces/dashes
-  email: 'contact@carepromo.com',    // ← Your email
-  formspreeId: 'YOUR_FORMSPREE_ID',  // ← See step 2
-  adminPassword: 'carepromo2025',    // ← Change this!
+  phone: '(516) 655-5423',           // ← Your phone
+  phoneRaw: '5166555423',            // ← No spaces/dashes
+  email: 'andrewgluck3@gmail.com',    // ← Your email
+  formspreeId: 'mnjgwbyv',  // ← See step 2
+  adminPassword: 'BashiM1261*',    // ← Change this!
 };
 ```
 
