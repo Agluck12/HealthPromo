@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin — HealthPromo</title>
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<link rel="stylesheet" href="../css/style.css">
+<style>
+  body { background: #f0f4f8; }
+
+  /* ── LOGIN ── */
+  .login-wrap { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 2rem; }
+  .login-card { background: white; border-radius: 20px; padding: 2.5rem; width: 100%; max-width: 380px; box-shadow: 0 8px 32px rgba(0,0,0,0.1); text-align: center; }
+  .login-card .logo-icon { width: 56px; height: 56px; background: linear-gradient(135deg, var(--teal-mid), var(--teal)); border-radius: 14px; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; }
+  .login-card .logo-icon svg { width: 28px; height: 28px; fill: white; }
+  .login-card h1 { font-family: 'Epilogue', sans-serif; font-size: 1.4rem; color: var(--navy); margin-bottom: 0.4rem; }
+  .login-card p { color: var(--muted); font-size: 0.85rem; margin-bottom: 1.75rem; }
+  .login-card .form-group { text-align: left; margin-bottom: 1rem; }
+  .login-btn { width: 100%; padding: 0.8rem; background: var(--teal); color: white; border: none; border-radius: 10px; font-family: 'Urbanist', sans-serif; font-size: 0.95rem; font-weight: 600; cursor: pointer; transition: background 0.2s; margin-top: 0.5rem; }
+  .login-btn:hover { background: var(--teal-mid); }
+  .login-error { background: #fde8e8; color: #b91c1c; border-radius: 8px; padding: 0.6rem 0.9rem; font-size: 0.82rem; margin-top: 0.75rem; display: none; }
+  .pw-wrap { position: relative; }
+  .pw-wrap input { width: 100%; padding-right: 2.8rem !important; }
+  .pw-toggle { position: absolute; right: 0.75rem; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; color: var(--muted); padding: 0; display: flex; align-items: center; transition: color 0.15s; }
+  .pw-toggle:hover { color: var(--teal); }
+
+  /* ── ADMIN LAYOUT ── */
+  .admin-wrap { display: none; }
+  .admin-header { background: var(--navy); padding: 0 2rem; height: 60px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 10; }
+  .admin-header .logo-text { font-family: 'Epilogue', sans-serif; color: white; font-size: 1.1rem; }
+  .admin-header-right { display: flex; align-items: center; gap: 1rem; }
+  .admin-badge { background: rgba(26,173,168,0.25); color: var(--teal-mid); border: 1px solid rgba(26,173,168,0.3); border-radius: 6px; padding: 0.2rem 0.6rem; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.06em; }
+  .logout-btn { background: none; border: 1.5px solid rgba(255,255,255,0.2); color: rgba(255,255,255,0.7); border-radius: 7px; padding: 0.3rem 0.8rem; font-family: 'Urbanist', sans-serif; font-size: 0.8rem; cursor: pointer; transition: all 0.2s; }
+  .logout-btn:hover { border-color: white; color: white; }
+
+  .admin-main { max-width: 1200px; margin: 0 auto; padding: 2rem; }
+  .admin-tabs { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; border-bottom: 2px solid var(--border); padding-bottom: 0; }
+  .admin-tab { background: none; border: none; padding: 0.6rem 1.2rem; font-family: 'Urbanist', sans-serif; font-size: 0.875rem; font-weight: 500; color: var(--muted); cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -2px; transition: color 0.2s, border-color 0.2s; }
+  .admin-tab.active { color: var(--teal); border-bottom-color: var(--teal); font-weight: 600; }
+
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+
+  /* ── STATS ── */
+  .stats-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
+  .stat-tile { background: white; border-radius: 12px; padding: 1.25rem; box-shadow: var(--card-shadow); border: 1px solid var(--border); }
+  .stat-tile .num { font-family: 'Epilogue', sans-serif; font-size: 2rem; color: var(--navy); }
+  .stat-tile .lbl { font-size: 0.78rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; margin-top: 0.2rem; }
+
+  /* ── PRODUCT TABLE ── */
+  .toolbar { display: flex; gap: 0.75rem; align-items: center; margin-bottom: 1.25rem; flex-wrap: wrap; }
+  .toolbar select { padding: 0.5rem 0.8rem; border: 1.5px solid var(--border); border-radius: 8px; font-family: 'Urbanist', sans-serif; font-size: 0.85rem; outline: none; background: white; }
+  .toolbar select:focus { border-color: var(--teal); }
+  .toolbar-right { margin-left: auto; display: flex; gap: 0.5rem; }
+
+  .product-table { width: 100%; border-collapse: collapse; background: white; border-radius: 12px; overflow: hidden; box-shadow: var(--card-shadow); border: 1px solid var(--border); }
+  .product-table th { background: var(--navy); color: rgba(255,255,255,0.85); font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; padding: 0.85rem 1rem; text-align: left; }
+  .product-table td { padding: 0.75rem 1rem; border-bottom: 1px solid var(--border); font-size: 0.85rem; vertical-align: middle; }
+  .product-table tr:last-child td { border-bottom: none; }
+  .product-table tr:hover td { background: var(--warm); }
+  .table-img { width: 40px; height: 40px; border-radius: 8px; object-fit: cover; background: var(--sky); }
+  .table-img.placeholder { display: flex; align-items: center; justify-content: center; font-size: 1.3rem; }
+  .price-tag { font-weight: 600; color: var(--teal); }
+  .price-quote { color: var(--accent); font-weight: 600; font-size: 0.78rem; }
+  .action-btn { background: none; border: 1px solid var(--border); border-radius: 6px; padding: 0.3rem 0.65rem; font-size: 0.75rem; font-family: 'Urbanist', sans-serif; cursor: pointer; transition: all 0.15s; }
+  .action-btn.edit { color: var(--teal); border-color: var(--teal-light); }
+  .action-btn.edit:hover { background: var(--teal-light); }
+  .action-btn.del { color: #e55; border-color: #fdd; }
+  .action-btn.del:hover { background: #fdd; }
+
+  /* ── MODAL ── */
+  .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.45); z-index: 1000; display: none; align-items: center; justify-content: center; padding: 1rem; }
+  .modal-overlay.open { display: flex; }
+  .modal { background: white; border-radius: 16px; padding: 2rem; width: 100%; max-width: 520px; max-height: 90vh; overflow-y: auto; box-shadow: 0 20px 60px rgba(0,0,0,0.2); }
+  .modal h3 { font-family: 'Epilogue', sans-serif; font-size: 1.2rem; color: var(--navy); margin-bottom: 1.5rem; }
+  .modal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .modal-grid .full { grid-column: 1/-1; }
+  .modal-footer { display: flex; gap: 0.75rem; justify-content: flex-end; margin-top: 1.5rem; }
+  .modal-cancel { background: none; border: 1.5px solid var(--border); color: var(--muted); border-radius: 8px; padding: 0.6rem 1.2rem; font-family: 'Urbanist', sans-serif; font-size: 0.875rem; cursor: pointer; transition: all 0.2s; }
+  .modal-cancel:hover { border-color: var(--text); color: var(--text); }
+  .modal-save { background: var(--teal); color: white; border: none; border-radius: 8px; padding: 0.6rem 1.4rem; font-family: 'Urbanist', sans-serif; font-size: 0.875rem; font-weight: 600; cursor: pointer; transition: background 0.2s; }
+  .modal-save:hover { background: var(--teal-mid); }
+
+  /* ── CAT MANAGER ── */
+  .cat-list { display: flex; flex-direction: column; gap: 0.75rem; }
+  .cat-row { display: flex; align-items: center; gap: 0.75rem; background: white; border-radius: 10px; padding: 0.85rem 1rem; box-shadow: var(--card-shadow); border: 1px solid var(--border); }
+  .cat-emoji { font-size: 1.4rem; flex-shrink: 0; }
+  .cat-name { font-weight: 600; font-size: 0.9rem; flex: 1; }
+  .cat-count { font-size: 0.78rem; color: var(--muted); }
+  .add-cat-form { background: white; border-radius: 12px; padding: 1.25rem; box-shadow: var(--card-shadow); border: 1px solid var(--border); margin-bottom: 1.5rem; display: flex; gap: 0.75rem; align-items: flex-end; flex-wrap: wrap; }
+  .add-cat-form .form-group { flex: 1; min-width: 140px; }
+
+  .reset-btn { background: none; border: 1.5px solid #fdd; color: #e55; border-radius: 8px; padding: 0.5rem 1rem; font-family: 'Urbanist', sans-serif; font-size: 0.82rem; cursor: pointer; transition: all 0.2s; margin-top: 1.5rem; }
+  .reset-btn:hover { background: #fdd; }
+
+  @media(max-width:600px){ .modal-grid{grid-template-columns:1fr} .product-table td:nth-child(5),.product-table th:nth-child(5){display:none} }
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div class="login-wrap" id="loginWrap">
+  <div class="login-card">
+    <img src="../logo-upload.png" alt="HealthPromo" style="width:64px;height:64px;object-fit:contain;margin:0 auto 0.5rem;display:block;filter:brightness(0) saturate(100%) invert(44%) sepia(72%) saturate(400%) hue-rotate(140deg)">
+      <h1>Admin Login</h1>
+    <p>HealthPromo product management</p>
+    <div class="form-group">
+      <label for="pwInput">Password</label>
+      <div class="pw-wrap">
+        <input type="password" id="pwInput" placeholder="Enter admin password" autocomplete="current-password">
+        <button class="pw-toggle" id="pwToggle" type="button" title="Show/hide password">
+          <svg id="eyeIcon" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+            <circle cx="12" cy="12" r="3"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+    <button class="login-btn" id="loginBtn">Sign In →</button>
+    <div class="login-error" id="loginError">Incorrect password. Please try again.</div>
+  </div>
+</div>
+
+<!-- ADMIN -->
+<div class="admin-wrap" id="adminWrap">
+  <div class="admin-header">
+    <span class="logo-text">HealthPromo</span>
+    <div class="admin-header-right">
+      <span class="admin-badge">ADMIN</span>
+      <a href="../index.html" class="logout-btn" target="_blank">View Site</a>
+      <button class="logout-btn" id="logoutBtn">Log Out</button>
+    </div>
+  </div>
+
+  <div class="admin-main">
+    <div class="admin-tabs">
+      <button class="admin-tab active" data-tab="products">🏷️ Products</button>
+      <button class="admin-tab" data-tab="categories">📂 Categories</button>
+      <button class="admin-tab" data-tab="settings">⚙️ Settings</button>
+    </div>
+
+    <!-- PRODUCTS TAB -->
+    <div class="tab-panel active" id="tab-products">
+      <div class="stats-grid" id="statsGrid"></div>
+      <div class="toolbar">
+        <select id="filterCat">
+          <option value="all">All Categories</option>
+        </select>
+        <select id="filterPrice">
+          <option value="all">All Prices</option>
+          <option value="free">Quote Only</option>
+          <option value="priced">Has Price</option>
+        </select>
+        <div class="toolbar-right">
+          <button class="btn-teal" id="addProductBtn">+ Add Product</button>
+        </div>
+      </div>
+      <table class="product-table" id="productTable">
+        <thead>
+          <tr>
+            <th>Image</th>
+            <th>Product Name</th>
+            <th>Category</th>
+            <th>Price</th>
+            <th>Details</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="productTbody"></tbody>
+      </table>
+    </div>
+
+    <!-- CATEGORIES TAB -->
+    <div class="tab-panel" id="tab-categories">
+      <div class="add-cat-form">
+        <div class="form-group">
+          <label>Emoji</label>
+          <input type="text" id="newCatEmoji" placeholder="🏥" maxlength="4" style="width:80px">
+        </div>
+        <div class="form-group" style="flex:2">
+          <label>Category Name *</label>
+          <input type="text" id="newCatName" placeholder="e.g. Safety Items">
+        </div>
+        <button class="btn-teal" id="addCatBtn">Add Category</button>
+      </div>
+      <div class="cat-list" id="catList"></div>
+      <button class="reset-btn" id="resetCatalogBtn">⚠️ Reset to Default Catalog (removes all customizations)</button>
+    </div>
+
+    <!-- SETTINGS TAB -->
+    <div class="tab-panel" id="tab-settings">
+      <div style="background:white;border-radius:16px;padding:2rem;box-shadow:var(--card-shadow);border:1px solid var(--border);max-width:500px">
+        <h3 style="font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--navy);margin-bottom:1.5rem">Site Settings</h3>
+        <div class="form-group" style="margin-bottom:1rem">
+          <label>Contact Phone</label>
+          <input type="text" id="settPhone" placeholder="(917) 538-8343">
+        </div>
+        <div class="form-group" style="margin-bottom:1rem">
+          <label>Contact Email</label>
+          <input type="email" id="settEmail" placeholder="contact@healthpromo.com">
+        </div>
+        <div class="form-group" style="margin-bottom:1rem">
+          <label>Formspree Form ID <a href="https://formspree.io" target="_blank" style="font-size:0.75rem;color:var(--teal);font-weight:normal">(get yours free)</a></label>
+          <input type="text" id="settFormspree" placeholder="abcd1234">
+        </div>
+        <div class="form-group" style="margin-bottom:1.5rem">
+          <label>Admin Password</label>
+          <input type="password" id="settPassword" placeholder="New password (leave blank to keep current)">
+        </div>
+        <button class="btn-teal" id="saveSettingsBtn">Save Settings</button>
+        <p style="font-size:0.75rem;color:var(--muted);margin-top:0.75rem">Settings are stored in your browser. After changing Formspree ID, test the quote form.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PRODUCT MODAL -->
+<div class="modal-overlay" id="productModal">
+  <div class="modal">
+    <h3 id="modalTitle">Add Product</h3>
+    <div class="modal-grid">
+      <div class="form-group full">
+        <label>Product Name *</label>
+        <input type="text" id="mName" placeholder="e.g. Fidget Spinner Set">
+      </div>
+      <div class="form-group">
+        <label>Category *</label>
+        <select id="mCat"></select>
+      </div>
+      <div class="form-group">
+        <label>Price (leave blank = Request Quote)</label>
+        <input type="text" id="mPrice" placeholder="$2.50">
+      </div>
+      <div class="form-group">
+        <label>Original / Retail Price</label>
+        <input type="text" id="mOrigPrice" placeholder="$5.00">
+      </div>
+      <div class="form-group">
+        <label>Min. Quantity</label>
+        <input type="number" id="mMin" placeholder="500">
+      </div>
+      <div class="form-group">
+        <label>Number of Colors</label>
+        <input type="number" id="mColors" placeholder="6">
+      </div>
+      <div class="form-group full">
+        <label>Image URL</label>
+        <input type="url" id="mImg" placeholder="https://…">
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="modal-cancel" id="modalCancel">Cancel</button>
+      <button class="modal-save" id="modalSave">Save Product</button>
+    </div>
+  </div>
+</div>
+
+<script src="../js/data.js"></script>
+<script>
+  let editingProduct = null;
+  let isLoggedIn = sessionStorage.getItem('cp_admin') === '1';
+
+  // ── LOGIN ──
+  function checkLogin() {
+    if (isLoggedIn) { showAdmin(); return; }
+    document.getElementById('loginWrap').style.display = 'flex';
+  }
+
+  function showAdmin() {
+    document.getElementById('loginWrap').style.display = 'none';
+    document.getElementById('adminWrap').style.display = 'block';
+    loadSettings();
+    renderAll();
+  }
+
+  document.getElementById('loginBtn').addEventListener('click', doLogin);
+  document.getElementById('pwInput').addEventListener('keydown', e => { if(e.key==='Enter') doLogin(); });
+
+  // ── SHOW/HIDE PASSWORD TOGGLE ──
+  document.getElementById('pwToggle').addEventListener('click', function() {
+    const input = document.getElementById('pwInput');
+    const isHidden = input.type === 'password';
+    input.type = isHidden ? 'text' : 'password';
+    document.getElementById('eyeIcon').innerHTML = isHidden
+      ? `<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/>`
+      : `<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>`;
+    input.focus();
+  });
+
+  function doLogin() {
+    const pw = document.getElementById('pwInput').value;
+    const storedPw = localStorage.getItem('cp_admin_pw') || SITE_CONFIG.adminPassword;
+    if (pw === storedPw) {
+      sessionStorage.setItem('cp_admin', '1');
+      isLoggedIn = true;
+      document.getElementById('loginError').style.display = 'none';
+      showAdmin();
+    } else {
+      document.getElementById('loginError').style.display = 'block';
+      document.getElementById('pwInput').value = '';
+      document.getElementById('pwInput').focus();
+    }
+  }
+
+  document.getElementById('logoutBtn').addEventListener('click', () => {
+    sessionStorage.removeItem('cp_admin');
+    location.reload();
+  });
+
+  // ── TABS ──
+  document.querySelectorAll('.admin-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      tab.classList.add('active');
+      document.getElementById('tab-' + tab.dataset.tab).classList.add('active');
+    });
+  });
+
+  // ── RENDER ALL ──
+  function renderAll() {
+    renderStats();
+    renderProductTable();
+    renderCatList();
+    populateCatDropdowns();
+    loadSettings();
+  }
+
+  function renderStats() {
+    const catalog = getCatalog();
+    const totalProducts = catalog.reduce((s, c) => s + c.products.length, 0);
+    const priced = catalog.reduce((s, c) => s + c.products.filter(p => p.price).length, 0);
+    document.getElementById('statsGrid').innerHTML = `
+      <div class="stat-tile"><div class="num">${catalog.length}</div><div class="lbl">Categories</div></div>
+      <div class="stat-tile"><div class="num">${totalProducts}</div><div class="lbl">Total Products</div></div>
+      <div class="stat-tile"><div class="num">${priced}</div><div class="lbl">Priced Items</div></div>
+      <div class="stat-tile"><div class="num">${totalProducts - priced}</div><div class="lbl">Quote-Only</div></div>
+    `;
+  }
+
+  function renderProductTable() {
+    const catalog = getCatalog();
+    const filterCat = document.getElementById('filterCat').value || 'all';
+    const filterPrice = document.getElementById('filterPrice').value || 'all';
+    const tbody = document.getElementById('productTbody');
+    let rows = '';
+    catalog.forEach(cat => {
+      if (filterCat !== 'all' && cat.id !== filterCat) return;
+      cat.products.forEach(p => {
+        if (filterPrice === 'free' && p.price) return;
+        if (filterPrice === 'priced' && !p.price) return;
+        const img = p.img
+          ? `<img src="${p.img}" class="table-img" alt="" onerror="this.className='table-img placeholder';this.outerHTML='<div class=\\'table-img placeholder\\'>🏥</div>'">`
+          : `<div class="table-img placeholder">🏥</div>`;
+        const price = p.price ? `<span class="price-tag">${p.price}</span>` : `<span class="price-quote">Quote</span>`;
+        const details = [p.min ? `Min: ${p.min.toLocaleString()}` : '', p.colors ? `${p.colors} colors` : ''].filter(Boolean).join(' · ') || '—';
+        rows += `<tr>
+          <td>${img}</td>
+          <td><strong style="font-size:0.83rem">${p.name}</strong></td>
+          <td style="color:var(--muted);font-size:0.8rem">${cat.emoji} ${cat.label}</td>
+          <td>${price}</td>
+          <td style="color:var(--muted);font-size:0.78rem">${details}</td>
+          <td style="display:flex;gap:0.4rem;align-items:center">
+            <button class="action-btn edit" data-edit="${p.id}" data-cat="${cat.id}">Edit</button>
+            <button class="action-btn del" data-del="${p.id}" data-cat="${cat.id}">Delete</button>
+          </td>
+        </tr>`;
+      });
+    });
+    tbody.innerHTML = rows || `<tr><td colspan="6" style="text-align:center;color:var(--muted);padding:2rem">No products found.</td></tr>`;
+
+    // Edit buttons
+    tbody.querySelectorAll('[data-edit]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const catalog = getCatalog();
+        const cat = catalog.find(c => c.id === btn.dataset.cat);
+        const prod = cat ? cat.products.find(p => p.id === btn.dataset.edit) : null;
+        if (prod) openModal(prod, btn.dataset.cat);
+      });
+    });
+
+    // Delete buttons
+    tbody.querySelectorAll('[data-del]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        if (!confirm('Delete this product?')) return;
+        const catalog = getCatalog();
+        const cat = catalog.find(c => c.id === btn.dataset.cat);
+        if (cat) cat.products = cat.products.filter(p => p.id !== btn.dataset.del);
+        saveCatalog(catalog);
+        renderAll();
+        showToast('Product deleted');
+      });
+    });
+  }
+
+  function populateCatDropdowns() {
+    const catalog = getCatalog();
+    const opts = catalog.map(c => `<option value="${c.id}">${c.emoji} ${c.label}</option>`).join('');
+    document.getElementById('filterCat').innerHTML = `<option value="all">All Categories</option>` + opts;
+    document.getElementById('mCat').innerHTML = opts;
+  }
+
+  document.getElementById('filterCat').addEventListener('change', renderProductTable);
+  document.getElementById('filterPrice').addEventListener('change', renderProductTable);
+
+  function renderCatList() {
+    const catalog = getCatalog();
+    document.getElementById('catList').innerHTML = catalog.map(cat => `
+      <div class="cat-row">
+        <div class="cat-emoji">${cat.emoji}</div>
+        <div class="cat-name">${cat.label}</div>
+        <div class="cat-count">${cat.products.length} products</div>
+        <button class="action-btn del" data-delcat="${cat.id}">Remove</button>
+      </div>
+    `).join('');
+    document.querySelectorAll('[data-delcat]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const cat = getCatalog().find(c => c.id === btn.dataset.delcat);
+        if (!cat) return;
+        if (!confirm(`Remove category "${cat.label}" and all ${cat.products.length} products?`)) return;
+        const catalog = getCatalog().filter(c => c.id !== btn.dataset.delcat);
+        saveCatalog(catalog);
+        renderAll();
+        showToast(`Category "${cat.label}" removed`);
+      });
+    });
+  }
+
+  // ── ADD CATEGORY ──
+  document.getElementById('addCatBtn').addEventListener('click', () => {
+    const name = document.getElementById('newCatName').value.trim();
+    const emoji = document.getElementById('newCatEmoji').value.trim() || '📦';
+    if (!name) return showToast('Category name required', 'error');
+    const id = name.toLowerCase().replace(/[^a-z0-9]/g, '_');
+    const catalog = getCatalog();
+    if (catalog.find(c => c.id === id)) return showToast('Category already exists', 'error');
+    catalog.push({ id, label: name, emoji, products: [] });
+    saveCatalog(catalog);
+    document.getElementById('newCatName').value = '';
+    document.getElementById('newCatEmoji').value = '';
+    renderAll();
+    showToast(`Category "${name}" added`);
+  });
+
+  document.getElementById('resetCatalogBtn').addEventListener('click', () => {
+    if (!confirm('Reset to default catalog? All custom products and categories will be removed. This cannot be undone.')) return;
+    localStorage.removeItem('cp_catalog');
+    renderAll();
+    showToast('Catalog reset to default');
+  });
+
+  // ── PRODUCT MODAL ──
+  function openModal(product = null, catId = null) {
+    editingProduct = product ? { ...product, catId } : null;
+    document.getElementById('modalTitle').textContent = product ? 'Edit Product' : 'Add Product';
+    document.getElementById('mName').value = product?.name || '';
+    document.getElementById('mPrice').value = product?.price || '';
+    document.getElementById('mOrigPrice').value = product?.originalPrice || '';
+    document.getElementById('mMin').value = product?.min || '';
+    document.getElementById('mColors').value = product?.colors || '';
+    document.getElementById('mImg').value = product?.img || '';
+    if (catId) document.getElementById('mCat').value = catId;
+    document.getElementById('productModal').classList.add('open');
+    document.getElementById('mName').focus();
+  }
+
+  document.getElementById('addProductBtn').addEventListener('click', () => openModal());
+  document.getElementById('modalCancel').addEventListener('click', () => document.getElementById('productModal').classList.remove('open'));
+  document.getElementById('productModal').addEventListener('click', e => {
+    if (e.target === e.currentTarget) document.getElementById('productModal').classList.remove('open');
+  });
+
+  document.getElementById('modalSave').addEventListener('click', () => {
+    const name = document.getElementById('mName').value.trim();
+    const catId = document.getElementById('mCat').value;
+    if (!name) return showToast('Product name required', 'error');
+    if (!catId) return showToast('Select a category', 'error');
+
+    const catalog = getCatalog();
+    const cat = catalog.find(c => c.id === catId);
+    if (!cat) return;
+
+    const product = {
+      id: editingProduct?.id || `custom_${Date.now()}`,
+      name,
+      price: document.getElementById('mPrice').value.trim() || null,
+      originalPrice: document.getElementById('mOrigPrice').value.trim() || undefined,
+      min: parseInt(document.getElementById('mMin').value) || undefined,
+      colors: parseInt(document.getElementById('mColors').value) || undefined,
+      img: document.getElementById('mImg').value.trim() || null,
+    };
+
+    if (editingProduct) {
+      // Remove from old category
+      const oldCat = catalog.find(c => c.id === editingProduct.catId);
+      if (oldCat) oldCat.products = oldCat.products.filter(p => p.id !== editingProduct.id);
+      // Add to new
+      cat.products.push(product);
+    } else {
+      cat.products.push(product);
+    }
+
+    saveCatalog(catalog);
+    document.getElementById('productModal').classList.remove('open');
+    renderAll();
+    showToast(editingProduct ? 'Product updated' : 'Product added');
+    editingProduct = null;
+  });
+
+  // ── SETTINGS ──
+  function loadSettings() {
+    document.getElementById('settPhone').value = localStorage.getItem('cp_phone') || SITE_CONFIG.phone;
+    document.getElementById('settEmail').value = localStorage.getItem('cp_email') || SITE_CONFIG.email;
+    document.getElementById('settFormspree').value = localStorage.getItem('cp_formspree') || '';
+  }
+
+  document.getElementById('saveSettingsBtn').addEventListener('click', () => {
+    localStorage.setItem('cp_phone', document.getElementById('settPhone').value.trim());
+    localStorage.setItem('cp_email', document.getElementById('settEmail').value.trim());
+    const fs = document.getElementById('settFormspree').value.trim();
+    if (fs) localStorage.setItem('cp_formspree', fs);
+    const newPw = document.getElementById('settPassword').value;
+    if (newPw) {
+      localStorage.setItem('cp_admin_pw', newPw);
+      document.getElementById('settPassword').value = '';
+    }
+    showToast('Settings saved');
+  });
+
+  // ── INIT ──
+  checkLogin();
+</script>
+</body>
+</html>

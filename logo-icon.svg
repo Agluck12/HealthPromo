@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 110" fill="none">
+
+  <!-- Medical cross (rounded rectangle arms) -->
+  <rect x="34" y="20" width="32" height="70" rx="6" fill="none" stroke="#1aada8" stroke-width="5"/>
+  <rect x="15" y="39" width="70" height="32" rx="6" fill="none" stroke="#1aada8" stroke-width="5"/>
+
+  <!-- White fill inside cross to create solid cross shape -->
+  <rect x="36.5" y="22.5" width="27" height="65" rx="4" fill="white"/>
+  <rect x="17.5" y="41.5" width="65" height="27" rx="4" fill="white"/>
+
+  <!-- Cross outline on top (stroke only, clean cross shape) -->
+  <!-- Top arm -->
+  <path d="M40 22 L40 41 L17.5 41 Q15 41 15 44.5 L15 55.5 Q15 59 17.5 59 L40 59 L40 88 Q40 91 43.5 91 L56.5 91 Q60 91 60 88 L60 59 L82.5 59 Q85 59 85 55.5 L85 44.5 Q85 41 82.5 41 L60 41 L60 22 Q60 19 56.5 19 L43.5 19 Q40 19 40 22 Z" fill="none" stroke="#1aada8" stroke-width="4.5" stroke-linejoin="round"/>
+
+  <!-- Heartbeat / ECG line across the horizontal arm -->
+  <polyline points="22,55 32,55 36,45 40,63 44,50 48,55 52,55 56,48 60,60 64,55 78,55" fill="none" stroke="#1aada8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Clothes hanger overlaid on top -->
+  <!-- Hanger hook -->
+  <path d="M50 6 Q50 2 54 2 Q58 2 58 6 Q58 9 54 10 L50 13" fill="none" stroke="#1aada8" stroke-width="3.5" stroke-linecap="round"/>
+
+  <!-- Hanger left shoulder -->
+  <path d="M50 13 Q50 16 30 32 Q22 37 18 41" fill="none" stroke="#1aada8" stroke-width="3.5" stroke-linecap="round"/>
+  <!-- Hanger right shoulder -->
+  <path d="M50 13 Q50 16 70 32 Q78 37 82 41" fill="none" stroke="#1aada8" stroke-width="3.5" stroke-linecap="round"/>
+  <!-- Hanger bottom bar (small notch at base of neck) -->
+  <path d="M44 19 Q47 22 50 22 Q53 22 56 19" fill="none" stroke="#1aada8" stroke-width="3" stroke-linecap="round"/>
+
+  <!-- Heart on hanger chest area -->
+  <path d="M50 29 Q50 25 46.5 25 Q43 25 43 28.5 Q43 31 50 36 Q57 31 57 28.5 Q57 25 53.5 25 Q50 25 50 29 Z" fill="#1aada8"/>
+
+</svg>

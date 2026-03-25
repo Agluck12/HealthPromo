@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HealthPromo — Healthcare & ABA Promotional Items</title>
+<meta name="description" content="Custom-branded promotional items for healthcare providers, ABA therapy centers, and care organizations. Fidgets, apparel, drinkware, and more.">
+<meta property="og:title" content="HealthPromo — Healthcare & ABA Promotional Items">
+<meta property="og:description" content="Custom-branded giveaways, sensory tools, and staff gifts for clinics, therapy centers, and care organizations.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="logo.svg">
+<meta name="theme-color" content="#0a7c78">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="stylesheet" href="css/style.css">
+<style>
+  /* ── HERO ── */
+  .hero {
+    background: linear-gradient(135deg, #2a3e80 0%, #4a6fcc 50%, #7a9fe8 100%);
+    padding: 3.5rem 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Ccircle cx='30' cy='30' r='20'/%3E%3C/g%3E%3C/svg%3E");
+  }
+  .hero-inner { max-width: 1280px; margin: 0 auto; position: relative; display: flex; align-items: center; justify-content: space-between; gap: 2rem; }
+  .hero-text { max-width: 560px; }
+  .hero-badge { display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2); color: rgba(255,255,255,0.9); border-radius: 100px; padding: 0.3rem 0.8rem; font-size: 0.75rem; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 1rem; }
+  .hero h1 { font-family: 'Epilogue', sans-serif; letter-spacing: -0.02em; font-size: 2.5rem; font-weight: 600; color: white; line-height: 1.2; margin-bottom: 1rem; }
+  .hero h1 em { font-style: italic; color: var(--accent); }
+  .hero-aba { color: #5b9cf6; font-weight: 700; font-style: italic; }
+  .hero p { color: rgba(255,255,255,0.72); font-size: 1rem; line-height: 1.65; margin-bottom: 1.5rem; font-weight: 300; }
+  .hero-cta { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+  .hero-stats { display: flex; flex-direction: column; gap: 1rem; flex-shrink: 0; }
+  .stat-card { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15); border-radius: 12px; padding: 1rem 1.5rem; text-align: center; backdrop-filter: blur(8px); min-width: 130px; }
+  .stat-num { font-family: 'Epilogue', sans-serif; font-size: 1.8rem; color: white; font-weight: 600; }
+  .stat-label { font-size: 0.72rem; color: rgba(255,255,255,0.6); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 0.2rem; }
+
+  /* ── MAIN ── */
+  .main { max-width: 1280px; margin: 0 auto; padding: 2.5rem 2rem; }
+
+  .quote-banner { background: linear-gradient(90deg, var(--teal-light), white); border: 1.5px solid rgba(10,124,120,0.15); border-radius: 14px; padding: 1.25rem 1.75rem; margin-bottom: 2.5rem; display: flex; align-items: center; gap: 1rem; }
+  .quote-icon { width: 44px; height: 44px; background: var(--teal); border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .quote-icon svg { width: 22px; height: 22px; fill: white; }
+  .quote-content h3 { font-size: 0.9rem; font-weight: 600; color: var(--navy); margin-bottom: 0.25rem; }
+  .quote-content p { font-size: 0.8rem; color: var(--muted); line-height: 1.5; }
+  .quote-content a { color: var(--teal); font-weight: 600; text-decoration: none; }
+
+  .category-pills { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 2.5rem; }
+  .pill { background: white; border: 1.5px solid var(--border); border-radius: 100px; padding: 0.45rem 1rem; font-size: 0.8rem; font-weight: 500; color: var(--text); cursor: pointer; transition: all 0.18s; text-decoration: none; display: flex; align-items: center; gap: 0.4rem; font-family: 'Urbanist', sans-serif; }
+  .pill:hover { border-color: var(--teal); color: var(--teal); background: var(--teal-light); }
+  .pill.active { background: var(--teal); color: white; border-color: var(--teal); }
+
+  .section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.25rem; padding-bottom: 0.75rem; border-bottom: 1.5px solid var(--border); }
+  .section-title { font-family: 'Epilogue', sans-serif; font-size: 1.25rem; color: var(--navy); font-weight: 600; display: flex; align-items: center; gap: 0.5rem; }
+  .section-title .dot { width: 8px; height: 8px; background: var(--teal); border-radius: 50%; display: inline-block; }
+  .view-all { color: var(--teal); text-decoration: none; font-size: 0.82rem; font-weight: 600; display: flex; align-items: center; gap: 0.3rem; transition: gap 0.2s; }
+  .view-all:hover { gap: 0.5rem; }
+
+  .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 3rem; }
+
+  .product-card { background: white; border-radius: 12px; overflow: hidden; box-shadow: var(--card-shadow); transition: transform 0.22s ease, box-shadow 0.22s ease; cursor: pointer; position: relative; border: 1px solid var(--border); animation: fadeUp 0.4s ease both; }
+  .product-card:hover { transform: translateY(-4px); box-shadow: var(--card-shadow-hover); }
+  .product-card:nth-child(1){animation-delay:.05s} .product-card:nth-child(2){animation-delay:.1s} .product-card:nth-child(3){animation-delay:.15s} .product-card:nth-child(4){animation-delay:.2s} .product-card:nth-child(5){animation-delay:.25s} .product-card:nth-child(6){animation-delay:.3s}
+
+  .product-img { width: 100%; aspect-ratio: 1; overflow: hidden; background: var(--sky); position: relative; }
+  .product-img img { width: 100%; height: 100%; object-fit: contain; transition: transform 0.3s ease; background: white; }
+  .product-card:hover .product-img img { transform: scale(1.06); }
+  .product-img-placeholder { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, var(--sky), var(--teal-light)); color: var(--teal); font-size: 2.5rem; }
+
+  .product-info { padding: 0.85rem; }
+  .product-name { font-size: 0.83rem; font-weight: 500; color: var(--text); line-height: 1.35; margin-bottom: 0.4rem; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .product-price { font-size: 0.82rem; font-weight: 600; color: var(--teal); }
+  .product-price .original { color: var(--muted); text-decoration: line-through; font-weight: 400; margin-right: 0.3rem; }
+  .product-price .free { color: var(--accent); font-weight: 700; }
+  .product-min { font-size: 0.72rem; color: var(--muted); margin-top: 0.2rem; }
+  .tag { display: inline-block; font-size: 0.65rem; font-weight: 600; padding: 0.15rem 0.45rem; border-radius: 4px; letter-spacing: 0.05em; text-transform: uppercase; margin-top: 0.35rem; }
+  .tag-colors { background: var(--teal-light); color: var(--teal); }
+
+  .add-btn { position: absolute; top: 10px; right: 10px; width: 32px; height: 32px; border-radius: 8px; background: var(--teal); color: white; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; opacity: 0; transform: scale(0.8); transition: opacity 0.2s, transform 0.2s, background 0.2s; font-size: 1.1rem; line-height: 1; z-index: 10; }
+  .product-card:hover .add-btn { opacity: 1; transform: scale(1); }
+  .add-btn:hover { background: var(--teal-mid); }
+
+  .preview-btn { position: absolute; top: 10px; left: 10px; border-radius: 8px; background: var(--navy); color: white; border: none; cursor: pointer; display: flex; align-items: center; gap: 0.3rem; opacity: 0; transform: scale(0.8); transition: opacity 0.2s, transform 0.2s, background 0.2s; font-size: 0.65rem; font-weight: 600; padding: 0 0.5rem; height: 32px; white-space: nowrap; font-family: 'Urbanist', sans-serif; z-index: 10; }
+  .product-card:hover .preview-btn { opacity: 1; transform: scale(1); }
+  .preview-btn:hover { background: #1a3060; }
+  .preview-btn svg { width: 12px; height: 12px; fill: none; stroke: currentColor; stroke-width: 2; flex-shrink: 0; }
+  .proof-btn { background: var(--accent) !important; text-decoration: none; }
+  .proof-btn:hover { background: #d96b35 !important; }
+
+  /* ── LOGO PREVIEW MODAL ── */
+  .lp-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 2000; align-items: center; justify-content: center; padding: 1rem; }
+  .lp-overlay.open { display: flex; }
+  .lp-modal { background: white; border-radius: 18px; width: 100%; max-width: 680px; max-height: 92vh; overflow-y: auto; box-shadow: 0 24px 60px rgba(0,0,0,0.3); display: flex; flex-direction: column; }
+  .lp-header { padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
+  .lp-header h3 { font-family: 'Epilogue', sans-serif; font-size: 1.05rem; font-weight: 800; color: var(--navy); letter-spacing: -0.01em; }
+  .lp-close { background: none; border: none; font-size: 1.4rem; cursor: pointer; color: var(--muted); line-height: 1; padding: 0; transition: color 0.2s; }
+  .lp-close:hover { color: var(--text); }
+  .lp-body { padding: 1.25rem 1.5rem; flex: 1; }
+  .lp-canvas-wrap { position: relative; width: 100%; background: #f0f4f8; border-radius: 12px; overflow: hidden; margin-bottom: 1.25rem; display: flex; align-items: center; justify-content: center; min-height: 280px; }
+  .lp-canvas-wrap canvas { max-width: 100%; max-height: 400px; display: block; cursor: move; border-radius: 10px; }
+  .lp-hint { text-align: center; font-size: 0.75rem; color: var(--muted); margin-top: 0.4rem; margin-bottom: 1rem; }
+  .lp-controls { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 1.25rem; }
+  .lp-upload-area { grid-column: 1/-1; border: 2px dashed var(--border); border-radius: 10px; padding: 1rem; text-align: center; cursor: pointer; transition: all 0.2s; background: var(--warm); }
+  .lp-upload-area:hover { border-color: var(--teal); background: var(--teal-light); }
+  .lp-upload-area.has-logo { border-color: var(--teal); background: var(--teal-light); }
+  .lp-upload-area input { display: none; }
+  .lp-upload-label { font-size: 0.82rem; color: var(--muted); cursor: pointer; }
+  .lp-upload-label strong { color: var(--teal); }
+  .lp-slider-group { display: flex; flex-direction: column; gap: 0.4rem; }
+  .lp-slider-label { font-size: 0.75rem; font-weight: 600; color: var(--text); }
+  .lp-slider-label span { color: var(--muted); font-weight: 400; }
+  .lp-slider { width: 100%; }
+  .lp-footer { padding: 1rem 1.5rem; border-top: 1px solid var(--border); display: flex; gap: 0.75rem; flex-shrink: 0; }
+  .lp-dl-btn { background: var(--navy); color: white; border: none; border-radius: 8px; padding: 0.65rem 1.2rem; font-family: 'Urbanist', sans-serif; font-size: 0.85rem; font-weight: 600; cursor: pointer; flex: 1; transition: background 0.2s; display: flex; align-items: center; justify-content: center; gap: 0.4rem; }
+  .lp-dl-btn:hover { background: #1a3060; }
+  .lp-quote-btn { background: var(--teal); color: white; border: none; border-radius: 8px; padding: 0.65rem 1.2rem; font-family: 'Urbanist', sans-serif; font-size: 0.85rem; font-weight: 600; cursor: pointer; flex: 1; transition: background 0.2s; display: flex; align-items: center; justify-content: center; gap: 0.4rem; }
+  .lp-quote-btn:hover { background: var(--teal-mid); }
+  .lp-no-img { text-align: center; padding: 3rem 1rem; color: var(--muted); font-size: 0.9rem; }
+
+  @keyframes fadeUp { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
+  @media(max-width:768px){.hero h1{font-size:1.8rem}.hero-stats{display:none}.product-grid{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:480px){.product-grid{grid-template-columns:repeat(2,1fr);gap:.65rem}.main{padding:1.5rem 1rem}}
+
+  /* ── HOW IT WORKS ── */
+  .how-it-works { background: white; padding: 3rem 2rem; border-bottom: 1.5px solid var(--border); }
+  .how-inner { max-width: 1280px; margin: 0 auto; }
+  .section-heading { text-align: center; margin-bottom: 2.5rem; }
+  .section-heading h2 { font-family: 'Epilogue', sans-serif; font-size: 1.7rem; font-weight: 800; color: var(--navy); letter-spacing: -0.02em; margin-bottom: 0.4rem; }
+  .section-heading p { font-size: 0.9rem; color: var(--muted); }
+  .steps-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; position: relative; }
+  .steps-grid::before { content: ''; position: absolute; top: 28px; left: calc(16.66% + 1rem); right: calc(16.66% + 1rem); height: 2px; background: linear-gradient(90deg, var(--teal), var(--teal-mid)); opacity: 0.25; }
+  .step { text-align: center; padding: 0 1rem; }
+  .step-num { width: 56px; height: 56px; border-radius: 50%; background: var(--navy); color: white; font-family: 'Epilogue', sans-serif; font-size: 1.2rem; font-weight: 800; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; position: relative; z-index: 1; }
+  .step-icon { font-size: 1.4rem; margin-bottom: 0.5rem; }
+  .step h3 { font-family: 'Epilogue', sans-serif; font-size: 1rem; font-weight: 700; color: var(--navy); margin-bottom: 0.4rem; letter-spacing: -0.01em; }
+  .step p { font-size: 0.82rem; color: var(--muted); line-height: 1.6; }
+
+  /* ── LOGO UPLOAD CTA ── */
+  .logo-cta { background: linear-gradient(135deg, var(--navy) 0%, #3a5eaa 100%); padding: 2.5rem 2rem; }
+  .logo-cta-inner { max-width: 1280px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 2rem; flex-wrap: wrap; }
+  .logo-cta-text h2 { font-family: 'Epilogue', sans-serif; font-size: 1.5rem; font-weight: 800; color: white; letter-spacing: -0.02em; margin-bottom: 0.5rem; }
+  .logo-cta-text p { color: rgba(255,255,255,0.7); font-size: 0.9rem; line-height: 1.6; max-width: 480px; }
+  .logo-cta-actions { display: flex; gap: 0.75rem; flex-wrap: wrap; flex-shrink: 0; }
+  .logo-steps { display: flex; gap: 1.5rem; margin-top: 1rem; flex-wrap: wrap; }
+  .logo-step { display: flex; align-items: center; gap: 0.5rem; color: rgba(255,255,255,0.85); font-size: 0.8rem; }
+  .logo-step-dot { width: 20px; height: 20px; border-radius: 50%; background: rgba(255,255,255,0.2); color: white; font-size: 0.65rem; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+
+  /* ── TESTIMONIALS ── */
+  .testimonials { background: var(--warm); padding: 3rem 2rem; border-top: 1.5px solid var(--border); border-bottom: 1.5px solid var(--border); }
+  .testimonials-inner { max-width: 1280px; margin: 0 auto; }
+  .testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+  .testimonial-card { background: white; border-radius: 14px; padding: 1.5rem; box-shadow: var(--card-shadow); border: 1px solid var(--border); }
+  .stars { color: #f4b942; font-size: 0.85rem; margin-bottom: 0.75rem; letter-spacing: 2px; }
+  .testimonial-text { font-size: 0.875rem; color: var(--text); line-height: 1.65; margin-bottom: 1rem; font-style: italic; }
+  .testimonial-author { display: flex; align-items: center; gap: 0.65rem; }
+  .author-avatar { width: 36px; height: 36px; border-radius: 50%; background: var(--navy); color: white; font-family: 'Epilogue', sans-serif; font-size: 0.75rem; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .author-name { font-size: 0.82rem; font-weight: 600; color: var(--navy); }
+  .author-role { font-size: 0.72rem; color: var(--muted); }
+
+  /* ── FEATURED COLLECTIONS ── */
+  .collections { background: white; padding: 3rem 2rem; border-bottom: 1.5px solid var(--border); }
+  .collections-inner { max-width: 1280px; margin: 0 auto; }
+  .collections-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+  .collection-card { border-radius: 14px; overflow: hidden; position: relative; cursor: pointer; transition: transform 0.22s, box-shadow 0.22s; border: 1px solid var(--border); box-shadow: var(--card-shadow); }
+  .collection-card:hover { transform: translateY(-4px); box-shadow: var(--card-shadow-hover); }
+  .collection-bg { padding: 2rem 1.5rem 1.5rem; position: relative; }
+  .collection-emoji { font-size: 2.5rem; margin-bottom: 0.75rem; display: block; }
+  .collection-name { font-family: 'Epilogue', sans-serif; font-size: 1.05rem; font-weight: 800; color: white; margin-bottom: 0.35rem; letter-spacing: -0.01em; }
+  .collection-desc { font-size: 0.78rem; color: rgba(255,255,255,0.8); line-height: 1.5; margin-bottom: 1rem; }
+  .collection-link { font-size: 0.78rem; font-weight: 600; color: white; background: rgba(255,255,255,0.2); border-radius: 6px; padding: 0.35rem 0.75rem; display: inline-block; transition: background 0.2s; }
+  .collection-card:hover .collection-link { background: rgba(255,255,255,0.3); }
+
+  /* ── TURNAROUND BAR ── */
+  .turnaround-bar { background: var(--navy); padding: 1rem 2rem; }
+  .turnaround-inner { max-width: 1280px; margin: 0 auto; display: flex; align-items: center; justify-content: center; gap: 2.5rem; flex-wrap: wrap; }
+  .turnaround-item { display: flex; align-items: center; gap: 0.6rem; color: rgba(255,255,255,0.85); font-size: 0.82rem; }
+  .turnaround-item svg { width: 16px; height: 16px; stroke: var(--teal-mid); fill: none; flex-shrink: 0; }
+  .turnaround-item strong { color: white; }
+
+  @media(max-width:768px){
+    .steps-grid{grid-template-columns:1fr;gap:1.5rem}.steps-grid::before{display:none}
+    .testimonials-grid{grid-template-columns:1fr}
+    .collections-grid{grid-template-columns:1fr}
+    .logo-cta-inner{flex-direction:column}
+    .turnaround-inner{gap:1rem}
+  }
+
+  /* ── FLOATING QUOTE BUTTON ── */
+  .fab-quote {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    z-index: 500;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: var(--teal);
+    color: white;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 20px rgba(10,124,120,0.45);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s;
+    flex-shrink: 0;
+  }
+  .fab-quote:hover {
+    background: var(--teal-mid);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 28px rgba(10,124,120,0.5);
+  }
+  .fab-quote .fab-icon {
+    width: 22px; height: 22px;
+    stroke: white;
+    fill: none;
+    flex-shrink: 0;
+  }
+  .fab-badge {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    background: var(--accent);
+    color: white;
+    border-radius: 50%;
+    width: 20px; height: 20px;
+    font-size: 0.68rem;
+    font-weight: 700;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #2a3e80;
+  }
+  .fab-quote { position: fixed; }
+
+  @keyframes fabPop { 0%{transform:scale(1)} 40%{transform:scale(1.2)} 100%{transform:scale(1)} }
+  .fab-quote.pop { animation: fabPop 0.32s ease; }
+</style>
+</head>
+<body>
+<div id="siteHeader"></div>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <div class="hero-badge">★ Trusted by Healthcare Professionals</div>
+      <h1>Promotional Items for <em>Healthcare</em> &amp; <span class="hero-aba">ABA</span> Providers</h1>
+      <p>Custom-branded giveaways, sensory tools, and staff gifts — sourced and curated for clinics, therapy centers, and care organizations.</p>
+      <div class="hero-cta">
+        <a href="#products" class="btn-primary">Browse All Items →</a>
+        <a href="quote.html" class="btn-outline">Request a Quote</a>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-card"><div class="stat-num">200+</div><div class="stat-label">Products</div></div>
+      <div class="stat-card"><div class="stat-num" style="font-size:1.1rem;line-height:1.15;padding-top:0.15rem">Premium<br>Quality</div><div class="stat-label">Unbeatable Price</div></div>
+      <div class="stat-card"><div class="stat-num">Fast</div><div class="stat-label">Turnaround</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how-it-works">
+  <div class="how-inner">
+    <div class="section-heading">
+      <h2>How It Works</h2>
+      <p>From browsing to branded — we make it simple</p>
+    </div>
+    <div class="steps-grid">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-icon">🛍️</div>
+        <h3>Browse & Add Items</h3>
+        <p>Explore 200+ curated products across fidgets, apparel, drinkware, bags, and more. Add anything you like to your quote list.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-icon">🎨</div>
+        <h3>Submit Your Logo & Details</h3>
+        <p>Fill out our quick quote form. Upload your logo or send it by email — we handle all artwork preparation and imprinting.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-icon">📦</div>
+        <h3>Receive Your Order</h3>
+        <p>We confirm pricing within 1 business day. Most orders ship in 7–10 business days. Bulk and rush options available.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LOGO UPLOAD CTA -->
+<section class="logo-cta">
+  <div class="logo-cta-inner">
+    <div class="logo-cta-text">
+      <h2>Have a logo? We'll put it on anything.</h2>
+      <p>Send us your artwork and we'll handle the rest — from color matching and sizing to proofing and production. Every item in our catalog is available with custom imprinting.</p>
+      <div class="logo-steps">
+        <div class="logo-step"><div class="logo-step-dot">1</div> Upload your logo</div>
+        <div class="logo-step"><div class="logo-step-dot">2</div> We send a digital proof</div>
+        <div class="logo-step"><div class="logo-step-dot">3</div> Approve &amp; we produce</div>
+      </div>
+    </div>
+    <div class="logo-cta-actions">
+      <a href="quote.html" class="btn-primary">Get a Custom Quote →</a>
+      <a href="mailto:contact@healthpromo.com" class="btn-outline">Email Your Logo</a>
+    </div>
+  </div>
+</section>
+
+<!-- TURNAROUND BAR -->
+<div class="turnaround-bar">
+  <div class="turnaround-inner">
+    <div class="turnaround-item">
+      <svg viewBox="0 0 24 24" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+      <span><strong>1 business day</strong> quote response</span>
+    </div>
+    <div class="turnaround-item">
+      <svg viewBox="0 0 24 24" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      <span><strong>7–10 days</strong> standard turnaround</span>
+    </div>
+    <div class="turnaround-item">
+      <svg viewBox="0 0 24 24" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+      <span><strong>Rush orders</strong> available on request</span>
+    </div>
+    <div class="turnaround-item">
+      <svg viewBox="0 0 24 24" stroke-width="2"><path d="M20 7H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+      <span><strong>No minimums</strong> on select items</span>
+    </div>
+  </div>
+</div>
+
+
+
+<main class="main" id="products">
+  <div class="quote-banner">
+    <div class="quote-icon"><svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg></div>
+    <div class="quote-content">
+      <h3>Need custom branding or a bulk quote?</h3>
+      <p>We handle logo imprinting and custom orders. <a href="quote.html">Fill out our quote form →</a></p>
+    </div>
+  </div>
+  <div class="category-pills" id="categoryPills"></div>
+  <div id="productSections"></div>
+</main>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <div class="testimonials-inner">
+    <div class="section-heading">
+      <h2>Trusted by Healthcare & ABA Organizations</h2>
+      <p>Don't just take our word for it</p>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <div class="testimonial-text">"We ordered branded fidget kits for our ABA center and the quality was outstanding. Our therapists love them and so do our clients. Fast turnaround too — everything arrived before our open house."</div>
+        <div class="testimonial-author">
+          <div class="author-avatar">SL</div>
+          <div>
+            <div class="author-name">Sarah L.</div>
+            <div class="author-role">Clinical Director, ABA Therapy Center</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <div class="testimonial-text">"HealthPromo made the whole process so easy. I sent my logo, told them what I needed, and they handled everything. The tote bags and stress balls were a huge hit at our health fair."</div>
+        <div class="testimonial-author">
+          <div class="author-avatar">MR</div>
+          <div>
+            <div class="author-name">Marcus R.</div>
+            <div class="author-role">Marketing Manager, Community Health Clinic</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <div class="testimonial-text">"We've been ordering staff apparel and promotional items for 3 years. The pricing is unbeatable and the quality never disappoints. They're our go-to for everything branded."</div>
+        <div class="testimonial-author">
+          <div class="author-avatar">JT</div>
+          <div>
+            <div class="author-name">Jennifer T.</div>
+            <div class="author-role">Office Administrator, Pediatric Therapy Group</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div id="contactStrip"></div>
+<div id="siteFooter"></div>
+
+<!-- LOGO PREVIEW MODAL -->
+<div class="lp-overlay" id="lpOverlay">
+  <div class="lp-modal">
+    <div class="lp-header">
+      <h3 id="lpTitle">Preview Your Logo</h3>
+      <button class="lp-close" onclick="closeLp()">✕</button>
+    </div>
+    <div class="lp-body">
+      <div class="lp-canvas-wrap">
+        <canvas id="lpCanvas"></canvas>
+        <div class="lp-no-img" id="lpNoImg">Upload your logo below to see it on this product</div>
+      </div>
+      <div class="lp-hint" id="lpHint" style="display:none">Drag your logo to reposition it on the product</div>
+
+      <div class="lp-controls">
+        <div class="lp-upload-area" id="lpUploadArea" onclick="document.getElementById('lpFileInput').click()">
+          <input type="file" id="lpFileInput" accept="image/*" onchange="handleLogoUpload(this)">
+          <div class="lp-upload-label" id="lpUploadLabel">
+            <strong>Click to upload your logo</strong><br>PNG, JPG, SVG supported
+          </div>
+        </div>
+        <div class="lp-slider-group" id="lpSizeGroup" style="display:none">
+          <div class="lp-slider-label">Logo size <span id="lpSizeVal">40%</span></div>
+          <input type="range" class="lp-slider" id="lpSize" min="5" max="100" value="40" oninput="updateLogoSize(this.value)">
+        </div>
+        <div class="lp-slider-group" id="lpOpGroup" style="display:none">
+          <div class="lp-slider-label">Opacity <span id="lpOpVal">100%</span></div>
+          <input type="range" class="lp-slider" id="lpOp" min="10" max="100" value="100" oninput="updateLogoOpacity(this.value)">
+        </div>
+      </div>
+    </div>
+    <div class="lp-footer">
+      <button class="lp-dl-btn" onclick="downloadMockup()">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Download Mockup
+      </button>
+      <button class="lp-quote-btn" onclick="addToQuoteFromPreview()">
+        + Add to Quote List
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- FLOATING QUOTE BUTTON -->
+<a href="quote.html" class="fab-quote" id="fabQuote" title="View Quote List">
+  <svg class="fab-icon" viewBox="0 0 24 24" stroke-width="2">
+    <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/>
+    <path d="M3 6h18M16 10a4 4 0 0 1-8 0"/>
+  </svg>
+  <span class="fab-badge" id="fabBadge">0</span>
+</a>
+
+<script src="js/data.js"></script>
+<script>
+  document.getElementById('siteHeader').innerHTML = renderHeader('shop');
+  document.getElementById('contactStrip').innerHTML = renderContactStrip();
+  document.getElementById('siteFooter').innerHTML = renderFooter();
+  updateCartBadge();
+
+  let activeCategory = 'all';
+  let searchQuery = '';
+
+  function renderCategoryPills() {
+    const container = document.getElementById('categoryPills');
+    const catalog = getCatalog();
+    let html = `<button class="pill active" data-cat="all">✦ All Categories</button>`;
+    catalog.forEach(c => {
+      html += `<button class="pill" data-cat="${c.id}">${c.emoji} ${c.label}</button>`;
+    });
+    container.innerHTML = html;
+    container.querySelectorAll('.pill').forEach(p => {
+      p.addEventListener('click', () => {
+        activeCategory = p.dataset.cat;
+        document.querySelectorAll('.pill').forEach(x => x.classList.remove('active'));
+        document.querySelectorAll(`[data-cat="${activeCategory}"]`).forEach(x => x.classList.add('active'));
+        renderSections();
+        document.getElementById('products').scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+  }
+
+  // Sync nav strip
+  function buildNavStrip() {
+    const catalog = getCatalog();
+    const navInner = document.getElementById('navInner');
+    if (!navInner) return;
+    let html = `<button class="nav-link active" data-cat="all">All Items</button>`;
+    catalog.forEach(c => html += `<button class="nav-link" data-cat="${c.id}">${c.emoji} ${c.label}</button>`);
+    navInner.innerHTML = html;
+    navInner.querySelectorAll('.nav-link').forEach(link => {
+      link.addEventListener('click', () => {
+        activeCategory = link.dataset.cat;
+        document.querySelectorAll('.nav-link, .pill').forEach(x => x.classList.remove('active'));
+        document.querySelectorAll(`[data-cat="${activeCategory}"]`).forEach(x => x.classList.add('active'));
+        renderSections();
+        document.getElementById('products').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+  }
+
+  function productCard(p, categoryLabel) {
+    const imgHtml = p.img
+      ? `<img src="${p.img}" alt="${p.name}" loading="lazy" onerror="this.parentElement.innerHTML='<div class=product-img-placeholder>🏥</div>'">`
+      : `<div class="product-img-placeholder">🏥</div>`;
+    let priceHtml = p.price
+      ? (p.originalPrice ? `<div class="product-price"><span class="original">${p.originalPrice}</span>${p.price}</div>` : `<div class="product-price">${p.price}</div>`)
+      : `<div class="product-price"><span class="free">Request Quote</span></div>`;
+    const minHtml = p.min ? `<div class="product-min">Min. qty: ${p.min.toLocaleString()}</div>` : '';
+    const colorsHtml = p.colors ? `<div class="tag tag-colors">${p.colors} colors</div>` : '';
+    const isTradeshow = categoryLabel === 'Tradeshows';
+    let actionBtn = '';
+    if (isTradeshow) {
+      actionBtn = `<a class="preview-btn proof-btn" href="quote.html?product=${encodeURIComponent(p.name)}" title="Request a design proof">
+        <svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+        Request Design Proof
+      </a>`;
+    } else if (p.img) {
+      actionBtn = `<button class="preview-btn" title="Preview with your logo" data-id="${p.id}">
+        <svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+        Try Your Logo
+      </button>`;
+    }
+    return `
+      <div class="product-card" data-id="${p.id}">
+        <div class="product-img">${imgHtml}</div>
+        ${actionBtn}
+        <button class="add-btn" title="Add to quote list" data-id="${p.id}">+</button>
+        <div class="product-info">
+          <div class="product-name">${p.name}</div>
+          ${priceHtml}${minHtml}${colorsHtml}
+        </div>
+      </div>`;
+  }
+
+  function renderSections() {
+    const container = document.getElementById('productSections');
+    const catalog = getCatalog();
+    const q = searchQuery.toLowerCase();
+    const filtered = activeCategory === 'all' ? catalog : catalog.filter(c => c.id === activeCategory);
+    let html = '';
+    filtered.forEach(cat => {
+      const prods = q ? cat.products.filter(p => p.name.toLowerCase().includes(q)) : cat.products;
+      if (!prods.length) return;
+      html += `<div class="section-header">
+        <div class="section-title"><span class="dot"></span>${cat.emoji} ${cat.label}</div>
+        <a href="#" class="view-all" data-cat="${cat.id}">View all →</a>
+      </div>
+      <div class="product-grid">${prods.map(p => productCard(p, cat.label)).join('')}</div>`;
+    });
+    container.innerHTML = html || `<p style="color:var(--muted);padding:2rem 0;">No products found for "${q}".</p>`;
+
+    // Add to quote
+    container.querySelectorAll('.add-btn').forEach(btn => {
+      btn.addEventListener('click', e => {
+        e.stopPropagation();
+        const id = btn.dataset.id;
+        const catalog = getCatalog();
+        let found = null, catLabel = '';
+        catalog.forEach(cat => {
+          const p = cat.products.find(x => x.id === id);
+          if (p) { found = p; catLabel = cat.label; }
+        });
+        if (found) {
+          addToCart(found, catLabel);
+          btn.textContent = '✓';
+          btn.style.background = 'var(--accent)';
+          setTimeout(() => { btn.textContent = '+'; btn.style.background = ''; }, 1400);
+          showToast(`"${found.name}" added to quote list`);
+          updateFab();
+        }
+      });
+    });
+
+    // Preview with logo buttons
+    container.querySelectorAll('.preview-btn').forEach(btn => {
+      btn.addEventListener('click', e => {
+        e.stopPropagation();
+        const id = btn.dataset.id;
+        const catalog = getCatalog();
+        let found = null, catLabel = '';
+        catalog.forEach(cat => {
+          const p = cat.products.find(x => x.id === id);
+          if (p) { found = p; catLabel = cat.label; }
+        });
+        if (found) openLogoPreview(found, catLabel);
+      });
+    });
+    container.querySelectorAll('.view-all[data-cat]').forEach(link => {
+      link.addEventListener('click', e => {
+        e.preventDefault();
+        activeCategory = link.dataset.cat;
+        document.querySelectorAll('.pill, .nav-link').forEach(x => x.classList.remove('active'));
+        document.querySelectorAll(`[data-cat="${activeCategory}"]`).forEach(x => x.classList.add('active'));
+        renderSections();
+      });
+    });
+  }
+
+  // Search
+  document.addEventListener('input', e => {
+    if (e.target.id === 'searchInput') {
+      searchQuery = e.target.value;
+      activeCategory = 'all';
+      document.querySelectorAll('.pill, .nav-link').forEach(x => x.classList.remove('active'));
+      document.querySelectorAll('[data-cat="all"]').forEach(x => x.classList.add('active'));
+      renderSections();
+    }
+  });
+
+  renderCategoryPills();
+  buildNavStrip();
+  renderSections();
+
+  // ── LOGO PREVIEW SYSTEM ──
+  let lpProduct = null, lpCatLabel = '', lpLogoImg = null;
+  let lpLogoX = 0, lpLogoY = 0, lpLogoW = 0, lpLogoH = 0;
+  let lpSize = 40, lpOpacity = 1;
+  let lpDragging = false, lpDragOffX = 0, lpDragOffY = 0;
+  let lpProductImg = null;
+
+  function openLogoPreview(product, catLabel) {
+    lpProduct = product;
+    lpCatLabel = catLabel;
+    lpLogoImg = null;
+    lpSize = 40;
+    lpOpacity = 1;
+    document.getElementById('lpTitle').textContent = product.name;
+    document.getElementById('lpSize').value = 40;
+    document.getElementById('lpOp').value = 100;
+    document.getElementById('lpSizeVal').textContent = '40%';
+    document.getElementById('lpOpVal').textContent = '100%';
+    document.getElementById('lpSizeGroup').style.display = 'none';
+    document.getElementById('lpOpGroup').style.display = 'none';
+    document.getElementById('lpHint').style.display = 'none';
+    document.getElementById('lpUploadArea').classList.remove('has-logo');
+    document.getElementById('lpUploadLabel').innerHTML = '<strong>Click to upload your logo</strong><br>PNG, JPG, SVG supported';
+    document.getElementById('lpFileInput').value = '';
+
+    const canvas = document.getElementById('lpCanvas');
+    canvas.style.display = 'none';
+    document.getElementById('lpNoImg').style.display = 'block';
+    document.getElementById('lpNoImg').textContent = 'Loading product image…';
+
+    // Try loading with CORS first, fall back to drawing a placeholder
+    const img = new Image();
+    img.crossOrigin = 'anonymous';
+
+    img.onload = () => {
+      lpProductImg = img;
+      canvas.width = Math.min(img.width, 800);
+      canvas.height = Math.round(canvas.width * (img.height / img.width));
+      canvas.style.display = 'block';
+      document.getElementById('lpNoImg').style.display = 'none';
+      drawCanvas();
+    };
+
+    img.onerror = () => {
+      // CORS blocked — load without crossOrigin for display only
+      // Use a placeholder canvas so logo upload still works
+      lpProductImg = null;
+      canvas.width = 600;
+      canvas.height = 450;
+      const ctx = canvas.getContext('2d');
+      ctx.fillStyle = '#eef1fc';
+      ctx.fillRect(0, 0, 600, 450);
+      ctx.fillStyle = '#4a6fcc';
+      ctx.font = 'bold 16px Epilogue, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText(product.name, 300, 200);
+      ctx.fillStyle = '#6b8fe0';
+      ctx.font = '13px Urbanist, sans-serif';
+      ctx.fillText('Upload your logo below to preview it', 300, 230);
+      ctx.fillText('(Full image visible after deploying to your site)', 300, 252);
+      canvas.style.display = 'block';
+      document.getElementById('lpNoImg').style.display = 'none';
+      // Store a flag so download still works
+      lpProductImg = { _placeholder: true, width: 600, height: 450, _canvas: canvas };
+    };
+
+    img.src = product.img;
+    document.getElementById('lpOverlay').classList.add('open');
+  }
+
+  function closeLp() {
+    document.getElementById('lpOverlay').classList.remove('open');
+    lpProductImg = null;
+    lpLogoImg = null;
+  }
+
+  document.getElementById('lpOverlay').addEventListener('click', e => {
+    if (e.target === e.currentTarget) closeLp();
+  });
+
+  function handleLogoUpload(input) {
+    if (!input.files || !input.files[0]) return;
+    const file = input.files[0];
+    const reader = new FileReader();
+    reader.onload = e => {
+      const img = new Image();
+      img.onload = () => {
+        lpLogoImg = img;
+        // Default size: 40% of product image width
+        const canvas = document.getElementById('lpCanvas');
+        lpLogoW = canvas.width * (lpSize / 100);
+        lpLogoH = lpLogoW * (img.height / img.width);
+        // Center logo
+        lpLogoX = (canvas.width - lpLogoW) / 2;
+        lpLogoY = (canvas.height - lpLogoH) / 2;
+        document.getElementById('lpSizeGroup').style.display = 'flex';
+        document.getElementById('lpOpGroup').style.display = 'flex';
+        document.getElementById('lpHint').style.display = 'block';
+        document.getElementById('lpUploadArea').classList.add('has-logo');
+        document.getElementById('lpUploadLabel').innerHTML = `<strong style="color:var(--teal)">✓ Logo uploaded</strong> — click to change`;
+        drawCanvas();
+      };
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  }
+
+  function drawCanvas() {
+    const canvas = document.getElementById('lpCanvas');
+    const ctx = canvas.getContext('2d');
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    if (lpProductImg && !lpProductImg._placeholder) {
+      ctx.drawImage(lpProductImg, 0, 0, canvas.width, canvas.height);
+    }
+    if (lpLogoImg) {
+      ctx.globalAlpha = lpOpacity;
+      ctx.drawImage(lpLogoImg, lpLogoX, lpLogoY, lpLogoW, lpLogoH);
+      ctx.globalAlpha = 1;
+      ctx.strokeStyle = 'rgba(74,111,204,0.8)';
+      ctx.lineWidth = Math.max(2, canvas.width * 0.003);
+      ctx.setLineDash([8, 4]);
+      ctx.strokeRect(lpLogoX - 2, lpLogoY - 2, lpLogoW + 4, lpLogoH + 4);
+      ctx.setLineDash([]);
+    }
+  }
+
+  function downloadMockup() {
+    const canvas = document.getElementById('lpCanvas');
+    if (!lpLogoImg) return showToast('Upload your logo first', 'error');
+    // Draw clean version without selection border
+    const offscreen = document.createElement('canvas');
+    offscreen.width = canvas.width;
+    offscreen.height = canvas.height;
+    const ctx = offscreen.getContext('2d');
+    if (lpProductImg && !lpProductImg._placeholder) {
+      ctx.drawImage(lpProductImg, 0, 0, canvas.width, canvas.height);
+    } else {
+      // Copy placeholder background
+      ctx.drawImage(canvas, 0, 0);
+    }
+    ctx.globalAlpha = lpOpacity;
+    ctx.drawImage(lpLogoImg, lpLogoX, lpLogoY, lpLogoW, lpLogoH);
+    ctx.globalAlpha = 1;
+    const link = document.createElement('a');
+    link.download = `${lpProduct.name.replace(/[^a-z0-9]/gi,'_')}_mockup.png`;
+    link.href = offscreen.toDataURL('image/png');
+    link.click();
+    showToast('Mockup downloaded!');
+  }
+
+  function updateLogoSize(val) {
+    lpSize = parseInt(val);
+    document.getElementById('lpSizeVal').textContent = val + '%';
+    if (!lpLogoImg || !lpProductImg) return;
+    const canvas = document.getElementById('lpCanvas');
+    const cx = lpLogoX + lpLogoW / 2;
+    const cy = lpLogoY + lpLogoH / 2;
+    lpLogoW = canvas.width * (lpSize / 100);
+    lpLogoH = lpLogoW * (lpLogoImg.height / lpLogoImg.width);
+    lpLogoX = cx - lpLogoW / 2;
+    lpLogoY = cy - lpLogoH / 2;
+    drawCanvas();
+  }
+
+  function updateLogoOpacity(val) {
+    lpOpacity = parseInt(val) / 100;
+    document.getElementById('lpOpVal').textContent = val + '%';
+    drawCanvas();
+  }
+
+  // Drag logo on canvas
+  const lpCanvas = document.getElementById('lpCanvas');
+  lpCanvas.addEventListener('mousedown', e => {
+    if (!lpLogoImg) return;
+    const rect = lpCanvas.getBoundingClientRect();
+    const scaleX = lpCanvas.width / rect.width;
+    const scaleY = lpCanvas.height / rect.height;
+    const mx = (e.clientX - rect.left) * scaleX;
+    const my = (e.clientY - rect.top) * scaleY;
+    if (mx >= lpLogoX && mx <= lpLogoX + lpLogoW && my >= lpLogoY && my <= lpLogoY + lpLogoH) {
+      lpDragging = true;
+      lpDragOffX = mx - lpLogoX;
+      lpDragOffY = my - lpLogoY;
+      lpCanvas.style.cursor = 'grabbing';
+    }
+  });
+  lpCanvas.addEventListener('mousemove', e => {
+    if (!lpDragging) return;
+    const rect = lpCanvas.getBoundingClientRect();
+    const scaleX = lpCanvas.width / rect.width;
+    const scaleY = lpCanvas.height / rect.height;
+    lpLogoX = (e.clientX - rect.left) * scaleX - lpDragOffX;
+    lpLogoY = (e.clientY - rect.top) * scaleY - lpDragOffY;
+    drawCanvas();
+  });
+  lpCanvas.addEventListener('mouseup', () => { lpDragging = false; lpCanvas.style.cursor = 'move'; });
+  lpCanvas.addEventListener('mouseleave', () => { lpDragging = false; });
+
+  // Touch support
+  lpCanvas.addEventListener('touchstart', e => {
+    if (!lpLogoImg) return;
+    e.preventDefault();
+    const touch = e.touches[0];
+    const rect = lpCanvas.getBoundingClientRect();
+    const scaleX = lpCanvas.width / rect.width;
+    const scaleY = lpCanvas.height / rect.height;
+    const mx = (touch.clientX - rect.left) * scaleX;
+    const my = (touch.clientY - rect.top) * scaleY;
+    if (mx >= lpLogoX && mx <= lpLogoX + lpLogoW && my >= lpLogoY && my <= lpLogoY + lpLogoH) {
+      lpDragging = true;
+      lpDragOffX = mx - lpLogoX;
+      lpDragOffY = my - lpLogoY;
+    }
+  }, { passive: false });
+  lpCanvas.addEventListener('touchmove', e => {
+    if (!lpDragging) return;
+    e.preventDefault();
+    const touch = e.touches[0];
+    const rect = lpCanvas.getBoundingClientRect();
+    const scaleX = lpCanvas.width / rect.width;
+    const scaleY = lpCanvas.height / rect.height;
+    lpLogoX = (touch.clientX - rect.left) * scaleX - lpDragOffX;
+    lpLogoY = (touch.clientY - rect.top) * scaleY - lpDragOffY;
+    drawCanvas();
+  }, { passive: false });
+  lpCanvas.addEventListener('touchend', () => { lpDragging = false; });
+
+  function addToQuoteFromPreview() {
+    if (!lpProduct) return;
+    const existing = cart.find(i => i.id === lpProduct.id);
+    if (existing) existing.qty = (existing.qty || 1) + 1;
+    else cart.push({ ...lpProduct, qty: 1, category: lpCatLabel, hasLogoPreview: true });
+    updateBadges();
+    showToast(`"${lpProduct.name}" added to quote list`);
+    closeLp();
+  }
+  function updateFab() {
+    const cart = getCart();
+    const total = cart.reduce((s, i) => s + (i.qty || 1), 0);
+    const badge = document.getElementById('fabBadge');
+    badge.textContent = total;
+    badge.style.display = total > 0 ? 'flex' : 'none';
+    const fab = document.getElementById('fabQuote');
+    fab.classList.add('pop');
+    setTimeout(() => fab.classList.remove('pop'), 320);
+  }
+  updateFab();
+</script>
+</body>
+</html>
