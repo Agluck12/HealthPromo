@@ -7,7 +7,7 @@ const SITE_CONFIG = {
   phone: '(516) 655-5423',
   phoneRaw: '5166555423',
   email: 'andrewgluck3@gmail.com',
-  formspreeId: 'YOUR_FORMSPREE_ID',      // ← UPDATE AFTER FORMSPREE SIGNUP (free)
+  formspreeId: 'mnjgwbyv',
   adminPassword: 'healthpromo2025',        // ← CHANGE THIS
 };
 
