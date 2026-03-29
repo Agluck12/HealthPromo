@@ -288,3 +288,11 @@ function renderFooter() {
     </footer>
   `;
 }
+      { id: 'pen6', name: 'Ellipse Soft W/Stylus-Laser Engraved-Metal Pen', price: null, img: 'images/pens/pen1.jpg' },
+      { id: 'pen7', name: 'Jada M Stylus Twist Pen', price: null, img: 'images/pens/pen2.jpg' },
+      { id: 'pen8', name: 'Sleek Write Rubberized Pen', price: null, img: 'images/pens/pen3.jpg' },
+      { id: 'pen9', name: '4-Color Retractable Ball Pen', price: null, img: 'images/pens/pen4.jpg' },
+      { id: 'pen10', name: '6 in 1 Multi Function Tool Pen', price: null, img: 'images/pens/pen5.jpg' },
+      { id: 'pen11', name: 'Soft Rubberized Touch Retractable Gel Pen', price: null, img: 'images/pens/pen6.jpg' },
+      { id: 'pen12', name: 'Smoothy Classic Pen', price: null, img: 'images/pens/pen7.jpg' },
+
