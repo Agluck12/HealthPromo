@@ -4,9 +4,9 @@
 const SITE_CONFIG = {
   name: 'HealthPromo',
   tagline: 'Healthcare & ABA Promotional Items',
-  phone: '(917) 538-8343',
-  phoneRaw: '9175388343',
-  email: 'contact@healthpromo.com',        // ← UPDATE THIS
+  phone: '(516) 655-5423',
+  phoneRaw: '5166555423',
+  email: 'andrewgluck3@gmail.com',
   formspreeId: 'YOUR_FORMSPREE_ID',      // ← UPDATE AFTER FORMSPREE SIGNUP (free)
   adminPassword: 'healthpromo2025',        // ← CHANGE THIS
 };
