@@ -64,6 +64,13 @@ const DEFAULT_CATALOG = [
       { id: 'p3', name: 'iWriter® Gel-Sport Stylus Pen', price: null, img: 'https://assetly.ordermygear.com/images/h_276,w_276,c_limit,s_1/984644d944ffb1c4c9df98d8b7f37bfe8874aa2d' },
       { id: 'p4', name: 'Superhero Pen', price: null, colors: 2, img: 'https://assetly.ordermygear.com/images/h_276,w_276,c_limit,s_1/a18c8c50f40530103c2b2fec502f72ada8183935' },
       { id: 'p5', name: 'Spinner Pen', price: '$1.95', min: 2000, img: 'https://assetly.ordermygear.com/images/h_276,w_276,c_limit,s_1/28eccd496c8640f7b83da70e92981b2e89d24608' },
+      { id: 'pen6', name: 'Ellipse Soft W/Stylus-Laser Engraved-Metal Pen', price: null, img: 'images/pens/pen1.jpg' },
+      { id: 'pen7', name: 'Jada M Stylus Twist Pen', price: null, img: 'images/pens/pen2.jpg' },
+      { id: 'pen8', name: 'Sleek Write Rubberized Pen', price: null, img: 'images/pens/pen3.jpg' },
+      { id: 'pen9', name: '4-Color Retractable Ball Pen', price: null, img: 'images/pens/pen4.jpg' },
+      { id: 'pen10', name: '6 in 1 Multi Function Tool Pen', price: null, img: 'images/pens/pen5.jpg' },
+      { id: 'pen11', name: 'Soft Rubberized Touch Retractable Gel Pen', price: null, img: 'images/pens/pen6.jpg' },
+      { id: 'pen12', name: 'Smoothy Classic Pen', price: null, img: 'images/pens/pen7.jpg' },
     ]
   },
   {
@@ -288,11 +295,4 @@ function renderFooter() {
     </footer>
   `;
 }
-      { id: 'pen6', name: 'Ellipse Soft W/Stylus-Laser Engraved-Metal Pen', price: null, img: 'images/pens/pen1.jpg' },
-      { id: 'pen7', name: 'Jada M Stylus Twist Pen', price: null, img: 'images/pens/pen2.jpg' },
-      { id: 'pen8', name: 'Sleek Write Rubberized Pen', price: null, img: 'images/pens/pen3.jpg' },
-      { id: 'pen9', name: '4-Color Retractable Ball Pen', price: null, img: 'images/pens/pen4.jpg' },
-      { id: 'pen10', name: '6 in 1 Multi Function Tool Pen', price: null, img: 'images/pens/pen5.jpg' },
-      { id: 'pen11', name: 'Soft Rubberized Touch Retractable Gel Pen', price: null, img: 'images/pens/pen6.jpg' },
-      { id: 'pen12', name: 'Smoothy Classic Pen', price: null, img: 'images/pens/pen7.jpg' },
 
