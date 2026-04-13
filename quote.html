@@ -215,6 +215,18 @@
     const totalQty = cart.reduce((s, i) => s + (i.qty || 1), 0);
     badge.textContent = `${totalQty} item${totalQty !== 1 ? 's' : ''}`;
 
+    // Auto-fill products field from ?product= URL param (must run before early return)
+    const prodField = document.getElementById('products');
+    const urlProduct = new URLSearchParams(window.location.search).get('product');
+    if (urlProduct && prodField && !prodField.value) {
+      prodField.value = urlProduct;
+      const notesField = document.getElementById('message');
+      if (notesField && !notesField.value) {
+        notesField.value = 'I would like to request a design proof for this item.';
+      }
+      document.getElementById('quoteForm')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
     if (!cart.length) {
       container.innerHTML = `<div class="cart-empty">No items yet.<br><a href="index.html" style="color:var(--teal);font-weight:600;font-size:0.8rem;">Browse products →</a></div>`;
       return;
@@ -241,18 +253,8 @@
     // Populate hidden field
     document.getElementById('cartItemsField').value = cart.map(i => `${i.name} (qty: ${i.qty || 1})`).join('; ');
 
-    // Auto-fill products field from cart or ?product= URL param
-    const prodField = document.getElementById('products');
-    const urlProduct = new URLSearchParams(window.location.search).get('product');
-    if (urlProduct) {
-      prodField.value = urlProduct;
-      const notesField = document.getElementById('message');
-      if (notesField && !notesField.value) {
-        notesField.value = 'I would like to request a design proof for this item.';
-      }
-      // Scroll form into view
-      document.getElementById('quoteForm')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    } else if (cart.length && !prodField.value) {
+    // Auto-fill products field from cart items
+    if (cart.length && prodField && !prodField.value) {
       prodField.value = cart.map(i => i.name).join(', ');
     }
 
