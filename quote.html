@@ -241,9 +241,18 @@
     // Populate hidden field
     document.getElementById('cartItemsField').value = cart.map(i => `${i.name} (qty: ${i.qty || 1})`).join('; ');
 
-    // Auto-fill products field
+    // Auto-fill products field from cart or ?product= URL param
     const prodField = document.getElementById('products');
-    if (cart.length && !prodField.value) {
+    const urlProduct = new URLSearchParams(window.location.search).get('product');
+    if (urlProduct) {
+      prodField.value = urlProduct;
+      const notesField = document.getElementById('message');
+      if (notesField && !notesField.value) {
+        notesField.value = 'I would like to request a design proof for this item.';
+      }
+      // Scroll form into view
+      document.getElementById('quoteForm')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    } else if (cart.length && !prodField.value) {
       prodField.value = cart.map(i => i.name).join(', ');
     }
 
