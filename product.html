@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Product — HealthPromo</title>
+<meta name="description" content="Custom-branded promotional items for healthcare providers and ABA therapy centers.">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="stylesheet" href="css/style.css">
+<style>
+  .product-page {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 2.5rem 2rem 4rem;
+  }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: var(--teal);
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+    margin-bottom: 2rem;
+    transition: opacity 0.15s;
+  }
+  .back-link:hover { opacity: 0.75; }
+  .back-link svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+
+  .product-detail {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+
+  /* ── IMAGE PANEL ── */
+  .product-image-wrap {
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    box-shadow: var(--card-shadow);
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+  .product-image-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    padding: 2rem;
+  }
+  .product-image-placeholder {
+    font-size: 6rem;
+  }
+
+  /* ── INFO PANEL ── */
+  .product-info-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .product-category-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: var(--teal-light);
+    color: var(--teal);
+    border-radius: 100px;
+    padding: 0.3rem 0.85rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    width: fit-content;
+  }
+
+  .product-title {
+    font-family: 'Epilogue', sans-serif;
+    font-size: 1.9rem;
+    font-weight: 800;
+    color: var(--navy);
+    line-height: 1.2;
+  }
+
+  .product-price-block {
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+  }
+  .product-price-big {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--teal);
+    font-family: 'Epilogue', sans-serif;
+  }
+  .product-price-original {
+    font-size: 1.1rem;
+    color: var(--muted);
+    text-decoration: line-through;
+  }
+  .product-price-quote {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--accent);
+  }
+
+  .product-meta-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+  }
+  .meta-item {
+    background: var(--warm);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 0.85rem 1rem;
+  }
+  .meta-label {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 0.25rem;
+  }
+  .meta-value {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--navy);
+  }
+
+  .product-divider {
+    height: 1px;
+    background: var(--border);
+  }
+
+  .product-description {
+    font-size: 0.95rem;
+    color: var(--muted);
+    line-height: 1.65;
+  }
+
+  /* ── ACTIONS ── */
+  .product-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .btn-add-quote {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    background: var(--teal);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    padding: 1rem 1.5rem;
+    font-family: 'Urbanist', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+    text-decoration: none;
+  }
+  .btn-add-quote:hover { background: var(--teal-mid); transform: translateY(-1px); }
+  .btn-add-quote.added { background: #22a06b; }
+  .btn-add-quote svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+
+  .btn-proof {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    background: white;
+    color: var(--navy);
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    padding: 0.9rem 1.5rem;
+    font-family: 'Urbanist', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: border-color 0.2s, transform 0.15s;
+    text-decoration: none;
+  }
+  .btn-proof:hover { border-color: var(--teal); color: var(--teal); transform: translateY(-1px); }
+  .btn-proof svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+  .not-found {
+    text-align: center;
+    padding: 4rem 2rem;
+  }
+  .not-found h2 { font-family: 'Epilogue', sans-serif; color: var(--navy); margin-bottom: 0.5rem; }
+  .not-found p { color: var(--muted); margin-bottom: 1.5rem; }
+  .not-found a { color: var(--teal); font-weight: 600; text-decoration: none; }
+
+  /* ── RELATED PRODUCTS ── */
+  .related-section {
+    margin-top: 4rem;
+  }
+  .related-section h2 {
+    font-family: 'Epilogue', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: var(--navy);
+    margin-bottom: 1.5rem;
+  }
+  .related-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+  }
+  .related-card {
+    background: white;
+    border-radius: 14px;
+    border: 1px solid var(--border);
+    box-shadow: var(--card-shadow);
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    transition: box-shadow 0.2s, transform 0.15s;
+    display: block;
+  }
+  .related-card:hover { box-shadow: var(--card-shadow-hover); transform: translateY(-2px); }
+  .related-card-img {
+    aspect-ratio: 1;
+    background: var(--warm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .related-card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    padding: 0.75rem;
+  }
+  .related-card-info {
+    padding: 0.75rem;
+  }
+  .related-card-name {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--navy);
+    line-height: 1.3;
+    margin-bottom: 0.3rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .related-card-price {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--teal);
+  }
+
+  @media (max-width: 768px) {
+    .product-detail { grid-template-columns: 1fr; gap: 1.5rem; }
+    .product-title { font-size: 1.5rem; }
+    .product-price-big { font-size: 1.6rem; }
+    .related-grid { grid-template-columns: repeat(2, 1fr); }
+    .product-page { padding: 1.5rem 1rem 3rem; }
+  }
+</style>
+</head>
+<body>
+<div id="siteHeader"></div>
+
+<div class="product-page">
+  <a href="index.html" class="back-link">
+    <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+    Back to Shop
+  </a>
+
+  <div id="productContent">
+    <!-- Populated by JS -->
+  </div>
+</div>
+
+<div id="contactStrip"></div>
+<div id="siteFooter"></div>
+
+<script src="js/data.js"></script>
+<script>
+  document.getElementById('siteHeader').innerHTML = renderHeader('');
+  document.getElementById('contactStrip').innerHTML = renderContactStrip();
+  document.getElementById('siteFooter').innerHTML = renderFooter();
+  updateCartBadge();
+
+  // ── FIND PRODUCT ──
+  const params = new URLSearchParams(window.location.search);
+  const productId = params.get('id');
+
+  // Search all categories for matching product
+  function findProduct(id) {
+    const catalog = getCatalog();
+    for (const cat of catalog) {
+      const p = cat.products.find(p => p.id === id);
+      if (p) return { product: p, category: cat };
+    }
+    return null;
+  }
+
+  const result = findProduct(productId);
+  const container = document.getElementById('productContent');
+
+  if (!result) {
+    container.innerHTML = `
+      <div class="not-found">
+        <h2>Product not found</h2>
+        <p>We couldn't find that item. It may have been removed or the link is incorrect.</p>
+        <a href="index.html">← Browse all products</a>
+      </div>`;
+  } else {
+    const { product: p, category: cat } = result;
+    document.title = `${p.name} — HealthPromo`;
+
+    const isTradeshow = cat.label === 'Tradeshows';
+    const imgHtml = p.img
+      ? `<img src="${p.img}" alt="${p.name}" onerror="this.parentElement.innerHTML='<div class=\\'product-image-placeholder\\'>🏥</div>'">`
+      : `<div class="product-image-placeholder">🏥</div>`;
+
+    let priceHtml = '';
+    if (p.price) {
+      priceHtml = `<div class="product-price-block">`;
+      if (p.originalPrice) priceHtml += `<span class="product-price-original">${p.originalPrice}</span>`;
+      priceHtml += `<span class="product-price-big">${p.price}</span></div>`;
+    } else {
+      priceHtml = `<div class="product-price-block"><span class="product-price-quote">Pricing available on request</span></div>`;
+    }
+
+    const metaItems = [];
+    if (p.colors) metaItems.push({ label: 'Color Options', value: `${p.colors} colors` });
+    if (p.min) metaItems.push({ label: 'Minimum Qty', value: p.min.toLocaleString() + ' units' });
+    metaItems.push({ label: 'Category', value: `${cat.emoji} ${cat.label}` });
+    metaItems.push({ label: 'Branding', value: 'Custom logo available' });
+
+    const metaHtml = metaItems.map(m => `
+      <div class="meta-item">
+        <div class="meta-label">${m.label}</div>
+        <div class="meta-value">${m.value}</div>
+      </div>`).join('');
+
+    const actionBtn = isTradeshow
+      ? `<a class="btn-proof" href="quote.html?product=${encodeURIComponent(p.name)}">
+           <svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+           Request Design Proof
+         </a>`
+      : `<button class="btn-proof" id="tryLogoBtn">
+           <svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+           Try Your Logo
+         </button>`;
+
+    container.innerHTML = `
+      <div class="product-detail">
+        <div class="product-image-wrap">${imgHtml}</div>
+        <div class="product-info-panel">
+          <div class="product-category-tag">${cat.emoji} ${cat.label}</div>
+          <h1 class="product-title">${p.name}</h1>
+          ${priceHtml}
+          <div class="product-divider"></div>
+          <div class="product-meta-grid">${metaHtml}</div>
+          <div class="product-divider"></div>
+          <p class="product-description">
+            Custom-branded with your logo or artwork. Perfect for healthcare clinics, ABA therapy centers,
+            hospitals, and care organizations. We handle all artwork preparation and proofing — just send us your logo.
+          </p>
+          <div class="product-actions">
+            <button class="btn-add-quote" id="addToQuoteBtn">
+              <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              Add to Quote List
+            </button>
+            ${actionBtn}
+            <a class="btn-proof" href="quote.html">
+              <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              Request a Quote
+            </a>
+          </div>
+        </div>
+      </div>
+      ${buildRelated(p.id, cat)}
+    `;
+
+    // Add to quote
+    document.getElementById('addToQuoteBtn').addEventListener('click', function() {
+      addToCart({ id: p.id, name: p.name, img: p.img, category: cat.label });
+      this.innerHTML = `<svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Added to Quote List`;
+      this.classList.add('added');
+      updateCartBadge();
+      setTimeout(() => {
+        this.innerHTML = `<svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg> Add to Quote List`;
+        this.classList.remove('added');
+      }, 2000);
+    });
+
+    // Try logo button — trigger the modal on index.html by storing in sessionStorage and going back
+    const tryBtn = document.getElementById('tryLogoBtn');
+    if (tryBtn) {
+      tryBtn.addEventListener('click', () => {
+        sessionStorage.setItem('previewProductId', p.id);
+        window.location.href = `index.html#preview`;
+      });
+    }
+  }
+
+  function buildRelated(currentId, currentCat) {
+    const others = currentCat.products.filter(p => p.id !== currentId).slice(0, 4);
+    if (!others.length) return '';
+    const cards = others.map(p => `
+      <a class="related-card" href="product.html?id=${p.id}">
+        <div class="related-card-img">
+          ${p.img
+            ? `<img src="${p.img}" alt="${p.name}" onerror="this.parentElement.innerHTML='<div style=\\'font-size:2rem;text-align:center\\'>🏥</div>'">`
+            : `<div style="font-size:2rem">🏥</div>`}
+        </div>
+        <div class="related-card-info">
+          <div class="related-card-name">${p.name}</div>
+          <div class="related-card-price">${p.price || 'Request Quote'}</div>
+        </div>
+      </a>`).join('');
+    return `
+      <div class="related-section">
+        <h2>More from ${currentCat.emoji} ${currentCat.label}</h2>
+        <div class="related-grid">${cards}</div>
+      </div>`;
+  }
+</script>
+</body>
+</html>

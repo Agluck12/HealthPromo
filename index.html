@@ -581,6 +581,14 @@
         if (found) openLogoPreview(found, catLabel);
       });
     });
+    // Click card → go to product detail page
+    container.querySelectorAll('.product-card').forEach(card => {
+      card.addEventListener('click', e => {
+        if (e.target.closest('.add-btn, .preview-btn, a')) return;
+        window.location.href = `product.html?id=${card.dataset.id}`;
+      });
+    });
+
     container.querySelectorAll('.view-all[data-cat]').forEach(link => {
       link.addEventListener('click', e => {
         e.preventDefault();
