@@ -31,19 +31,19 @@ const DEFAULT_CATALOG = [
   {
     id: 'apparel', label: 'Apparel', emoji: '👕',
     products: [
-      { id: 'a1', name: 'Core Cotton Tee (PC54)', price: '$4.94', originalPrice: '$10.68', colors: 10, img: 'https://assetly.ordermygear.com/images/h_276,w_276,c_limit,s_1/93417743a3157588193f9f9c15bd92a24e295c13' },
-      { id: 'a2', name: 'Core Fleece Pullover Hoodie (PC78H)', price: '$21.82', originalPrice: '$29.08', colors: 10, img: 'https://assetly.ordermygear.com/images/h_276,w_276,c_limit,s_1/73dbe6fb01847845912bd6018c85a250ce0048b9' },
-      { id: 'a3', name: 'Core Fleece Crewneck Sweatshirt (PC78)', price: '$12.62', originalPrice: '$19.62', colors: 26, img: 'https://assetly.ordermygear.com/images/h_276,w_276,c_limit,s_1/a7d457fb95e8e818c18f0343d1557c48f7de1f6c' },
-      { id: 'a4', name: 'Core Fleece Full-Zip Hoodie (PC78ZH)', price: '$27.94', originalPrice: '$37.04', colors: 46, img: 'https://assetly.ordermygear.com/images/h_276,w_276,c_limit,s_1/f95f6f41469772b66f4c3461197374ca0c3a1eae' },
+      { id: 'a1', name: 'Core Cotton Tee (PC54)', price: '$4.94', originalPrice: '$10.68', colors: 10, img: 'images/apparel/a1.png' },
+      { id: 'a2', name: 'Core Fleece Pullover Hoodie (PC78H)', price: '$21.82', originalPrice: '$29.08', colors: 10, img: 'images/apparel/a2.png' },
+      { id: 'a3', name: 'Core Fleece Crewneck Sweatshirt (PC78)', price: '$12.62', originalPrice: '$19.62', colors: 26, img: 'images/apparel/a3.png' },
+      { id: 'a4', name: 'Core Fleece Full-Zip Hoodie (PC78ZH)', price: '$27.94', originalPrice: '$37.04', colors: 46, img: 'images/apparel/a4.png' },
     ]
   },
   {
     id: 'drinkware', label: 'Drinkware', emoji: '🥤',
     products: [
-      { id: 'd1', name: '24 oz Recycled Squared Tumbler', price: null, colors: 2, img: 'https://assetly.ordermygear.com/images/h_276,w_276,c_limit,s_1/637cd9b53055eacfd078c097ce5013261971a25b' },
-      { id: 'd2', name: '27 oz EverGreen Recycled Bottle', price: null, colors: 3, img: 'https://assetly.ordermygear.com/images/h_276,w_276,c_limit,s_1/da1da1c8e6d5d44524184b5711a86f4715f41c22' },
-      { id: 'd3', name: '24 oz EcoFusion Recycled Tumbler', price: null, colors: 6, img: 'https://assetly.ordermygear.com/images/h_276,w_276,c_limit,s_1/77107c159a89d60a3bd9b071a67d0d9485a93afc' },
-      { id: 'd4', name: '24 oz Chameleon Color Change Tumbler', price: '$2.75', colors: 6, img: 'https://assetly.ordermygear.com/images/h_276,w_276,c_limit,s_1/8b7b471ecc8de4570a121658d17ac4565759b4b8' },
+      { id: 'd1', name: '24 oz Recycled Squared Tumbler', price: null, colors: 2, img: 'images/drinkware/d1.png' },
+      { id: 'd2', name: '27 oz EverGreen Recycled Bottle', price: null, colors: 3, img: 'images/drinkware/d2.png' },
+      { id: 'd3', name: '24 oz EcoFusion Recycled Tumbler', price: null, colors: 6, img: 'images/drinkware/d3.png' },
+      { id: 'd4', name: '24 oz Chameleon Color Change Tumbler', price: '$2.75', colors: 6, img: 'images/drinkware/d4.png' },
     ]
   },
   {
