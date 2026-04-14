@@ -59,7 +59,7 @@ const DEFAULT_CATALOG = [
   {
     id: 'pens', label: 'Pens & Writing', emoji: '🖋️',
     products: [
-      { id: 'p1', name: '3-Way Pen', price: null, img: 'https://assetly.ordermygear.com/images/h_276,w_276,c_limit,s_1/3c19c57a1200f32d72d32e1e599baa2d3a07822d' },
+      { id: 'p1', name: '3-Way Pen', price: null, img: 'images/pens/p1.png' },
       { id: 'p2', name: 'Fidget Spinner Plunge-Action Pen', price: '$1.60', min: 1000, colors: 2, img: 'images/pens/p2.png' },
       { id: 'p3', name: 'iWriter® Gel-Sport Stylus Pen', price: null, img: 'images/pens/p3.png' },
       { id: 'p4', name: 'Superhero Pen', price: null, colors: 2, img: 'images/pens/p4.png' },
