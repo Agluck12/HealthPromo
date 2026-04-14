@@ -6,7 +6,7 @@ const SITE_CONFIG = {
   tagline: 'Healthcare & ABA Promotional Items',
   phone: '(516) 655-5423',
   phoneRaw: '5166555423',
-  email: 'andrewgluck3@gmail.com',
+  email: 'info@healthpromo.net',
   formspreeId: 'mnjgwbyv',
   adminPassword: 'healthpromo2025',        // ← CHANGE THIS
 };
