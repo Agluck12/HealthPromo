@@ -16,16 +16,16 @@ const DEFAULT_CATALOG = [
   {
     id: 'fidgets', label: 'Fidgets', emoji: '🌀',
     products: [
-      { id: 'f1', name: 'Flip & Slide Magnetic Stress Reliever', price: null, colors: 6, img: 'https://assetly.ordermygear.com/images/h_276,w_276,c_limit,s_1/35689924027b959f0eaace28f8c2e98c450433b3' },
-      { id: 'f2', name: 'Fidget Puzzle Ball', price: null, img: 'https://assetly.ordermygear.com/images/h_276,w_276,c_limit,s_1/b4558e5274fa7b01a9d4e2cda6a35a8da8fa8188' },
-      { id: 'f3', name: 'Fidget Spinner Stress Relief Stick', price: null, colors: 5, img: 'https://assetly.ordermygear.com/images/h_276,w_276,c_limit,s_1/04ed6149f2bde62999676b5fda5a63ad302ea5fe' },
-      { id: 'f4', name: '"QUANTUM" Pop N Spin Stress Reliever', price: null, img: 'https://assetly.ordermygear.com/images/h_276,w_276,c_limit,s_1/3211048b4bd1a705b18f3dc351d41b44e4b1a6db' },
-      { id: 'f5', name: 'Push Pop Square Stress Reliever Game', price: null, colors: 2, img: 'https://assetly.ordermygear.com/images/h_276,w_276,c_limit,s_1/d59f55f576df65b670047b87513d80b9f76fc6f7' },
-      { id: 'f6', name: 'Captain Smiley Stress Reliever', price: null, img: 'https://assetly.ordermygear.com/images/h_276,w_276,c_limit,s_1/a6c065429c1e5540311a6955b859435599421544' },
-      { id: 'f7', name: 'Moptoppers Stress Reliever', price: null, colors: 2, img: 'https://assetly.ordermygear.com/images/h_276,w_276,c_limit,s_1/dc98cf80bf864f6d260a1bae089be43c8f99a3d6' },
-      { id: 'f8', name: 'Molecool Stress Ball', price: '$4.00', min: 1000, colors: 3, img: 'https://assetly.ordermygear.com/images/h_276,w_276,c_limit,s_1/4810fb373856f5cac2871e24103edda090ac02b4' },
-      { id: 'f9', name: 'Fidget Sensory Worm', price: '$1.95', min: 500, colors: 2, img: 'https://assetly.ordermygear.com/images/h_276,w_276,c_limit,s_1/3bda415db1ac9c381847bac626d93aac416577f3' },
-      { id: 'f10', name: 'Stress Reliever Ball', price: '$1.31', min: 1000, img: 'https://assetly.ordermygear.com/images/h_276,w_276,c_limit,s_1/0a85ed8eab5ea9bcde200cf375cdf145078f148b' },
+      { id: 'f1', name: 'Flip & Slide Magnetic Stress Reliever', price: null, colors: 6, img: 'images/fidgets/f1.png' },
+      { id: 'f2', name: 'Fidget Puzzle Ball', price: null, img: 'images/fidgets/f2.png' },
+      { id: 'f3', name: 'Fidget Spinner Stress Relief Stick', price: null, colors: 5, img: 'images/fidgets/f3.png' },
+      { id: 'f4', name: '"QUANTUM" Pop N Spin Stress Reliever', price: null, img: 'images/fidgets/f4.png' },
+      { id: 'f5', name: 'Push Pop Square Stress Reliever Game', price: null, colors: 2, img: 'images/fidgets/f5.png' },
+      { id: 'f6', name: 'Captain Smiley Stress Reliever', price: null, img: 'images/fidgets/f6.png' },
+      { id: 'f7', name: 'Moptoppers Stress Reliever', price: null, colors: 2, img: 'images/fidgets/f7.png' },
+      { id: 'f8', name: 'Molecool Stress Ball', price: '$4.00', min: 1000, colors: 3, img: 'images/fidgets/f8.png' },
+      { id: 'f9', name: 'Fidget Sensory Worm', price: '$1.95', min: 500, colors: 2, img: 'images/fidgets/f9.png' },
+      { id: 'f10', name: 'Stress Reliever Ball', price: '$1.31', min: 1000, img: 'images/fidgets/f10.png' },
     ]
   },
   {
