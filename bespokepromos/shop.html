@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shop All Products — BespokePromos</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .shop-layout {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 2.5rem 2rem 4rem;
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 2.5rem;
+      align-items: start;
+    }
+
+    /* ── SIDEBAR ── */
+    .sidebar {
+      position: sticky;
+      top: 100px;
+      background: white;
+      border-radius: 14px;
+      padding: 1.5rem;
+      box-shadow: var(--card-shadow);
+    }
+
+    .sidebar-title {
+      font-family: 'Epilogue', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--navy);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+
+    .sidebar-cats { display: flex; flex-direction: column; gap: 0.1rem; }
+
+    .sidebar-cat {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 0.7rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--text);
+      border: none;
+      background: none;
+      text-align: left;
+      width: 100%;
+      font-family: 'Urbanist', sans-serif;
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+    .sidebar-cat:hover { background: var(--teal-light); color: var(--teal); }
+    .sidebar-cat.active { background: var(--teal-light); color: var(--teal); font-weight: 600; }
+
+    .sidebar-divider {
+      height: 1px;
+      background: var(--border);
+      margin: 1rem 0;
+    }
+
+    /* ── SHOP MAIN ── */
+    .shop-main {}
+
+    .shop-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .shop-top-left h1 {
+      font-family: 'Epilogue', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--navy);
+      letter-spacing: -0.02em;
+    }
+
+    .shop-top-left p {
+      font-size: 0.82rem;
+      color: var(--muted);
+      margin-top: 0.2rem;
+    }
+
+    .shop-top-right {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .shop-search {
+      position: relative;
+    }
+    .shop-search input {
+      padding: 0.55rem 1rem 0.55rem 2.5rem;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      font-family: 'Urbanist', sans-serif;
+      font-size: 0.85rem;
+      outline: none;
+      width: 220px;
+      transition: border-color 0.2s;
+      background: white;
+    }
+    .shop-search input:focus { border-color: var(--teal); }
+    .shop-search svg {
+      position: absolute;
+      left: 0.7rem; top: 50%;
+      transform: translateY(-50%);
+      width: 15px; height: 15px;
+      stroke: var(--muted);
+      fill: none;
+      pointer-events: none;
+    }
+
+    /* ── CATEGORY SECTION ── */
+    .cat-section {
+      margin-bottom: 3.5rem;
+    }
+
+    .cat-section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.1rem 1.3rem;
+      background: white;
+      border-radius: 12px 12px 0 0;
+      border-bottom: 2px solid var(--teal-light);
+      margin-bottom: 1px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .cat-section-title {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      font-family: 'Epilogue', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--navy);
+    }
+
+    .cat-section-count {
+      font-size: 0.75rem;
+      color: var(--muted);
+      background: var(--warm);
+      padding: 0.2rem 0.6rem;
+      border-radius: 20px;
+      font-weight: 500;
+    }
+
+    .cat-section-toggle {
+      font-size: 1.1rem;
+      color: var(--muted);
+      transition: transform 0.2s;
+    }
+    .cat-section.collapsed .cat-section-toggle { transform: rotate(-90deg); }
+
+    .cat-products-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      padding: 1rem;
+      background: white;
+      border-radius: 0 0 12px 12px;
+      box-shadow: var(--card-shadow);
+    }
+    .cat-section.collapsed .cat-products-grid { display: none; }
+
+    /* ── EMPTY STATE ── */
+    .empty-state {
+      text-align: center;
+      padding: 4rem 2rem;
+      color: var(--muted);
+    }
+    .empty-state .icon { font-size: 3rem; margin-bottom: 1rem; }
+    .empty-state h3 { font-size: 1.1rem; color: var(--text); margin-bottom: 0.5rem; }
+
+    @media (max-width: 1024px) {
+      .cat-products-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (max-width: 880px) {
+      .shop-layout { grid-template-columns: 1fr; }
+      .sidebar { position: static; }
+    }
+    @media (max-width: 640px) {
+      .shop-layout { padding: 1.5rem 1rem 3rem; }
+      .cat-products-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+<div id="header-mount"></div>
+
+<main>
+  <div class="shop-layout">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-title">Categories</div>
+      <div class="sidebar-cats" id="sidebarCats"></div>
+      <div class="sidebar-divider"></div>
+      <a href="quote.html" class="btn-teal" style="width:100%;justify-content:center;font-size:0.8rem">
+        📋 Request a Quote
+      </a>
+    </aside>
+
+    <!-- Main -->
+    <div class="shop-main">
+      <div class="shop-top">
+        <div class="shop-top-left">
+          <h1 id="shopTitle">All Products</h1>
+          <p id="shopSubtitle">Showing all categories</p>
+        </div>
+        <div class="shop-top-right">
+          <div class="shop-search">
+            <svg viewBox="0 0 24 24" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+            <input type="text" id="shopSearch" placeholder="Search products…" autocomplete="off">
+          </div>
+        </div>
+      </div>
+
+      <div id="shopContent"></div>
+    </div>
+  </div>
+</main>
+
+<div id="contact-mount"></div>
+<div id="footer-mount"></div>
+
+<script src="js/data.js"></script>
+<script>
+  document.getElementById('header-mount').innerHTML = renderHeader('shop');
+  document.getElementById('contact-mount').innerHTML = renderContactStrip();
+  document.getElementById('footer-mount').innerHTML = renderFooter();
+  updateCartBadge();
+
+  const catColors = {
+    apparel:'cat-apparel', drinkware:'cat-drinkware', bags:'cat-bags',
+    tech:'cat-tech', outdoor:'cat-outdoor', wellness:'cat-wellness',
+    writing:'cat-writing', desk:'cat-desk', hats:'cat-hats',
+    accessories:'cat-accessories', eco:'cat-eco', tradeshow:'cat-tradeshow',
+    home:'cat-home', kids:'cat-kids',
+  };
+
+  function productCard(p, catLabel, catEmoji) {
+    return `
+      <div class="product-card" data-id="${p.id}" data-name="${p.name.toLowerCase()}" onclick="window.location='product.html?id=${p.id}'">
+        ${p.img
+          ? `<img class="product-img" src="${p.img}" alt="${p.name}" loading="lazy">`
+          : `<div class="product-img-placeholder">${catEmoji || '📦'}</div>`
+        }
+        <div class="product-info">
+          <div class="product-name">${p.name}</div>
+          ${p.price ? `<div class="product-price">From ${p.price}</div>` : '<div class="product-price" style="color:var(--muted);font-weight:400">Contact for pricing</div>'}
+          ${p.min ? `<div class="product-min">Min. qty: ${p.min.toLocaleString()}</div>` : ''}
+          ${p.colors ? `<div class="product-colors">${p.colors} colors</div>` : ''}
+        </div>
+        <div class="product-actions">
+          <button class="add-btn" onclick="event.stopPropagation(); addToCart(${JSON.stringify(p).replace(/"/g,'&quot;')}, '${catLabel}'); showToast('Added to quote list!')">+ Add to Quote</button>
+        </div>
+      </div>
+    `;
+  }
+
+  function renderShop(catalog, searchQuery) {
+    const content = document.getElementById('shopContent');
+
+    if (searchQuery) {
+      const q = searchQuery.toLowerCase();
+      const results = [];
+      catalog.forEach(cat => {
+        cat.products.forEach(p => {
+          if (p.name.toLowerCase().includes(q)) results.push({ p, cat });
+        });
+      });
+      if (!results.length) {
+        content.innerHTML = `<div class="empty-state"><div class="icon">🔍</div><h3>No results for "${searchQuery}"</h3><p>Try a different search term or <a href="quote.html" style="color:var(--teal)">request a custom quote</a>.</p></div>`;
+        document.getElementById('shopTitle').textContent = `Search: "${searchQuery}"`;
+        document.getElementById('shopSubtitle').textContent = `0 results found`;
+      } else {
+        document.getElementById('shopTitle').textContent = `Results for "${searchQuery}"`;
+        document.getElementById('shopSubtitle').textContent = `${results.length} product${results.length !== 1 ? 's' : ''} found`;
+        content.innerHTML = `<div style="background:white;border-radius:12px;box-shadow:var(--card-shadow);overflow:hidden"><div class="cat-products-grid" style="display:grid">${results.map(({p,cat}) => productCard(p, cat.label, cat.emoji)).join('')}</div></div>`;
+      }
+      return;
+    }
+
+    // Get active anchor
+    const hash = window.location.hash.replace('#','');
+    const activeCat = hash ? catalog.find(c => c.id === hash) : null;
+    const displayCatalog = activeCat ? [activeCat] : catalog;
+
+    document.getElementById('shopTitle').textContent = activeCat ? activeCat.label : 'All Products';
+    document.getElementById('shopSubtitle').textContent = activeCat
+      ? `${activeCat.products.length} products in ${activeCat.label}`
+      : `${catalog.reduce((s,c)=>s+c.products.length,0)} products across ${catalog.length} categories`;
+
+    content.innerHTML = displayCatalog.map(cat => `
+      <div class="cat-section" id="sec-${cat.id}">
+        <div class="cat-section-header" onclick="toggleSection('${cat.id}')">
+          <div class="cat-section-title">
+            <span>${cat.emoji}</span>
+            ${cat.label}
+            <span class="cat-section-count">${cat.products.length} items</span>
+          </div>
+          <span class="cat-section-toggle">▾</span>
+        </div>
+        <div class="cat-products-grid">
+          ${cat.products.map(p => productCard(p, cat.label, cat.emoji)).join('')}
+        </div>
+      </div>
+    `).join('');
+  }
+
+  function toggleSection(id) {
+    document.getElementById('sec-'+id)?.classList.toggle('collapsed');
+  }
+
+  // Sidebar
+  const sidebar = document.getElementById('sidebarCats');
+  const hash = window.location.hash.replace('#','');
+  sidebar.innerHTML = `
+    <a href="shop.html" class="sidebar-cat ${!hash ? 'active' : ''}">
+      <span>🛍️</span> All Products
+    </a>
+    ${DEFAULT_CATALOG.map(cat => `
+      <a href="shop.html#${cat.id}" class="sidebar-cat ${hash === cat.id ? 'active' : ''}">
+        <span>${cat.emoji}</span> ${cat.label}
+      </a>
+    `).join('')}
+  `;
+
+  // Initial render
+  const urlParams = new URLSearchParams(window.location.search);
+  const q = urlParams.get('q');
+  if (q) {
+    document.getElementById('shopSearch').value = q;
+    renderShop(DEFAULT_CATALOG, q);
+  } else {
+    renderShop(DEFAULT_CATALOG);
+    if (hash) {
+      setTimeout(() => {
+        document.getElementById('sec-'+hash)?.scrollIntoView({ behavior:'smooth', block:'start' });
+      }, 100);
+    }
+  }
+
+  // Live search
+  document.getElementById('shopSearch').addEventListener('input', e => {
+    const q = e.target.value.trim();
+    renderShop(DEFAULT_CATALOG, q.length >= 2 ? q : null);
+  });
+
+  // Hash change
+  window.addEventListener('hashchange', () => {
+    const newHash = window.location.hash.replace('#','');
+    document.querySelectorAll('.sidebar-cat').forEach(el => {
+      el.classList.toggle('active', el.getAttribute('href') === 'shop.html#'+newHash || (!newHash && el.getAttribute('href') === 'shop.html'));
+    });
+    renderShop(DEFAULT_CATALOG);
+    if (newHash) {
+      setTimeout(() => {
+        document.getElementById('sec-'+newHash)?.scrollIntoView({ behavior:'smooth', block:'start' });
+      }, 100);
+    }
+  });
+</script>
+</body>
+</html>
