@@ -76,54 +76,54 @@ const DEFAULT_CATALOG = [
   {
     id: 'toys', label: 'Toys & Balls', emoji: '🏀',
     products: [
-      { id: 't1', name: '9" Fantastic Flier Flying Disc', price: null, colors: 2, img: 'https://assetly.ordermygear.com/images/h_276,w_276,c_limit,s_1/0e5c682bc61be8b119ac8b9488cea8e563519293' },
-      { id: 't2', name: '6" Big Paw Bear', price: null, colors: 13, img: 'https://assetly.ordermygear.com/images/h_276,w_276,c_limit,s_1/e22fa243ded4e37bc3cd63e217aaff6725082dae' },
-      { id: 't3', name: '16" Confetti Filled Clear Beach Ball', price: null, img: 'https://assetly.ordermygear.com/images/h_276,w_276,c_limit,s_1/86c27e9d5237134b96ff278451dc8d63280d067a' },
-      { id: 't4', name: 'Mini Basketball Set', price: null, colors: 3, img: 'https://assetly.ordermygear.com/images/h_276,w_276,c_limit,s_1/db5abac4b6a78fbbcd19469cb7583bcd2a31d15b' },
-      { id: 't5', name: '3" Mini Frisbee', price: '$1.05', min: 2000, img: 'https://assetly.ordermygear.com/images/h_276,w_276,c_limit,s_1/bbdb175640c0278c6c7811100b792c3e1e7533c3' },
-      { id: 't6', name: 'Light Up Yo Yo', price: '$1.48', min: 1000, img: 'https://assetly.ordermygear.com/images/h_276,w_276,c_limit,s_1/f37d368118ceec22d3631315cabe9bc3541fbf16' },
-      { id: 't7', name: '12" Translucent Beach Ball', price: '$1.36', colors: 4, img: 'https://assetly.ordermygear.com/images/h_276,w_276,c_limit,s_1/630befabcdead0f676bb4f71f2cfaa68f04f377d' },
+      { id: 't1', name: '9" Fantastic Flier Flying Disc', price: null, colors: 2, img: 'images/toys/t1.png' },
+      { id: 't2', name: '6" Big Paw Bear', price: null, colors: 13, img: 'images/toys/t2.png' },
+      { id: 't3', name: '16" Confetti Filled Clear Beach Ball', price: null, img: 'images/toys/t3.png' },
+      { id: 't4', name: 'Mini Basketball Set', price: null, colors: 3, img: 'images/toys/t4.png' },
+      { id: 't5', name: '3" Mini Frisbee', price: '$1.05', min: 2000, img: 'images/toys/t5.png' },
+      { id: 't6', name: 'Light Up Yo Yo', price: '$1.48', min: 1000, img: 'images/toys/t6.png' },
+      { id: 't7', name: '12" Translucent Beach Ball', price: '$1.36', colors: 4, img: 'images/toys/t7.png' },
     ]
   },
   {
     id: 'desk', label: 'Desk Items', emoji: '🖥️',
     products: [
-      { id: 'dk1', name: 'Happy Dude Mobile Device Holder', price: null, colors: 2, img: 'https://assetly.ordermygear.com/images/h_276,w_276,c_limit,s_1/11f08619cceb1ad1e271d55a7bcd93149817b903' },
-      { id: 'dk2', name: 'High Five Foldable Media Stand', price: null, img: 'https://assetly.ordermygear.com/images/h_276,w_276,c_limit,s_1/732089d68b013c4241f00f83f8439804f6b9f598' },
-      { id: 'dk3', name: 'Acrobat Paper Clips with Magnet Base', price: '$7.00', img: 'https://assetly.ordermygear.com/images/h_276,w_276,c_limit,s_1/5f77b2084ff4d726ea8cb82c5a22c6d06771dbbb' },
-      { id: 'dk4', name: 'Wheat Straw Cutlery Set', price: '$3.00', img: 'https://assetly.ordermygear.com/images/h_276,w_276,c_limit,s_1/0bbb04f29ce18c68f76e572b311640e18bd82693' },
+      { id: 'dk1', name: 'Happy Dude Mobile Device Holder', price: null, colors: 2, img: 'images/desk/dk1.png' },
+      { id: 'dk2', name: 'High Five Foldable Media Stand', price: null, img: 'images/desk/dk2.png' },
+      { id: 'dk3', name: 'Acrobat Paper Clips with Magnet Base', price: '$7.00', img: 'images/desk/dk3.png' },
+      { id: 'dk4', name: 'Wheat Straw Cutlery Set', price: '$3.00', img: 'images/desk/dk4.png' },
     ]
   },
   {
     id: 'hats', label: 'Hats', emoji: '🧢',
     products: [
-      { id: 'h1', name: 'Sport Headbands', price: null, img: 'https://assetly.ordermygear.com/images/h_276,w_276,c_limit,s_1/2b3c2e795a398c0628abde18306e00be119f48aa' },
-      { id: 'h2', name: 'Port Authority Flexfit Cotton Twill Cap', price: '$11.98', img: 'https://assetly.ordermygear.com/images/h_276,w_276,c_limit,s_1/2693b57dfe6df5eea3a34112f3fd9d607cbffbe5' },
-      { id: 'h3', name: 'Knit Beanie With Cuff', price: null, img: 'https://assetly.ordermygear.com/images/h_276,w_276,c_limit,s_1/99f0cae1793af1a3ababef9d9a58d514cbb6fe9e' },
+      { id: 'h1', name: 'Sport Headbands', price: null, img: 'images/hats/h1.png' },
+      { id: 'h2', name: 'Port Authority Flexfit Cotton Twill Cap', price: '$11.98', img: 'images/hats/h2.png' },
+      { id: 'h3', name: 'Knit Beanie With Cuff', price: null, img: 'images/hats/h3.png' },
     ]
   },
   {
     id: 'tech', label: 'Technology', emoji: '📱',
     products: [
-      { id: 'tc1', name: 'Selfie Ring Light', price: '$4.30', colors: 5, img: 'https://assetly.ordermygear.com/images/h_276,w_276,c_limit,s_1/1751dd3a4f37c524702fbb4f332fda09adb50e9e' },
-      { id: 'tc2', name: 'Phone Screen Cleaner', price: '$3.20', colors: 7, img: 'https://assetly.ordermygear.com/images/h_276,w_276,c_limit,s_1/5b8f51d59253dbfa5b71fc9f8c75cc77b2433f78' },
+      { id: 'tc1', name: 'Selfie Ring Light', price: '$4.30', colors: 5, img: 'images/tech/tc1.png' },
+      { id: 'tc2', name: 'Phone Screen Cleaner', price: '$3.20', colors: 7, img: 'images/tech/tc2.png' },
     ]
   },
   {
     id: 'accessories', label: 'Accessories', emoji: '🔑',
     products: [
-      { id: 'ac1', name: 'AirTag Silicone Key Chain', price: '$3.00', colors: 5, img: 'https://assetly.ordermygear.com/images/h_276,w_276,c_limit,s_1/db7194f9e0e8aa5e8b73471e0e73649ae0a43d1e' },
-      { id: 'ac2', name: 'Buddy Phone Mount', price: '$1.50', colors: 2, img: 'https://assetly.ordermygear.com/images/h_276,w_276,c_limit,s_1/51b6583adc9b8a3519c4d8c10c48bc4571d45380' },
-      { id: 'ac3', name: 'Phone Kickstand', price: '$3.20', colors: 5, img: 'https://assetly.ordermygear.com/images/h_276,w_276,c_limit,s_1/ae2d2634e8e6ec26da30c5beffb9295116b25805' },
-      { id: 'ac4', name: 'Resistance Band Kit', price: '$2.50', colors: 4, img: 'https://assetly.ordermygear.com/images/h_276,w_276,c_limit,s_1/418db2a596fb41e9c6c016f2d43d38e8dd7bf514' },
-      { id: 'ac5', name: 'Rotating Media Stand', price: '$3.80', colors: 2, img: 'https://assetly.ordermygear.com/images/h_276,w_276,c_limit,s_1/700832e11cdc2e5925300a22824f7bb42b4932a8' },
+      { id: 'ac1', name: 'AirTag Silicone Key Chain', price: '$3.00', colors: 5, img: 'images/accessories/ac1.png' },
+      { id: 'ac2', name: 'Buddy Phone Mount', price: '$1.50', colors: 2, img: 'images/accessories/ac2.png' },
+      { id: 'ac3', name: 'Phone Kickstand', price: '$3.20', colors: 5, img: 'images/accessories/ac3.png' },
+      { id: 'ac4', name: 'Resistance Band Kit', price: '$2.50', colors: 4, img: 'images/accessories/ac4.png' },
+      { id: 'ac5', name: 'Rotating Media Stand', price: '$3.80', colors: 2, img: 'images/accessories/ac5.png' },
     ]
   },
   {
     id: 'personal', label: 'Personal Care', emoji: '💄',
     products: [
-      { id: 'pc1', name: 'Lip Balm with Clip SPF15 (USA Made)', price: '$1.10', colors: 13, img: 'https://assetly.ordermygear.com/images/h_276,w_276,c_limit,s_1/6c764edaccdd2afb09c5f05d4ff72ea825ec073c' },
-      { id: 'pc2', name: 'Yummy Lip Balm', price: '$1.65', min: 1000, img: 'https://assetly.ordermygear.com/images/h_276,w_276,c_limit,s_1/56e404ec3b6bcddc924bbd9ea8c1f4806dd85fd8' },
+      { id: 'pc1', name: 'Lip Balm with Clip SPF15 (USA Made)', price: '$1.10', colors: 13, img: 'images/personal/pc1.png' },
+      { id: 'pc2', name: 'Yummy Lip Balm', price: '$1.65', min: 1000, img: 'images/personal/pc2.png' },
     ]
   },
   {
