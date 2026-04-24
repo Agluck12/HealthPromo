@@ -91,6 +91,7 @@ const DEFAULT_CATALOG = [
       { id: 'pen10', name: '6 in 1 Multi Function Tool Pen', price: null, img: 'images/pens/pen10.png' },
       { id: 'pen11', name: 'Soft Rubberized Touch Retractable Gel Pen', price: null, img: 'images/pens/pen11.png' },
       { id: 'pen12', name: 'Smoothy Classic Pen', price: null, img: 'images/pens/pen12.png' },
+      { id: 'pen13', name: 'Saturn Spinning Ring Pen', price: '$1.57', img: 'images/pens/pen13.jpg' },
     ]
   },
   {
