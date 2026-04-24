@@ -130,7 +130,7 @@ const DEFAULT_CATALOG = [
     id: 'tradeshow', label: 'Tradeshows', emoji: '🏷️',
     products: [
       { id: 'ts1', name: '3/4" Imprinted Polyester Lanyard', price: null, img: 'images/tradeshow/ts1.png' },
-      { id: 'ts2', name: 'Dye-Sublimated Lanyard With Clear Badge Holder', price: null, img: 'images/tradeshow/ts2.png' },
+      { id: 'ts2', name: 'Dye-Sublimated Lanyard With Clear Badge Holder', price: null, img: 'images/tradeshow/ts2b.png' },
       { id: 'ts3', name: 'Air Freshener', price: null, img: 'images/tradeshow/ts3.png' },
       { id: 'ts4',  name: 'Custom Fabric Pop Up Straight Display 10x10', price: '$645', img: 'images/tradeshow/ts4.png' },
       { id: 'ts5',  name: 'U-Shaped Tool-Free Tension Fabric Trade Show Display 10x10', price: '$630', img: 'images/tradeshow/ts5.png' },
