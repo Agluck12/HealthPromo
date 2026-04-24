@@ -129,9 +129,9 @@ const DEFAULT_CATALOG = [
   {
     id: 'tradeshow', label: 'Tradeshows', emoji: '🏷️',
     products: [
-      { id: 'ts1', name: '3/4" Imprinted Polyester Lanyard', price: null, img: 'https://assetly.ordermygear.com/images/h_276,w_276,c_limit,s_1/3e19585357f94435dc754e94bf58d4fd196a94d1' },
-      { id: 'ts2', name: 'Dye-Sublimated Lanyard With Clear Badge Holder', price: null, img: null },
-      { id: 'ts3', name: 'Air Freshener', price: null, img: 'https://assetly.ordermygear.com/images/h_276,w_276,c_limit,s_1/465d9436d6ba546b7454587eeee6fd6adfc69d52' },
+      { id: 'ts1', name: '3/4" Imprinted Polyester Lanyard', price: null, img: 'images/tradeshow/ts1.png' },
+      { id: 'ts2', name: 'Dye-Sublimated Lanyard With Clear Badge Holder', price: null, img: 'images/tradeshow/ts2b.png' },
+      { id: 'ts3', name: 'Air Freshener', price: null, img: 'images/tradeshow/ts3.png' },
       { id: 'ts4',  name: 'Custom Fabric Pop Up Straight Display 10x10', price: '$645', img: 'images/tradeshow/ts4.png' },
       { id: 'ts5',  name: 'U-Shaped Tool-Free Tension Fabric Trade Show Display 10x10', price: '$630', img: 'images/tradeshow/ts5.png' },
       { id: 'ts6',  name: '10Ft Trade Show Display Kit With S-Shaped Backdrop & Counter', price: '$820', img: 'images/tradeshow/ts6.png' },
