@@ -103,6 +103,11 @@
     color: var(--muted);
     text-decoration: line-through;
   }
+  .product-price-label {
+    font-size: 0.95rem;
+    font-weight: 400;
+    color: var(--muted);
+  }
   .product-price-quote {
     font-size: 1.1rem;
     font-weight: 600;
@@ -331,11 +336,11 @@
 
     let priceHtml = '';
     if (p.price) {
-      priceHtml = `<div class="product-price-block">`;
+      priceHtml = `<div class="product-price-block"><span class="product-price-label">As low as:&nbsp;</span>`;
       if (p.originalPrice) priceHtml += `<span class="product-price-original">${p.originalPrice}</span>`;
       priceHtml += `<span class="product-price-big">${p.price}</span></div>`;
     } else {
-      priceHtml = `<div class="product-price-block"><span class="product-price-quote">Pricing available on request</span></div>`;
+      priceHtml = `<div class="product-price-block"><span class="product-price-label">As low as:&nbsp;</span><span class="product-price-big">$--</span></div>`;
     }
 
     const metaItems = [];
@@ -424,7 +429,7 @@
         </div>
         <div class="related-card-info">
           <div class="related-card-name">${p.name}</div>
-          <div class="related-card-price">${p.price || 'Request Quote'}</div>
+          <div class="related-card-price">As low as: ${p.price || '$--'}</div>
         </div>
       </a>`).join('');
     return `
