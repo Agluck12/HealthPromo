@@ -300,34 +300,77 @@
     btn.disabled = true;
     btn.innerHTML = `<span style="display:inline-block;animation:spin 1s linear infinite">⏳</span> Sending…`;
 
-    const formData = new FormData(this);
+    const scriptUrl  = SITE_CONFIG.appsScriptUrl;
     const formspreeId = SITE_CONFIG.formspreeId;
 
-    if (formspreeId === 'YOUR_FORMSPREE_ID') {
-      // Dev mode: simulate
+    // Build JSON payload
+    const payload = {
+      firstName:          document.getElementById('firstName').value,
+      lastName:           document.getElementById('lastName').value,
+      email:              document.getElementById('email').value,
+      phone:              document.getElementById('phone').value,
+      organization:       document.getElementById('org').value,
+      orgType:            document.getElementById('orgType').value,
+      quantity:           document.getElementById('quantity').value,
+      productsInterested: document.getElementById('products').value,
+      hasLogo:            document.getElementById('logoFile').value,
+      message:            document.getElementById('message').value,
+      cartItems:          document.getElementById('cartItemsField').value,
+      _gotcha:            this.querySelector('[name="_gotcha"]').value,
+    };
+
+    // Dev mode (no endpoints configured)
+    if (scriptUrl === 'YOUR_APPS_SCRIPT_URL' && formspreeId === 'YOUR_FORMSPREE_ID') {
       await new Promise(r => setTimeout(r, 1200));
       showSuccess();
       return;
     }
 
-    try {
-      const res = await fetch(`https://formspree.io/f/${formspreeId}`, {
-        method: 'POST',
-        body: formData,
-        headers: { 'Accept': 'application/json' }
-      });
-      if (res.ok) {
-        showSuccess();
-        saveCart([]);
-        updateCartBadge();
-      } else {
-        throw new Error('Server error');
+    // Try Apps Script first (if configured)
+    if (scriptUrl && scriptUrl !== 'YOUR_APPS_SCRIPT_URL') {
+      try {
+        const res = await fetch(scriptUrl, {
+          method: 'POST',
+          // text/plain avoids CORS preflight while Apps Script still reads e.postData.contents
+          headers: { 'Content-Type': 'text/plain' },
+          body: JSON.stringify(payload)
+        });
+        const json = await res.json();
+        if (json.ok) {
+          showSuccess();
+          saveCart([]);
+          updateCartBadge();
+          return;
+        }
+      } catch (err) {
+        console.warn('Apps Script submission failed, falling back to Formspree:', err);
       }
-    } catch (err) {
-      btn.disabled = false;
-      btn.innerHTML = `<svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 2 11 13M22 2 15 22l-4-9-9-4 20-7z"/></svg> Send Quote Request`;
-      showToast('Failed to send — please email us directly.', 'error');
     }
+
+    // Fallback: Formspree
+    if (formspreeId && formspreeId !== 'YOUR_FORMSPREE_ID') {
+      try {
+        const formData = new FormData(this);
+        const res = await fetch(`https://formspree.io/f/${formspreeId}`, {
+          method: 'POST',
+          body: formData,
+          headers: { 'Accept': 'application/json' }
+        });
+        if (res.ok) {
+          showSuccess();
+          saveCart([]);
+          updateCartBadge();
+          return;
+        }
+      } catch (err) {
+        console.warn('Formspree fallback failed:', err);
+      }
+    }
+
+    // Both failed
+    btn.disabled = false;
+    btn.innerHTML = `<svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 2 11 13M22 2 15 22l-4-9-9-4 20-7z"/></svg> Send Quote Request`;
+    showToast('Failed to send — please email us directly.', 'error');
   });
 
   function showSuccess() {

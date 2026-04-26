@@ -8,6 +8,7 @@ const SITE_CONFIG = {
   phoneRaw: '5166555423',
   email: 'info@healthpromo.net',
   formspreeId: 'mnjgwbyv',
+  appsScriptUrl: 'YOUR_APPS_SCRIPT_URL',   // ← Paste your Apps Script web app URL here
   adminPassword: 'healthpromo2025',        // ← CHANGE THIS
 };
 
