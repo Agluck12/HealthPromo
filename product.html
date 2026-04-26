@@ -294,7 +294,7 @@
 <div id="contactStrip"></div>
 <div id="siteFooter"></div>
 
-<script src="js/data.js"></script>
+<script src="js/data.js?v=3"></script>
 <script>
   document.getElementById('siteHeader').innerHTML = renderHeader('');
   document.getElementById('contactStrip').innerHTML = renderContactStrip();
@@ -376,8 +376,7 @@
           <div class="product-meta-grid">${metaHtml}</div>
           <div class="product-divider"></div>
           <p class="product-description">
-            Custom-branded with your logo or artwork. Perfect for healthcare clinics, ABA therapy centers,
-            hospitals, and care organizations. We handle all artwork preparation and proofing — just send us your logo.
+            ${p.description || 'Custom-branded with your logo or artwork. Perfect for healthcare clinics, ABA therapy centers, hospitals, and care organizations. We handle all artwork preparation and proofing — just send us your logo.'}
           </p>
           <div class="product-actions">
             <button class="btn-add-quote" id="addToQuoteBtn">
