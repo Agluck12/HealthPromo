@@ -210,13 +210,32 @@
   .related-section {
     margin-top: 4rem;
   }
+  .related-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.25rem;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
   .related-section h2 {
     font-family: 'Epilogue', sans-serif;
     font-size: 1.4rem;
     font-weight: 800;
     color: var(--navy);
-    margin-bottom: 1.5rem;
+    margin: 0;
   }
+  .related-view-all {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--teal);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    transition: opacity 0.15s;
+  }
+  .related-view-all:hover { opacity: 0.7; }
   .related-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -232,6 +251,7 @@
     color: inherit;
     transition: box-shadow 0.2s, transform 0.15s;
     display: block;
+    position: relative;
   }
   .related-card:hover { box-shadow: var(--card-shadow-hover); transform: translateY(-2px); }
   .related-card-img {
@@ -241,6 +261,7 @@
     align-items: center;
     justify-content: center;
     overflow: hidden;
+    position: relative;
   }
   .related-card-img img {
     width: 100%;
@@ -248,6 +269,37 @@
     object-fit: contain;
     padding: 0.75rem;
   }
+  .related-card-quick-add {
+    position: absolute;
+    bottom: 0.5rem;
+    right: 0.5rem;
+    background: var(--teal);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 0.35rem 0.65rem;
+    font-family: 'Urbanist', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    opacity: 0;
+    transform: translateY(4px);
+    transition: opacity 0.15s, transform 0.15s, background 0.15s;
+    pointer-events: none;
+    white-space: nowrap;
+    z-index: 2;
+  }
+  .related-card-quick-add svg { width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 2.5; stroke-linecap: round; }
+  .related-card:hover .related-card-quick-add {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+  .related-card-quick-add:hover { background: var(--navy); }
+  .related-card-quick-add.added { background: #22a06b; }
   .related-card-info {
     padding: 0.75rem;
   }
@@ -274,6 +326,7 @@
     .product-price-big { font-size: 1.6rem; }
     .related-grid { grid-template-columns: repeat(2, 1fr); }
     .product-page { padding: 1.5rem 1rem 3rem; }
+    .related-card-quick-add { opacity: 1; transform: none; pointer-events: auto; }
   }
 </style>
 </head>
@@ -433,27 +486,105 @@
     });
   }
 
-  function buildRelated(currentId, currentCat) {
-    const others = currentCat.products.filter(p => p.id !== currentId).slice(0, 4);
-    if (!others.length) return '';
-    const cards = others.map(p => `
-      <a class="related-card" href="product.html?id=${p.id}">
+  function shuffle(arr) {
+    const a = [...arr];
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
+  function buildRelatedCard(p, catId) {
+    const imgHtml = p.img
+      ? `<img src="${p.img}" alt="${p.name}" onerror="this.parentElement.innerHTML='<div style=\\'font-size:2rem;text-align:center\\'>🏥</div>'">`
+      : `<div style="font-size:2rem">🏥</div>`;
+    return `
+      <a class="related-card" href="product.html?id=${p.id}" data-pid="${p.id}" data-pname="${p.name.replace(/"/g,'&quot;')}" data-pimg="${p.img||''}" data-catid="${catId}">
         <div class="related-card-img">
-          ${p.img
-            ? `<img src="${p.img}" alt="${p.name}" onerror="this.parentElement.innerHTML='<div style=\\'font-size:2rem;text-align:center\\'>🏥</div>'">`
-            : `<div style="font-size:2rem">🏥</div>`}
+          ${imgHtml}
+          <button class="related-card-quick-add" data-pid="${p.id}" title="Add to Quote List">
+            <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            + Quote
+          </button>
         </div>
         <div class="related-card-info">
           <div class="related-card-name">${p.name}</div>
           <div class="related-card-price">As low as: ${p.price || '$--'}</div>
         </div>
-      </a>`).join('');
-    return `
-      <div class="related-section">
-        <h2>More from ${currentCat.emoji} ${currentCat.label}</h2>
-        <div class="related-grid">${cards}</div>
-      </div>`;
+      </a>`;
   }
+
+  function buildRelated(currentId, currentCat) {
+    const catalog = getCatalog();
+
+    // Same-category products (shuffled, excluding current)
+    const samePool = shuffle(currentCat.products.filter(p => p.id !== currentId));
+    const samePicks = samePool.slice(0, 8);
+
+    // Cross-category picks — 1 random product from each other category
+    const crossPicks = [];
+    for (const cat of catalog) {
+      if (cat.id === currentCat.id) continue;
+      const pool = cat.products.filter(p => p.img); // prefer products with images
+      if (!pool.length) continue;
+      const pick = pool[Math.floor(Math.random() * pool.length)];
+      crossPicks.push({ p: pick, cat });
+    }
+    const crossShuffled = shuffle(crossPicks).slice(0, 4);
+
+    let html = '';
+
+    if (samePicks.length) {
+      const catUrl = `index.html?cat=${encodeURIComponent(currentCat.id)}`;
+      const cards = samePicks.map(p => buildRelatedCard(p, currentCat.id)).join('');
+      html += `
+        <div class="related-section">
+          <div class="related-header">
+            <h2>More from ${currentCat.emoji} ${currentCat.label}</h2>
+            <a class="related-view-all" href="${catUrl}">View all ${currentCat.label} →</a>
+          </div>
+          <div class="related-grid">${cards}</div>
+        </div>`;
+    }
+
+    if (crossShuffled.length) {
+      const cards = crossShuffled.map(({ p, cat }) => buildRelatedCard(p, cat.id)).join('');
+      html += `
+        <div class="related-section">
+          <div class="related-header">
+            <h2>You might also like</h2>
+            <a class="related-view-all" href="index.html">Browse all →</a>
+          </div>
+          <div class="related-grid">${cards}</div>
+        </div>`;
+    }
+
+    return html;
+  }
+
+  // Quick-add delegate listener
+  document.addEventListener('click', function(e) {
+    const btn = e.target.closest('.related-card-quick-add');
+    if (!btn) return;
+    e.preventDefault();
+    e.stopPropagation();
+    const card = btn.closest('.related-card');
+    const pid = card.dataset.pid;
+    const pname = card.dataset.pname;
+    const pimg = card.dataset.pimg;
+    const catId = card.dataset.catid;
+    const catalog = getCatalog();
+    const cat = catalog.find(c => c.id === catId);
+    addToCart({ id: pid, name: pname, img: pimg, category: cat ? cat.label : '' });
+    updateCartBadge();
+    btn.innerHTML = `<svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Added`;
+    btn.classList.add('added');
+    setTimeout(() => {
+      btn.innerHTML = `<svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg> + Quote`;
+      btn.classList.remove('added');
+    }, 1500);
+  });
 </script>
 </body>
 </html>
