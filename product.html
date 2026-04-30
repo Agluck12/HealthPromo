@@ -315,17 +315,9 @@
     return null;
   }
 
-  const result = findProduct(productId);
   const container = document.getElementById('productContent');
 
-  if (!result) {
-    container.innerHTML = `
-      <div class="not-found">
-        <h2>Product not found</h2>
-        <p>We couldn't find that item. It may have been removed or the link is incorrect.</p>
-        <a href="index.html">← Browse all products</a>
-      </div>`;
-  } else {
+  function renderProduct(result) {
     const { product: p, category: cat } = result;
     document.title = `${p.name} — HealthPromo`;
 
@@ -394,7 +386,6 @@
       ${buildRelated(p.id, cat)}
     `;
 
-    // Add to quote
     document.getElementById('addToQuoteBtn').addEventListener('click', function() {
       addToCart({ id: p.id, name: p.name, img: p.img, category: cat.label });
       this.innerHTML = `<svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Added to Quote List`;
@@ -406,7 +397,6 @@
       }, 2000);
     });
 
-    // Try logo button — trigger the modal on index.html by storing in sessionStorage and going back
     const tryBtn = document.getElementById('tryLogoBtn');
     if (tryBtn) {
       tryBtn.addEventListener('click', () => {
@@ -414,6 +404,27 @@
         window.location.href = `index.html#preview`;
       });
     }
+  }
+
+  // Try DEFAULT_CATALOG first (instant), then fall back to sheet fetch
+  let result = findProduct(productId);
+  if (result) {
+    renderProduct(result);
+  } else {
+    container.innerHTML = `<div style="text-align:center;padding:3rem;color:var(--muted);font-size:0.9rem;">Loading product…</div>`;
+    initCatalog().then(() => {
+      const sheetResult = findProduct(productId);
+      if (sheetResult) {
+        renderProduct(sheetResult);
+      } else {
+        container.innerHTML = `
+          <div class="not-found">
+            <h2>Product not found</h2>
+            <p>We couldn't find that item. It may have been removed or the link is incorrect.</p>
+            <a href="index.html">← Browse all products</a>
+          </div>`;
+      }
+    });
   }
 
   function buildRelated(currentId, currentCat) {

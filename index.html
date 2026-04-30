@@ -611,9 +611,17 @@
     }
   });
 
+  // Render immediately with DEFAULT_CATALOG (instant)
   renderCategoryPills();
   buildNavStrip();
   renderSections();
+
+  // Re-render after fetching from Google Sheet (picks up any new products)
+  initCatalog().then(() => {
+    renderCategoryPills();
+    buildNavStrip();
+    renderSections();
+  });
 
   // ── LOGO PREVIEW SYSTEM ──
   let lpProduct = null, lpCatLabel = '', lpLogoImg = null;

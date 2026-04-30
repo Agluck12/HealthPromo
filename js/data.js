@@ -190,7 +190,10 @@ const DEFAULT_CATALOG = [
 ];
 
 // ── CATALOG STORAGE ──
+let _liveCatalog = null; // set by initCatalog() after sheet fetch
+
 function getCatalog() {
+  if (_liveCatalog) return _liveCatalog;
   try {
     const saved = localStorage.getItem('cp_catalog');
     return saved ? JSON.parse(saved) : DEFAULT_CATALOG;
@@ -199,6 +202,39 @@ function getCatalog() {
 
 function saveCatalog(catalog) {
   localStorage.setItem('cp_catalog', JSON.stringify(catalog));
+}
+
+// Fetch catalog from Google Sheet (10-min session cache).
+// Sets _liveCatalog so getCatalog() returns sheet data going forward.
+async function initCatalog() {
+  const url = SITE_CONFIG.appsScriptUrl;
+  if (!url || url === 'YOUR_APPS_SCRIPT_URL') {
+    _liveCatalog = DEFAULT_CATALOG;
+    return _liveCatalog;
+  }
+  // Check sessionStorage cache
+  try {
+    const cached = sessionStorage.getItem('hp_sheet_catalog');
+    if (cached) {
+      const { data, ts } = JSON.parse(cached);
+      if (Date.now() - ts < 10 * 60 * 1000) {
+        _liveCatalog = data;
+        return _liveCatalog;
+      }
+    }
+  } catch {}
+  // Fetch from Apps Script
+  try {
+    const res = await fetch(url + '?action=catalog');
+    const json = await res.json();
+    if (json.ok && json.catalog && json.catalog.length > 0) {
+      _liveCatalog = json.catalog;
+      try { sessionStorage.setItem('hp_sheet_catalog', JSON.stringify({ data: json.catalog, ts: Date.now() })); } catch {}
+      return _liveCatalog;
+    }
+  } catch (e) { console.log('Sheet catalog unavailable, using default:', e.message); }
+  _liveCatalog = DEFAULT_CATALOG;
+  return _liveCatalog;
 }
 
 // ── QUOTE CART STORAGE ──
