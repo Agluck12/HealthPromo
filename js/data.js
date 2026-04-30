@@ -232,6 +232,12 @@ function saveCatalog(catalog) {
 // Sheet products with matching IDs update the default entry.
 // Sheet-only products (new IDs) are appended to their category.
 // DEFAULT_CATALOG products not in the sheet are always kept.
+function fmtPrice(v) {
+  if (!v) return v;
+  const s = v.toString().trim();
+  return s && !s.startsWith('$') ? '$' + s : s;
+}
+
 function mergeCatalogs(sheetCatalog) {
   // Build a map of all default products by id
   const defaultById = {};
@@ -248,7 +254,9 @@ function mergeCatalogs(sheetCatalog) {
     ...cat,
     products: cat.products.map(p => {
       // If sheet has this product, use sheet version (allows price/desc overrides)
-      return sheetById[p.id] ? { ...p, ...sheetById[p.id].product } : p;
+      if (!sheetById[p.id]) return p;
+      const sp = sheetById[p.id].product;
+      return { ...p, ...sp, price: fmtPrice(sp.price ?? p.price), originalPrice: fmtPrice(sp.originalPrice ?? p.originalPrice) };
     })
   }));
   // Append any sheet-only products (new IDs not in DEFAULT_CATALOG)
@@ -257,10 +265,11 @@ function mergeCatalogs(sheetCatalog) {
       if (!defaultById[p.id]) {
         // Find matching category in merged, or append new category
         const cat = merged.find(c => c.id === sheetCat.id);
+        const np = { ...p, price: fmtPrice(p.price), originalPrice: fmtPrice(p.originalPrice) };
         if (cat) {
-          cat.products.push(p);
+          cat.products.push(np);
         } else {
-          merged.push({ id: sheetCat.id, label: sheetCat.label, emoji: sheetCat.emoji, products: [p] });
+          merged.push({ id: sheetCat.id, label: sheetCat.label, emoji: sheetCat.emoji, products: [np] });
         }
       }
     });
