@@ -538,7 +538,7 @@
       const visible = showAll ? prods : prods.slice(0, PREVIEW_LIMIT);
       const remaining = prods.length - PREVIEW_LIMIT;
       const viewAllLink = (!showAll && remaining > 0)
-        ? `<a href="#" class="view-all expand-cat-btn" data-cat="${cat.id}">View all ${prods.length} →</a>`
+        ? `<a href="#" class="view-all expand-cat-btn" data-cat="${cat.id}">View all →</a>`
         : `<a href="#" class="view-all" data-cat="${cat.id}" style="visibility:hidden">View all →</a>`;
       html += `<div class="section-header">
         <div class="section-title"><span class="dot"></span>${cat.emoji} ${cat.label}</div>
