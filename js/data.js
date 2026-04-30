@@ -228,8 +228,48 @@ function saveCatalog(catalog) {
   localStorage.setItem('cp_catalog', JSON.stringify(catalog));
 }
 
+// Merge sheet catalog on top of DEFAULT_CATALOG.
+// Sheet products with matching IDs update the default entry.
+// Sheet-only products (new IDs) are appended to their category.
+// DEFAULT_CATALOG products not in the sheet are always kept.
+function mergeCatalogs(sheetCatalog) {
+  // Build a map of all default products by id
+  const defaultById = {};
+  DEFAULT_CATALOG.forEach(cat => {
+    cat.products.forEach(p => { defaultById[p.id] = { catId: cat.id, product: p }; });
+  });
+  // Build a map of sheet products by id
+  const sheetById = {};
+  sheetCatalog.forEach(cat => {
+    cat.products.forEach(p => { sheetById[p.id] = { catId: cat.id, product: p }; });
+  });
+  // Start from a deep copy of DEFAULT_CATALOG
+  const merged = DEFAULT_CATALOG.map(cat => ({
+    ...cat,
+    products: cat.products.map(p => {
+      // If sheet has this product, use sheet version (allows price/desc overrides)
+      return sheetById[p.id] ? { ...p, ...sheetById[p.id].product } : p;
+    })
+  }));
+  // Append any sheet-only products (new IDs not in DEFAULT_CATALOG)
+  sheetCatalog.forEach(sheetCat => {
+    sheetCat.products.forEach(p => {
+      if (!defaultById[p.id]) {
+        // Find matching category in merged, or append new category
+        const cat = merged.find(c => c.id === sheetCat.id);
+        if (cat) {
+          cat.products.push(p);
+        } else {
+          merged.push({ id: sheetCat.id, label: sheetCat.label, emoji: sheetCat.emoji, products: [p] });
+        }
+      }
+    });
+  });
+  return merged;
+}
+
 // Fetch catalog from Google Sheet (10-min session cache).
-// Sets _liveCatalog so getCatalog() returns sheet data going forward.
+// Merges sheet data on top of DEFAULT_CATALOG so code-added products are never lost.
 async function initCatalog() {
   const url = SITE_CONFIG.appsScriptUrl;
   if (!url || url === 'YOUR_APPS_SCRIPT_URL') {
@@ -242,7 +282,7 @@ async function initCatalog() {
     if (cached) {
       const { data, ts } = JSON.parse(cached);
       if (Date.now() - ts < 10 * 60 * 1000) {
-        _liveCatalog = data;
+        _liveCatalog = mergeCatalogs(data);
         return _liveCatalog;
       }
     }
@@ -252,7 +292,7 @@ async function initCatalog() {
     const res = await fetch(url + '?action=catalog');
     const json = await res.json();
     if (json.ok && json.catalog && json.catalog.length > 0) {
-      _liveCatalog = json.catalog;
+      _liveCatalog = mergeCatalogs(json.catalog);
       try { sessionStorage.setItem('hp_sheet_catalog', JSON.stringify({ data: json.catalog, ts: Date.now() })); } catch {}
       return _liveCatalog;
     }
