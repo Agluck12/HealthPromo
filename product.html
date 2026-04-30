@@ -320,6 +320,12 @@
   function renderProduct(result) {
     const { product: p, category: cat } = result;
     document.title = `${p.name} — HealthPromo`;
+    const metaDesc = p.description
+      ? p.description.slice(0, 155).replace(/\s\S*$/, '') + '…'
+      : `Custom-branded ${p.name} for healthcare providers, ABA therapy centers, and care organizations. Logo imprinting available.`;
+    document.querySelector('meta[name="description"]').setAttribute('content', metaDesc);
+    document.querySelector('meta[property="og:title"]') && document.querySelector('meta[property="og:title"]').setAttribute('content', `${p.name} — HealthPromo`);
+    document.querySelector('meta[property="og:description"]') && document.querySelector('meta[property="og:description"]').setAttribute('content', metaDesc);
 
     const isTradeshow = cat.label === 'Tradeshows';
     const imgHtml = p.img
