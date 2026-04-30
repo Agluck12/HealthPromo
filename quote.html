@@ -163,12 +163,6 @@
       </form>
     </div>
 
-    <div class="success-msg" id="successMsg">
-      <div class="check">✅</div>
-      <h3>Quote Request Sent!</h3>
-      <p>Thank you — we'll be in touch within 1 business day.<br>Check your inbox for a confirmation.</p>
-      <a href="index.html" class="btn-teal" style="margin-top:1.5rem;display:inline-flex;">← Back to Shop</a>
-    </div>
   </div>
 
   <!-- SIDEBAR -->
@@ -374,8 +368,15 @@
   });
 
   function showSuccess() {
-    document.getElementById('formWrap').style.display = 'none';
-    document.getElementById('successMsg').style.display = 'block';
+    // Save submission data for the thank-you page
+    const cart = getCart();
+    sessionStorage.setItem('hp_last_quote', JSON.stringify({
+      firstName: document.getElementById('firstName').value,
+      cartItems: cart
+    }));
+    saveCart([]);
+    updateCartBadge();
+    window.location.href = 'thank-you.html';
   }
 
   renderCart();
