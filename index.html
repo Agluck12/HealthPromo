@@ -522,6 +522,9 @@
       </div>`;
   }
 
+  const PREVIEW_LIMIT = 10;
+  const expandedCategories = new Set();
+
   function renderSections() {
     const container = document.getElementById('productSections');
     const catalog = getCatalog();
@@ -531,13 +534,33 @@
     filtered.forEach(cat => {
       const prods = q ? cat.products.filter(p => p.name.toLowerCase().includes(q)) : cat.products;
       if (!prods.length) return;
+      const showAll = activeCategory !== 'all' || q || expandedCategories.has(cat.id);
+      const visible = showAll ? prods : prods.slice(0, PREVIEW_LIMIT);
+      const remaining = prods.length - PREVIEW_LIMIT;
+      const viewAllBtn = (!showAll && remaining > 0)
+        ? `<div style="text-align:center;margin-top:1rem">
+            <button class="expand-cat-btn btn-outline-teal" data-cat="${cat.id}">
+              Show all ${prods.length} ${cat.label} products →
+            </button>
+           </div>`
+        : '';
       html += `<div class="section-header">
         <div class="section-title"><span class="dot"></span>${cat.emoji} ${cat.label}</div>
         <a href="#" class="view-all" data-cat="${cat.id}">View all →</a>
       </div>
-      <div class="product-grid">${prods.map(p => productCard(p, cat.label)).join('')}</div>`;
+      <div class="product-grid">${visible.map(p => productCard(p, cat.label)).join('')}</div>
+      ${viewAllBtn}`;
     });
     container.innerHTML = html || `<p style="color:var(--muted);padding:2rem 0;">No products found for "${q}".</p>`;
+
+    // Expand category buttons
+    container.querySelectorAll('.expand-cat-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        expandedCategories.add(btn.dataset.cat);
+        renderSections();
+        renderCategoryPills();
+      });
+    });
 
     // Add to quote
     container.querySelectorAll('.add-btn').forEach(btn => {

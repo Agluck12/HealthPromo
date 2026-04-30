@@ -237,6 +237,20 @@ header {
 }
 .btn-outline:hover { background: rgba(255,255,255,0.1); border-color: white; }
 
+.btn-outline-teal {
+  background: transparent;
+  color: var(--teal);
+  border: 1.5px solid var(--teal-light);
+  border-radius: 8px;
+  padding: 0.65rem 1.75rem;
+  font-family: 'Urbanist', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.btn-outline-teal:hover { background: var(--teal-light); border-color: var(--teal); }
+
 .btn-teal {
   background: var(--teal);
   color: white;
