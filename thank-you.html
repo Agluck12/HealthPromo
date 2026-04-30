@@ -30,14 +30,6 @@
     filter: drop-shadow(0 4px 8px rgba(0,0,0,0.15));
   }
 
-  .balloon-string {
-    width: 1px;
-    background: rgba(0,0,0,0.2);
-    margin: 0 auto;
-    animation: swayString ease-in-out infinite alternate;
-    transform-origin: top center;
-  }
-
   @keyframes floatUp {
     0%   { bottom: -120px; opacity: 1; }
     85%  { opacity: 1; }
@@ -420,67 +412,98 @@
 <script>
   // ── BALLOON ANIMATION ──
   const COLORS = [
-    '#f4824a', // orange (accent)
-    '#4a6fcc', // teal/blue
-    '#2a3e80', // navy
-    '#f7c948', // yellow
-    '#e85d8a', // pink
-    '#5bc77a', // green
-    '#a78bfa', // purple
-    '#38bdf8', // sky blue
+    '#f4824a', '#e8365d', '#f7c948', '#5bc77a',
+    '#4a6fcc', '#a78bfa', '#38bdf8', '#ff70b8',
+    '#2a3e80', '#ff9f43', '#00d2d3', '#c44dff'
   ];
 
   function makeBalloon(x, delay, size, color, duration) {
+    const id = 'bg' + Math.random().toString(36).slice(2, 8);
+    const r = size / 2;
+    const cx = r, cy = r;
+    const knotH = size * 0.14;
+    const stringH = size * 1.8;
+    const totalH = size + knotH + stringH;
+
+    // Slight string curve
+    const sc = (Math.random() - 0.5) * 20;
+    const swayDur = (2 + Math.random() * 1.5).toFixed(2);
+
     const wrap = document.createElement('div');
     wrap.className = 'balloon';
-    wrap.style.left = x + 'px';
-    wrap.style.animationDuration = duration + 's';
-    wrap.style.animationDelay = delay + 's';
-
-    const swayAmt = 14 + Math.random() * 18;
-    const swayDur = 1.8 + Math.random() * 1.4;
-    wrap.style.animation = `floatUp ${duration}s ${delay}s linear forwards, sway ${swayDur}s ${delay}s ease-in-out infinite alternate`;
-
-    // SVG balloon shape
-    const r = size / 2;
-    const stemH = size * 0.22;
-    const stringH = size * 1.1;
+    wrap.style.cssText = `left:${x}px; animation: floatUp ${duration}s ${delay}s linear forwards, sway ${swayDur}s ${delay}s ease-in-out infinite alternate;`;
 
     wrap.innerHTML = `
-      <svg width="${size}" height="${size + stemH}" viewBox="0 0 ${size} ${size + stemH}" xmlns="http://www.w3.org/2000/svg">
+      <svg width="${size}" height="${totalH}" viewBox="0 0 ${size} ${totalH}" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="${id}" cx="38%" cy="32%" r="62%" fx="38%" fy="32%">
+            <stop offset="0%"   stop-color="rgba(255,255,255,0.55)"/>
+            <stop offset="45%"  stop-color="${color}" stop-opacity="0.05"/>
+            <stop offset="100%" stop-color="rgba(0,0,0,0.22)"/>
+          </radialGradient>
+        </defs>
+
+        <!-- soft drop shadow -->
+        <ellipse cx="${cx + 2}" cy="${cy + 4}" rx="${r * 0.88}" ry="${r * 0.96}" fill="rgba(0,0,0,0.10)"/>
+
         <!-- balloon body -->
-        <ellipse cx="${r}" cy="${r}" rx="${r * 0.92}" ry="${r}" fill="${color}" />
-        <!-- highlight -->
-        <ellipse cx="${r * 0.62}" cy="${r * 0.42}" rx="${r * 0.22}" ry="${r * 0.28}" fill="rgba(255,255,255,0.3)" />
-        <!-- knot -->
-        <circle cx="${r}" cy="${size}" r="${r * 0.09}" fill="${color}" />
-        <!-- stem -->
-        <line x1="${r}" y1="${size}" x2="${r}" y2="${size + stemH}" stroke="${color}" stroke-width="1.5" />
-      </svg>
-      <div class="balloon-string" style="height:${stringH}px"></div>
-    `;
+        <ellipse cx="${cx}" cy="${cy}" rx="${r * 0.9}" ry="${r}" fill="${color}"/>
+
+        <!-- gloss layer -->
+        <ellipse cx="${cx}" cy="${cy}" rx="${r * 0.9}" ry="${r}" fill="url(#${id})"/>
+
+        <!-- primary bright highlight -->
+        <ellipse cx="${cx - r * 0.27}" cy="${cy - r * 0.3}"
+                 rx="${r * 0.24}" ry="${r * 0.16}"
+                 fill="rgba(255,255,255,0.72)"
+                 transform="rotate(-35 ${cx - r * 0.27} ${cy - r * 0.3})"/>
+
+        <!-- tiny secondary highlight -->
+        <ellipse cx="${cx - r * 0.08}" cy="${cy - r * 0.52}"
+                 rx="${r * 0.09}" ry="${r * 0.06}"
+                 fill="rgba(255,255,255,0.45)"/>
+
+        <!-- knot - small pinched teardrop -->
+        <path d="
+          M ${cx - r * 0.09} ${size - r * 0.04}
+          C ${cx - r * 0.14} ${size + knotH * 0.55},
+            ${cx + r * 0.14} ${size + knotH * 0.55},
+            ${cx + r * 0.09} ${size - r * 0.04}
+          L ${cx + r * 0.04} ${size + knotH}
+          C ${cx + r * 0.01} ${size + knotH * 1.6},
+            ${cx - r * 0.01} ${size + knotH * 1.6},
+            ${cx - r * 0.04} ${size + knotH}
+          Z"
+          fill="${color}"/>
+
+        <!-- string — gently curved -->
+        <path d="M ${cx} ${size + knotH * 1.55}
+                 Q ${cx + sc} ${size + knotH + stringH * 0.45}
+                   ${cx - sc * 0.4} ${totalH}"
+              stroke="rgba(80,80,80,0.35)" stroke-width="1.1"
+              fill="none" stroke-linecap="round"/>
+      </svg>`;
+
     return wrap;
   }
 
   function launchBalloons() {
     const container = document.getElementById('balloonContainer');
     const W = window.innerWidth;
-    const count = Math.min(18, Math.floor(W / 60));
+    const count = Math.min(22, Math.floor(W / 52));
 
     for (let i = 0; i < count; i++) {
-      const x = Math.random() * (W - 80) + 10;
-      const delay = Math.random() * 3.5;
-      const size = 44 + Math.random() * 30;
-      const color = COLORS[Math.floor(Math.random() * COLORS.length)];
-      const duration = 4.5 + Math.random() * 4;
+      const x      = Math.random() * (W - 90) + 10;
+      const delay  = Math.random() * 4;
+      const size   = 52 + Math.random() * 34;
+      const color  = COLORS[Math.floor(Math.random() * COLORS.length)];
+      const duration = 5 + Math.random() * 4.5;
       container.appendChild(makeBalloon(x, delay, size, color, duration));
     }
 
-    // Clean up after all balloons are gone
-    setTimeout(() => { container.innerHTML = ''; }, 12000);
+    setTimeout(() => { container.innerHTML = ''; }, 14000);
   }
 
-  // Launch on page load
   window.addEventListener('load', launchBalloons);
 </script>
 </body>
