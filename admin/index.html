@@ -261,6 +261,44 @@
   let editingProduct = null;
   let isLoggedIn = sessionStorage.getItem('cp_admin') === '1';
 
+  // ── SHEET API ──
+  async function postToSheet(payload) {
+    try {
+      const res = await fetch(SITE_CONFIG.appsScriptUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain' },
+        body: JSON.stringify(payload)
+      });
+      const json = await res.json();
+      return json.ok ? true : (showToast(json.error || 'Sheet error', 'error'), false);
+    } catch(e) {
+      showToast('Could not reach Google Sheet', 'error');
+      return false;
+    }
+  }
+
+  async function refreshCatalog() {
+    sessionStorage.removeItem('hp_sheet_catalog');
+    await initCatalog();
+    renderAll();
+  }
+
+  function showToast(msg, type) {
+    let t = document.getElementById('adminToast');
+    if (!t) {
+      t = document.createElement('div');
+      t.id = 'adminToast';
+      t.style.cssText = 'position:fixed;bottom:1.5rem;right:1.5rem;padding:0.7rem 1.2rem;border-radius:10px;font-family:Urbanist,sans-serif;font-size:0.875rem;font-weight:600;z-index:9999;transition:opacity 0.3s;box-shadow:0 4px 16px rgba(0,0,0,0.15)';
+      document.body.appendChild(t);
+    }
+    t.textContent = msg;
+    t.style.background = type === 'error' ? '#fde8e8' : '#e6f7f6';
+    t.style.color = type === 'error' ? '#b91c1c' : '#0a7c78';
+    t.style.opacity = '1';
+    clearTimeout(t._timeout);
+    t._timeout = setTimeout(() => { t.style.opacity = '0'; }, 3000);
+  }
+
   // ── LOGIN ──
   function checkLogin() {
     if (isLoggedIn) { showAdmin(); return; }
@@ -382,13 +420,12 @@
 
     // Delete buttons
     tbody.querySelectorAll('[data-del]').forEach(btn => {
-      btn.addEventListener('click', () => {
+      btn.addEventListener('click', async () => {
         if (!confirm('Delete this product?')) return;
-        const catalog = getCatalog();
-        const cat = catalog.find(c => c.id === btn.dataset.cat);
-        if (cat) cat.products = cat.products.filter(p => p.id !== btn.dataset.del);
-        saveCatalog(catalog);
-        renderAll();
+        btn.textContent = '…'; btn.disabled = true;
+        const ok = await postToSheet({ action: 'deleteProduct', id: btn.dataset.del });
+        if (!ok) { btn.textContent = 'Delete'; btn.disabled = false; return; }
+        await refreshCatalog();
         showToast('Product deleted');
       });
     });
@@ -471,7 +508,7 @@
     if (e.target === e.currentTarget) document.getElementById('productModal').classList.remove('open');
   });
 
-  document.getElementById('modalSave').addEventListener('click', () => {
+  document.getElementById('modalSave').addEventListener('click', async () => {
     const name = document.getElementById('mName').value.trim();
     const catId = document.getElementById('mCat').value;
     if (!name) return showToast('Product name required', 'error');
@@ -489,21 +526,25 @@
       min: parseInt(document.getElementById('mMin').value) || undefined,
       colors: parseInt(document.getElementById('mColors').value) || undefined,
       img: document.getElementById('mImg').value.trim() || null,
+      description: editingProduct?.description || undefined,
     };
 
-    if (editingProduct) {
-      // Remove from old category
-      const oldCat = catalog.find(c => c.id === editingProduct.catId);
-      if (oldCat) oldCat.products = oldCat.products.filter(p => p.id !== editingProduct.id);
-      // Add to new
-      cat.products.push(product);
-    } else {
-      cat.products.push(product);
-    }
+    const saveBtn = document.getElementById('modalSave');
+    saveBtn.textContent = 'Saving…'; saveBtn.disabled = true;
 
-    saveCatalog(catalog);
+    const ok = await postToSheet({
+      action: 'saveProduct',
+      product,
+      catId,
+      catLabel: cat.label,
+      catEmoji: cat.emoji
+    });
+
+    saveBtn.textContent = 'Save Product'; saveBtn.disabled = false;
+    if (!ok) return;
+
     document.getElementById('productModal').classList.remove('open');
-    renderAll();
+    await refreshCatalog();
     showToast(editingProduct ? 'Product updated' : 'Product added');
     editingProduct = null;
   });
