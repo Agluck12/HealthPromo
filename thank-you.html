@@ -9,6 +9,48 @@
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="stylesheet" href="css/style.css">
 <style>
+  /* ── BALLOONS ── */
+  .balloon-container {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    pointer-events: none;
+    z-index: 999;
+    overflow: hidden;
+  }
+
+  .balloon {
+    position: absolute;
+    bottom: -120px;
+    animation: floatUp linear forwards;
+  }
+
+  .balloon svg {
+    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.15));
+  }
+
+  .balloon-string {
+    width: 1px;
+    background: rgba(0,0,0,0.2);
+    margin: 0 auto;
+    animation: swayString ease-in-out infinite alternate;
+    transform-origin: top center;
+  }
+
+  @keyframes floatUp {
+    0%   { bottom: -120px; opacity: 1; }
+    85%  { opacity: 1; }
+    100% { bottom: 110vh; opacity: 0; }
+  }
+
+  @keyframes sway {
+    0%   { transform: translateX(0) rotate(-3deg); }
+    50%  { transform: translateX(12px) rotate(3deg); }
+    100% { transform: translateX(-8px) rotate(-2deg); }
+  }
+</style>
+<style>
   .ty-page {
     max-width: 760px;
     margin: 0 auto;
@@ -263,6 +305,7 @@
 </style>
 </head>
 <body>
+<div class="balloon-container" id="balloonContainer"></div>
 <div id="siteHeader"></div>
 
 <div class="ty-page">
@@ -373,6 +416,72 @@
 
     } catch(e) { /* no data, show default */ }
   }
+</script>
+<script>
+  // ── BALLOON ANIMATION ──
+  const COLORS = [
+    '#f4824a', // orange (accent)
+    '#4a6fcc', // teal/blue
+    '#2a3e80', // navy
+    '#f7c948', // yellow
+    '#e85d8a', // pink
+    '#5bc77a', // green
+    '#a78bfa', // purple
+    '#38bdf8', // sky blue
+  ];
+
+  function makeBalloon(x, delay, size, color, duration) {
+    const wrap = document.createElement('div');
+    wrap.className = 'balloon';
+    wrap.style.left = x + 'px';
+    wrap.style.animationDuration = duration + 's';
+    wrap.style.animationDelay = delay + 's';
+
+    const swayAmt = 14 + Math.random() * 18;
+    const swayDur = 1.8 + Math.random() * 1.4;
+    wrap.style.animation = `floatUp ${duration}s ${delay}s linear forwards, sway ${swayDur}s ${delay}s ease-in-out infinite alternate`;
+
+    // SVG balloon shape
+    const r = size / 2;
+    const stemH = size * 0.22;
+    const stringH = size * 1.1;
+
+    wrap.innerHTML = `
+      <svg width="${size}" height="${size + stemH}" viewBox="0 0 ${size} ${size + stemH}" xmlns="http://www.w3.org/2000/svg">
+        <!-- balloon body -->
+        <ellipse cx="${r}" cy="${r}" rx="${r * 0.92}" ry="${r}" fill="${color}" />
+        <!-- highlight -->
+        <ellipse cx="${r * 0.62}" cy="${r * 0.42}" rx="${r * 0.22}" ry="${r * 0.28}" fill="rgba(255,255,255,0.3)" />
+        <!-- knot -->
+        <circle cx="${r}" cy="${size}" r="${r * 0.09}" fill="${color}" />
+        <!-- stem -->
+        <line x1="${r}" y1="${size}" x2="${r}" y2="${size + stemH}" stroke="${color}" stroke-width="1.5" />
+      </svg>
+      <div class="balloon-string" style="height:${stringH}px"></div>
+    `;
+    return wrap;
+  }
+
+  function launchBalloons() {
+    const container = document.getElementById('balloonContainer');
+    const W = window.innerWidth;
+    const count = Math.min(18, Math.floor(W / 60));
+
+    for (let i = 0; i < count; i++) {
+      const x = Math.random() * (W - 80) + 10;
+      const delay = Math.random() * 3.5;
+      const size = 44 + Math.random() * 30;
+      const color = COLORS[Math.floor(Math.random() * COLORS.length)];
+      const duration = 4.5 + Math.random() * 4;
+      container.appendChild(makeBalloon(x, delay, size, color, duration));
+    }
+
+    // Clean up after all balloons are gone
+    setTimeout(() => { container.innerHTML = ''; }, 12000);
+  }
+
+  // Launch on page load
+  window.addEventListener('load', launchBalloons);
 </script>
 </body>
 </html>
