@@ -537,19 +537,14 @@
       const showAll = activeCategory !== 'all' || q || expandedCategories.has(cat.id);
       const visible = showAll ? prods : prods.slice(0, PREVIEW_LIMIT);
       const remaining = prods.length - PREVIEW_LIMIT;
-      const viewAllBtn = (!showAll && remaining > 0)
-        ? `<div style="text-align:center;margin-top:1rem">
-            <button class="expand-cat-btn btn-outline-teal" data-cat="${cat.id}">
-              Show all ${prods.length} ${cat.label} products →
-            </button>
-           </div>`
-        : '';
+      const viewAllLink = (!showAll && remaining > 0)
+        ? `<a href="#" class="view-all expand-cat-btn" data-cat="${cat.id}">View all ${prods.length} →</a>`
+        : `<a href="#" class="view-all" data-cat="${cat.id}" style="visibility:hidden">View all →</a>`;
       html += `<div class="section-header">
         <div class="section-title"><span class="dot"></span>${cat.emoji} ${cat.label}</div>
-        <a href="#" class="view-all" data-cat="${cat.id}">View all →</a>
+        ${viewAllLink}
       </div>
-      <div class="product-grid">${visible.map(p => productCard(p, cat.label)).join('')}</div>
-      ${viewAllBtn}`;
+      <div class="product-grid">${visible.map(p => productCard(p, cat.label)).join('')}</div>`;
     });
     container.innerHTML = html || `<p style="color:var(--muted);padding:2rem 0;">No products found for "${q}".</p>`;
 
