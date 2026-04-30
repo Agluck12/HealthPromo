@@ -524,11 +524,16 @@
 
   const PREVIEW_LIMIT = 10;
   const expandedCategories = new Set();
+  let lastActiveCategory = 'all';
 
   function renderSections() {
     const container = document.getElementById('productSections');
     const catalog = getCatalog();
     const q = searchQuery.toLowerCase();
+    if (activeCategory !== lastActiveCategory) {
+      expandedCategories.clear();
+      lastActiveCategory = activeCategory;
+    }
     const filtered = activeCategory === 'all' ? catalog : catalog.filter(c => c.id === activeCategory);
     let html = '';
     filtered.forEach(cat => {
