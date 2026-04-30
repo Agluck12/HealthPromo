@@ -388,8 +388,9 @@
       cat.products.forEach(p => {
         if (filterPrice === 'free' && p.price) return;
         if (filterPrice === 'priced' && !p.price) return;
-        const img = p.img
-          ? `<img src="${p.img}" class="table-img" alt="" onerror="this.className='table-img placeholder';this.outerHTML='<div class=\\'table-img placeholder\\'>🏥</div>'">`
+        const imgSrc = p.img && !p.img.startsWith('http') && !p.img.startsWith('/') ? '../' + p.img : (p.img || '');
+        const img = imgSrc
+          ? `<img src="${imgSrc}" class="table-img" alt="" onerror="this.className='table-img placeholder';this.outerHTML='<div class=\\'table-img placeholder\\'>🏥</div>'">`
           : `<div class="table-img placeholder">🏥</div>`;
         const price = p.price ? `<span class="price-tag">${p.price}</span>` : `<span class="price-quote">Quote</span>`;
         const details = [p.min ? `Min: ${p.min.toLocaleString()}` : '', p.colors ? `${p.colors} colors` : ''].filter(Boolean).join(' · ') || '—';
