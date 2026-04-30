@@ -400,9 +400,11 @@
           <td style="color:var(--muted);font-size:0.8rem">${cat.emoji} ${cat.label}</td>
           <td>${price}</td>
           <td style="color:var(--muted);font-size:0.78rem">${details}</td>
-          <td style="display:flex;gap:0.4rem;align-items:center">
-            <button class="action-btn edit" data-edit="${p.id}" data-cat="${cat.id}">Edit</button>
-            <button class="action-btn del" data-del="${p.id}" data-cat="${cat.id}">Delete</button>
+          <td>
+            <div style="display:flex;gap:0.4rem;align-items:center">
+              <button class="action-btn edit" data-edit="${p.id}" data-cat="${cat.id}">Edit</button>
+              <button class="action-btn del" data-del="${p.id}" data-cat="${cat.id}">Delete</button>
+            </div>
           </td>
         </tr>`;
       });
