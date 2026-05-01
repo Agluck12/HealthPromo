@@ -420,9 +420,80 @@ function renderContactStrip() {
 }
 
 function renderFooter() {
+  const year = new Date().getFullYear();
   return `
     <footer>
-      <p>© ${new Date().getFullYear()} HealthPromo &nbsp;·&nbsp; <a href="privacy.html">Privacy Policy</a> &nbsp;·&nbsp; <a href="mailto:${SITE_CONFIG.email}">Contact Us</a> &nbsp;·&nbsp; <a href="admin/" style="color:rgba(255,255,255,0.15)">Admin</a></p>
+      <div class="footer-main">
+
+        <!-- Brand column -->
+        <div class="footer-brand">
+          <div class="footer-logo-text">HealthPromo</div>
+          <div class="footer-tagline">Healthcare &amp; ABA Promotional Items</div>
+          <p>Custom-branded promotional products for healthcare providers, ABA therapy centers, and care organizations. Logo imprinting on everything.</p>
+          <div class="footer-contact-links">
+            <a class="footer-contact-item" href="tel:${SITE_CONFIG.phoneRaw}">
+              <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13.6 19.79 19.79 0 0 1 1.58 5.1 2 2 0 0 1 3.55 3h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 10.9a16 16 0 0 0 6 6l.9-.9a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              ${SITE_CONFIG.phone}
+            </a>
+            <a class="footer-contact-item" href="mailto:${SITE_CONFIG.email}">
+              <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              ${SITE_CONFIG.email}
+            </a>
+          </div>
+        </div>
+
+        <!-- Categories column -->
+        <div class="footer-col">
+          <h4>Shop by Category</h4>
+          <ul>
+            <li><a href="index.html?cat=fidgets">🌀 Fidgets</a></li>
+            <li><a href="index.html?cat=apparel">👕 Apparel</a></li>
+            <li><a href="index.html?cat=drinkware">🥤 Drinkware</a></li>
+            <li><a href="index.html?cat=bags">🎒 Bags</a></li>
+            <li><a href="index.html?cat=pens">🖋️ Pens &amp; Writing</a></li>
+            <li><a href="index.html?cat=toys">🏀 Toys &amp; Balls</a></li>
+            <li><a href="index.html?cat=desk">🖥️ Desk Items</a></li>
+            <li><a href="index.html?cat=tech">📱 Technology</a></li>
+            <li><a href="index.html?cat=tradeshow">🏷️ Tradeshows</a></li>
+          </ul>
+        </div>
+
+        <!-- Quick links column -->
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="index.html">Shop All Products</a></li>
+            <li><a href="quote.html">Request a Quote</a></li>
+            <li><a href="quote.html">Quote List</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="mailto:${SITE_CONFIG.email}">Contact Us</a></li>
+          </ul>
+        </div>
+
+        <!-- Info column -->
+        <div class="footer-col">
+          <h4>Why HealthPromo</h4>
+          <ul>
+            <li><a href="quote.html">Custom Logo Imprinting</a></li>
+            <li><a href="quote.html">Bulk Order Pricing</a></li>
+            <li><a href="quote.html">Digital Proofs Included</a></li>
+            <li><a href="quote.html">1-Business-Day Response</a></li>
+            <li><a href="index.html?cat=tradeshow">Tradeshow Packages</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <hr class="footer-divider">
+
+      <div class="footer-bottom">
+        <span>© ${year} HealthPromo. All rights reserved.</span>
+        <div class="footer-bottom-links">
+          <a href="privacy.html">Privacy Policy</a>
+          <a href="mailto:${SITE_CONFIG.email}">Contact</a>
+          <a href="admin/" style="opacity:0.4">Admin</a>
+        </div>
+      </div>
     </footer>
   `;
 }
