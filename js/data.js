@@ -235,7 +235,12 @@ function saveCatalog(catalog) {
 function fmtPrice(v) {
   if (!v) return v;
   const s = v.toString().trim();
-  return s && !s.startsWith('$') ? '$' + s : s;
+  if (!s) return s;
+  // Strip leading $ and parse as number to normalize decimal places
+  const raw = s.startsWith('$') ? s.slice(1) : s;
+  const num = parseFloat(raw);
+  if (!isNaN(num)) return '$' + num.toFixed(2);
+  return s.startsWith('$') ? s : '$' + s;
 }
 
 function mergeCatalogs(sheetCatalog) {
