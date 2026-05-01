@@ -385,6 +385,7 @@ function renderHeader(activePage) {
           <input type="text" placeholder="Search products…" id="searchInput">
         </div>` : ''}
         <div class="header-actions">
+          <a href="about.html" class="header-nav-link ${activePage === 'about' ? 'active' : ''}">About</a>
           <a href="quote.html" class="header-nav-link">Get a Quote</a>
           <a href="quote.html" class="cart-btn">
             <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">

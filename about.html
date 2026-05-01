@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About Us — HealthPromo</title>
+<meta name="description" content="HealthPromo is a Long Island-based promotional products company serving the healthcare and ABA therapy industry. A subsidiary of Bespoke Promotions, established 2026.">
+<meta property="og:title" content="About HealthPromo">
+<meta property="og:description" content="Custom-branded promotional items built specifically for the healthcare industry. Based in Long Island, NY.">
+<meta property="og:type" content="website">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="stylesheet" href="css/style.css">
+<style>
+  /* ── HERO ── */
+  .about-hero {
+    background: linear-gradient(135deg, var(--navy) 0%, #1e3a6e 60%, #163d5c 100%);
+    padding: 4rem 2rem 5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .about-hero::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    right: 0;
+    height: 60px;
+    background: var(--warm);
+    clip-path: ellipse(55% 100% at 50% 100%);
+  }
+  .about-hero-inner {
+    max-width: 760px;
+    margin: 0 auto;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+  }
+  .about-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 100px;
+    padding: 0.35rem 1rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: rgba(255,255,255,0.8);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+  .about-hero h1 {
+    font-family: 'Epilogue', sans-serif;
+    font-size: 2.8rem;
+    font-weight: 800;
+    color: white;
+    line-height: 1.15;
+    margin-bottom: 1.25rem;
+  }
+  .about-hero h1 span { color: var(--teal-mid); }
+  .about-hero p {
+    font-size: 1.1rem;
+    color: rgba(255,255,255,0.65);
+    line-height: 1.7;
+    max-width: 560px;
+    margin: 0 auto 2rem;
+  }
+  .hero-cta {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  /* ── PAGE BODY ── */
+  .about-body {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 3rem 2rem 5rem;
+  }
+
+  /* ── STATS ROW ── */
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    margin-bottom: 4rem;
+  }
+  .stat-card {
+    background: white;
+    border-radius: 16px;
+    border: 1px solid var(--border);
+    box-shadow: var(--card-shadow);
+    padding: 1.5rem;
+    text-align: center;
+  }
+  .stat-number {
+    font-family: 'Epilogue', sans-serif;
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: var(--teal);
+    line-height: 1;
+    margin-bottom: 0.4rem;
+  }
+  .stat-label {
+    font-size: 0.8rem;
+    color: var(--muted);
+    font-weight: 500;
+    line-height: 1.4;
+  }
+
+  /* ── TWO-COL SECTION ── */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3.5rem;
+    align-items: center;
+    margin-bottom: 4rem;
+  }
+  .two-col.reverse { direction: rtl; }
+  .two-col.reverse > * { direction: ltr; }
+
+  .section-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--teal);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin-bottom: 0.75rem;
+  }
+  .section-heading {
+    font-family: 'Epilogue', sans-serif;
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: var(--navy);
+    line-height: 1.2;
+    margin-bottom: 1rem;
+  }
+  .section-body {
+    font-size: 0.95rem;
+    color: var(--muted);
+    line-height: 1.75;
+  }
+  .section-body p + p { margin-top: 0.85rem; }
+
+  /* ── VISUAL BLOCK ── */
+  .visual-block {
+    background: linear-gradient(135deg, var(--teal-light), var(--sky));
+    border-radius: 20px;
+    padding: 2.5rem;
+    border: 1px solid rgba(74,111,204,0.12);
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+  .visual-block-alt {
+    background: linear-gradient(135deg, #111d4a, #1e3a6e);
+    border-radius: 20px;
+    padding: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+  .check-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.85rem;
+  }
+  .check-icon {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--teal);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+  }
+  .check-icon svg {
+    width: 13px;
+    height: 13px;
+    stroke: white;
+    fill: none;
+    stroke-width: 3;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .check-item-text strong {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 0.15rem;
+  }
+  .check-item-text span {
+    font-size: 0.82rem;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+  .check-item-text-light strong {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 0.15rem;
+  }
+  .check-item-text-light span {
+    font-size: 0.82rem;
+    color: rgba(255,255,255,0.55);
+    line-height: 1.5;
+  }
+
+  /* ── WHO WE SERVE ── */
+  .serve-section {
+    margin-bottom: 4rem;
+  }
+  .serve-section .section-heading { text-align: center; margin-bottom: 0.5rem; }
+  .serve-section .section-label { text-align: center; }
+  .serve-intro {
+    text-align: center;
+    font-size: 0.95rem;
+    color: var(--muted);
+    max-width: 560px;
+    margin: 0 auto 2.5rem;
+    line-height: 1.7;
+  }
+  .serve-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+  }
+  .serve-card {
+    background: white;
+    border-radius: 16px;
+    border: 1px solid var(--border);
+    box-shadow: var(--card-shadow);
+    padding: 1.75rem 1.5rem;
+    transition: box-shadow 0.2s, transform 0.15s;
+  }
+  .serve-card:hover { box-shadow: var(--card-shadow-hover); transform: translateY(-2px); }
+  .serve-icon {
+    font-size: 2rem;
+    margin-bottom: 0.9rem;
+  }
+  .serve-card h3 {
+    font-family: 'Epilogue', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 0.5rem;
+  }
+  .serve-card p {
+    font-size: 0.82rem;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* ── BESPOKE CALLOUT ── */
+  .bespoke-callout {
+    background: white;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    box-shadow: var(--card-shadow);
+    padding: 2.5rem;
+    display: flex;
+    align-items: center;
+    gap: 2.5rem;
+    margin-bottom: 4rem;
+  }
+  .bespoke-icon-wrap {
+    width: 72px;
+    height: 72px;
+    background: linear-gradient(135deg, var(--teal-light), var(--sky));
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .bespoke-icon-wrap svg {
+    width: 36px;
+    height: 36px;
+    stroke: var(--teal);
+    fill: none;
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .bespoke-text h3 {
+    font-family: 'Epilogue', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: var(--navy);
+    margin-bottom: 0.5rem;
+  }
+  .bespoke-text p {
+    font-size: 0.875rem;
+    color: var(--muted);
+    line-height: 1.65;
+    max-width: 600px;
+  }
+
+  /* ── CTA BANNER ── */
+  .about-cta {
+    background: linear-gradient(135deg, var(--navy), #163d5c);
+    border-radius: 20px;
+    padding: 3rem 2.5rem;
+    text-align: center;
+  }
+  .about-cta h2 {
+    font-family: 'Epilogue', sans-serif;
+    font-size: 1.9rem;
+    font-weight: 800;
+    color: white;
+    margin-bottom: 0.75rem;
+  }
+  .about-cta p {
+    font-size: 1rem;
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 1.75rem;
+    line-height: 1.6;
+  }
+  .about-cta-btns {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  @media (max-width: 900px) {
+    .stats-row { grid-template-columns: repeat(2, 1fr); }
+    .two-col { grid-template-columns: 1fr; gap: 2rem; }
+    .two-col.reverse { direction: ltr; }
+    .serve-grid { grid-template-columns: repeat(2, 1fr); }
+    .bespoke-callout { flex-direction: column; gap: 1.5rem; text-align: center; }
+  }
+  @media (max-width: 560px) {
+    .about-hero h1 { font-size: 2rem; }
+    .stats-row { grid-template-columns: repeat(2, 1fr); }
+    .serve-grid { grid-template-columns: 1fr; }
+    .about-body { padding: 2rem 1rem 3rem; }
+    .about-cta { padding: 2rem 1.25rem; }
+    .about-cta h2 { font-size: 1.4rem; }
+  }
+</style>
+</head>
+<body>
+<div id="siteHeader"></div>
+
+<!-- HERO -->
+<div class="about-hero">
+  <div class="about-hero-inner">
+    <div class="about-badge">📍 Long Island, NY · Est. 2026</div>
+    <h1>Promotional Products Built for <span>Healthcare</span></h1>
+    <p>We saw a clear gap in the promotional products industry — healthcare providers needed a dedicated partner who truly understood their world. So we built one.</p>
+    <div class="hero-cta">
+      <a href="index.html" class="btn-primary">Browse Products</a>
+      <a href="quote.html" class="btn-outline">Request a Quote</a>
+    </div>
+  </div>
+</div>
+
+<div class="about-body">
+
+  <!-- STATS -->
+  <div class="stats-row">
+    <div class="stat-card">
+      <div class="stat-number">150+</div>
+      <div class="stat-label">Products Available</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">1 Day</div>
+      <div class="stat-label">Quote Response Time</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">100%</div>
+      <div class="stat-label">Custom Logo Imprinting</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">∞</div>
+      <div class="stat-label">Order Quantities Available</div>
+    </div>
+  </div>
+
+  <!-- OUR STORY -->
+  <div class="two-col">
+    <div>
+      <div class="section-label">Our Story</div>
+      <h2 class="section-heading">A focused solution for a real industry need</h2>
+      <div class="section-body">
+        <p>HealthPromo was established in 2026 with a single purpose: to serve the promotional product needs of the healthcare industry better than anyone else.</p>
+        <p>Healthcare providers — from ABA therapy centers to large hospital systems — have always needed branded promotional items. But the traditional promo industry wasn't built with them in mind. Generic catalogs, confusing minimums, slow turnarounds, and reps who didn't understand the unique demands of healthcare settings left a real gap in the market.</p>
+        <p>We built HealthPromo to fill that gap — with a curated product selection, healthcare-specific expertise, and a streamlined process that gets your branded items in hand fast.</p>
+      </div>
+    </div>
+    <div class="visual-block">
+      <div class="check-item">
+        <div class="check-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <div class="check-item-text">
+          <strong>Industry-specific catalog</strong>
+          <span>Every product is chosen with healthcare and therapy environments in mind — from fidgets and stress relievers to apparel and drinkware.</span>
+        </div>
+      </div>
+      <div class="check-item">
+        <div class="check-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <div class="check-item-text">
+          <strong>Streamlined quoting</strong>
+          <span>No confusing spreadsheets or back-and-forth. Submit your request and we'll respond with pricing and a proof within one business day.</span>
+        </div>
+      </div>
+      <div class="check-item">
+        <div class="check-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <div class="check-item-text">
+          <strong>Backed by experience</strong>
+          <span>As a Bespoke Promotions subsidiary, we bring years of promotional product expertise to every order we fulfill.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WHO WE SERVE -->
+  <div class="serve-section">
+    <div class="section-label">Who We Serve</div>
+    <h2 class="section-heading">Built for the healthcare community</h2>
+    <p class="serve-intro">From small private practices to large care networks, we work with organizations across the healthcare spectrum.</p>
+    <div class="serve-grid">
+      <div class="serve-card">
+        <div class="serve-icon">🧩</div>
+        <h3>ABA Therapy Centers</h3>
+        <p>Fidgets, sensory tools, and branded items that support therapeutic environments and reinforce your practice's identity with clients and families.</p>
+      </div>
+      <div class="serve-card">
+        <div class="serve-icon">🏥</div>
+        <h3>Hospitals & Health Systems</h3>
+        <p>Large-scale branded giveaways, employee appreciation items, and patient-facing promotional products that represent your organization with pride.</p>
+      </div>
+      <div class="serve-card">
+        <div class="serve-icon">🩺</div>
+        <h3>Healthcare Clinics</h3>
+        <p>Waiting room items, staff gifts, and branded merchandise that keeps your clinic top-of-mind for patients long after their visit.</p>
+      </div>
+      <div class="serve-card">
+        <div class="serve-icon">🏫</div>
+        <h3>Schools & Educational Orgs</h3>
+        <p>Sensory tools, stress relievers, and fun branded products for student wellness programs and special education classrooms.</p>
+      </div>
+      <div class="serve-card">
+        <div class="serve-icon">🏷️</div>
+        <h3>Tradeshow Exhibitors</h3>
+        <p>Eye-catching giveaways and display materials that draw traffic to your healthcare conference booth and leave a lasting impression.</p>
+      </div>
+      <div class="serve-card">
+        <div class="serve-icon">💙</div>
+        <h3>Nonprofits & Community Health</h3>
+        <p>Budget-friendly branded items for community events, health fairs, and outreach programs that extend your organization's reach.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- BESPOKE CALLOUT -->
+  <div class="bespoke-callout">
+    <div class="bespoke-icon-wrap">
+      <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+    </div>
+    <div class="bespoke-text">
+      <h3>A Bespoke Promotions Company</h3>
+      <p>HealthPromo operates as a subsidiary of Bespoke Promotions, a full-service promotional products agency based in Long Island, NY. This means every HealthPromo order benefits from an experienced team, established supplier relationships, and the operational strength of a proven promotional products business behind it.</p>
+    </div>
+  </div>
+
+  <!-- HOW WE WORK -->
+  <div class="two-col reverse" style="margin-bottom: 4rem;">
+    <div>
+      <div class="section-label">How It Works</div>
+      <h2 class="section-heading">Simple process, professional results</h2>
+      <div class="section-body">
+        <p>We've designed our ordering process to be as straightforward as possible. Browse our catalog, add the items you're interested in to your quote list, and submit your request. We handle everything from there.</p>
+        <p>Within one business day, you'll receive a detailed quote with per-unit pricing based on your quantity, along with a digital logo proof so you can see exactly how your branded items will look before anything goes to production.</p>
+        <p>Once you approve the proof and confirm your order, we coordinate production and shipping directly — no middlemen, no mystery.</p>
+      </div>
+    </div>
+    <div class="visual-block-alt">
+      <div class="check-item">
+        <div class="check-icon" style="background:rgba(255,255,255,0.15)"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+        <div class="check-item-text-light">
+          <strong>1-day quote turnaround</strong>
+          <span>Submit your request and hear back with pricing within one business day — always.</span>
+        </div>
+      </div>
+      <div class="check-item">
+        <div class="check-icon" style="background:rgba(255,255,255,0.15)"><svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></div>
+        <div class="check-item-text-light">
+          <strong>Digital proof included</strong>
+          <span>See your logo on the product before it goes to print. No surprises on delivery.</span>
+        </div>
+      </div>
+      <div class="check-item">
+        <div class="check-icon" style="background:rgba(255,255,255,0.15)"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
+        <div class="check-item-text-light">
+          <strong>We handle everything</strong>
+          <span>Artwork setup, production, quality check, and shipping — all managed by our team.</span>
+        </div>
+      </div>
+      <div class="check-item">
+        <div class="check-icon" style="background:rgba(255,255,255,0.15)"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+        <div class="check-item-text-light">
+          <strong>Bulk pricing that scales</strong>
+          <span>The more you order, the better your per-unit cost. We'll always show you the full price breakdown.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="about-cta">
+    <h2>Ready to get started?</h2>
+    <p>Browse our catalog, build your quote list, and reach out — we'll take it from there.</p>
+    <div class="about-cta-btns">
+      <a href="index.html" class="btn-primary">Browse Products</a>
+      <a href="quote.html" class="btn-outline">Request a Quote</a>
+      <a href="tel:5166555423" class="btn-outline">Call (516) 655-5423</a>
+    </div>
+  </div>
+
+</div>
+
+<div id="contactStrip"></div>
+<div id="siteFooter"></div>
+
+<script src="js/data.js?v=8"></script>
+<script>
+  document.getElementById('siteHeader').innerHTML = renderHeader('about');
+  document.getElementById('contactStrip').innerHTML = renderContactStrip();
+  document.getElementById('siteFooter').innerHTML = renderFooter();
+  updateCartBadge();
+</script>
+</body>
+</html>
