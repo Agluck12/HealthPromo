@@ -391,9 +391,27 @@ function renderHeader(activePage) {
             <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
               <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18M16 10a4 4 0 0 1-8 0"/>
             </svg>
-            Quote List
+            <span class="cart-btn-text">Quote List</span>
             <span class="cart-count" style="display:${cartTotal > 0 ? 'flex' : 'none'}">${cartTotal}</span>
           </a>
+          <button class="hamburger" id="hamburgerBtn" aria-label="Open menu" aria-expanded="false">
+            <span></span><span></span><span></span>
+          </button>
+        </div>
+      </div>
+      <div class="mobile-menu" id="mobileMenu" role="navigation" aria-label="Mobile navigation">
+        <div class="mobile-menu-inner">
+          <a href="index.html" class="mobile-menu-link">🏠 Browse Products</a>
+          <a href="about.html" class="mobile-menu-link">ℹ️ About Us</a>
+          <a href="quote.html" class="mobile-menu-cta">
+            <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="display:inline;vertical-align:middle;margin-right:6px">
+              <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18M16 10a4 4 0 0 1-8 0"/>
+            </svg>View Quote List
+          </a>
+          <div class="mobile-menu-contacts">
+            <a href="tel:${SITE_CONFIG.phoneRaw}">${SITE_CONFIG.phone}</a>
+            <a href="mailto:${SITE_CONFIG.email}">${SITE_CONFIG.email}</a>
+          </div>
         </div>
       </div>
     </header>
@@ -498,3 +516,36 @@ function renderFooter() {
     </footer>
   `;
 }
+
+// ── MOBILE MENU ──
+document.addEventListener('click', function(e) {
+  const btn = e.target.closest('#hamburgerBtn');
+  const menu = document.getElementById('mobileMenu');
+  if (!menu) return;
+
+  if (btn) {
+    const isOpen = menu.classList.toggle('open');
+    btn.classList.toggle('open', isOpen);
+    btn.setAttribute('aria-expanded', isOpen);
+    return;
+  }
+
+  // Close when clicking outside
+  if (menu.classList.contains('open') &&
+      !e.target.closest('#mobileMenu') &&
+      !e.target.closest('#hamburgerBtn')) {
+    menu.classList.remove('open');
+    const hamburger = document.getElementById('hamburgerBtn');
+    if (hamburger) { hamburger.classList.remove('open'); hamburger.setAttribute('aria-expanded', 'false'); }
+  }
+});
+
+// Close menu on nav link click
+document.addEventListener('click', function(e) {
+  if (e.target.closest('.mobile-menu-link, .mobile-menu-cta')) {
+    const menu = document.getElementById('mobileMenu');
+    const btn = document.getElementById('hamburgerBtn');
+    if (menu) menu.classList.remove('open');
+    if (btn) { btn.classList.remove('open'); btn.setAttribute('aria-expanded', 'false'); }
+  }
+});
