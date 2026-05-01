@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Don't index admin panel or thank-you page
+Disallow: /admin/
+Disallow: /thank-you.html
+
+Sitemap: https://healthpromo.net/sitemap.xml
