@@ -14,6 +14,47 @@
 <link rel="canonical" href="https://healthpromo.net/">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="stylesheet" href="css/style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "HealthPromo",
+  "url": "https://healthpromo.net",
+  "logo": "https://healthpromo.net/logo.svg",
+  "description": "Custom-branded promotional products for healthcare providers, ABA therapy centers, and care organizations. Based on Long Island, NY.",
+  "address": {
+    "@type": "PostalAddress",
+    "addressRegion": "NY",
+    "addressCountry": "US"
+  },
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "email": "info@healthpromo.net",
+    "contactType": "sales"
+  },
+  "sameAs": [],
+  "parentOrganization": {
+    "@type": "Organization",
+    "name": "Gordon Sinclair Promotions"
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "HealthPromo",
+  "url": "https://healthpromo.net",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": {
+      "@type": "EntryPoint",
+      "urlTemplate": "https://healthpromo.net/?q={search_term_string}"
+    },
+    "query-input": "required name=search_term_string"
+  }
+}
+</script>
 <style>
   /* ── HERO ── */
   .hero {
@@ -190,6 +231,14 @@
     .turnaround-inner{gap:1rem}
   }
 
+  /* ── ABOUT BLURB ── */
+  .about-blurb { background: var(--warm); border-bottom: 1.5px solid var(--border); padding: 2.5rem 2rem; }
+  .about-inner { max-width: 860px; margin: 0 auto; text-align: center; }
+  .about-inner h2 { font-family: 'Epilogue', sans-serif; font-size: 1.35rem; font-weight: 800; color: var(--navy); letter-spacing: -0.02em; margin-bottom: 0.9rem; }
+  .about-inner p { font-size: 0.9rem; color: var(--muted); line-height: 1.75; margin-bottom: 0.65rem; }
+  .about-inner p:last-child { margin-bottom: 0; }
+  .about-inner strong { color: var(--text); font-weight: 600; }
+
   /* ── FLOATING QUOTE BUTTON ── */
   .fab-quote {
     position: fixed;
@@ -335,6 +384,16 @@
 </div>
 
 
+
+<!-- ABOUT / SEO TEXT -->
+<section class="about-blurb">
+  <div class="about-inner">
+    <h2>Promotional Products Designed for the Healthcare Industry</h2>
+    <p>HealthPromo is a <strong>Long Island–based promotional products company</strong> specializing in custom-branded items for healthcare providers, pediatric clinics, and ABA therapy centers. We source, imprint, and deliver giveaways, staff gifts, and patient-engagement items — from <strong>branded fidgets and sensory tools</strong> to drinkware, tote bags, pens, and apparel.</p>
+    <p>Whether you're preparing for a <strong>health fair</strong>, rewarding your clinical team, welcoming new patients, or building brand recognition across your organization, we make it simple. Browse our catalog, build a quote list, and we'll respond within one business day with pricing, minimums, and a digital proof of your logo on each item.</p>
+    <p>A subsidiary of <strong>Gordon Sinclair Promotions</strong> — with decades of experience in the promotional products industry, now focused exclusively on healthcare and behavioral health organizations.</p>
+  </div>
+</section>
 
 <main class="main" id="products">
 
