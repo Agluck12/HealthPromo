@@ -456,7 +456,22 @@ function renderHeader(activePage) {
       </div>
     </header>
     <nav class="nav-strip" id="navStrip">
-      <div class="nav-inner" id="navInner"></div>
+      <div class="nav-inner">
+        <div class="nav-dropdown">
+          <button class="nav-trigger" type="button">▦ Shop by Category <span class="nav-caret">▾</span></button>
+          <div class="mega-menu">
+            <div class="mega-grid">
+              ${DEFAULT_CATALOG.map(cat => `
+                <a href="index.html?cat=${cat.id}#products" class="mega-tile">
+                  <span class="mega-thumb"><img src="${(cat.products && cat.products[0] && cat.products[0].img) || ''}" alt="${cat.label}" loading="lazy" onerror="this.parentElement.style.display='none'"></span>
+                  <span class="mega-name">${cat.emoji} ${cat.label}</span>
+                </a>`).join('')}
+            </div>
+          </div>
+        </div>
+        <a href="index.html#products" class="nav-link">All Items</a>
+        <a href="quote.html" class="nav-link">Get a Quote</a>
+      </div>
     </nav>
   `;
 }

@@ -219,19 +219,56 @@ header {
 /* ── NAV STRIP ── */
 .nav-strip {
   background: var(--navy);
-  overflow-x: auto;
-  scrollbar-width: none;
+  overflow: visible;
+  position: relative;
+  z-index: 90;
 }
-.nav-strip::-webkit-scrollbar { display: none; }
 
 .nav-inner {
   max-width: 1280px;
   margin: 0 auto;
   padding: 0 2rem;
   display: flex;
-  gap: 0;
+  align-items: center;
+  gap: 0.5rem;
   white-space: nowrap;
 }
+
+/* ── CATEGORY MEGA-MENU ── */
+.nav-dropdown { position: relative; }
+.nav-trigger {
+  background: none; border: none; cursor: pointer;
+  color: rgba(255,255,255,0.9);
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.85rem; font-weight: 600;
+  padding: 0.7rem 0.9rem;
+  display: flex; align-items: center; gap: 0.4rem;
+}
+.nav-trigger:hover { color: #fff; }
+.nav-caret { font-size: 0.7rem; transition: transform 0.2s; }
+.nav-dropdown:hover .nav-caret, .nav-dropdown:focus-within .nav-caret { transform: rotate(180deg); }
+.mega-menu {
+  position: absolute; top: 100%; left: 0; z-index: 200;
+  background: #fff; border: 1px solid var(--border);
+  border-radius: 0 0 16px 16px; box-shadow: var(--card-shadow-hover);
+  padding: 1rem; width: 720px; max-width: 92vw;
+  opacity: 0; visibility: hidden; transform: translateY(6px);
+  transition: opacity 0.18s, transform 0.18s, visibility 0.18s;
+}
+.nav-dropdown:hover .mega-menu, .nav-dropdown:focus-within .mega-menu {
+  opacity: 1; visibility: visible; transform: translateY(0);
+}
+.mega-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.6rem; }
+.mega-tile {
+  display: flex; flex-direction: column; text-decoration: none;
+  border-radius: 10px; overflow: hidden; border: 1px solid var(--border);
+  background: #fff; transition: transform 0.15s, box-shadow 0.15s;
+}
+.mega-tile:hover { transform: translateY(-2px); box-shadow: var(--card-shadow); }
+.mega-thumb { display: block; height: 64px; background: var(--warm); }
+.mega-thumb img { width: 100%; height: 100%; object-fit: contain; padding: 6px; display: block; }
+.mega-name { padding: 0.45rem 0.5rem; font-size: 0.72rem; font-weight: 600; color: var(--navy); line-height: 1.2; text-align: center; white-space: normal; }
+@media (max-width: 768px) { .mega-menu { width: 92vw; } .mega-grid { grid-template-columns: repeat(2, 1fr); } }
 
 .nav-link {
   color: rgba(255,255,255,0.85);

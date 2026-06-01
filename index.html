@@ -515,15 +515,15 @@
   document.getElementById('siteFooter').innerHTML = renderFooter();
   updateCartBadge();
 
-  let activeCategory = 'all';
+  let activeCategory = new URLSearchParams(location.search).get('cat') || 'all';
   let searchQuery = '';
 
   function renderCategoryPills() {
     const container = document.getElementById('categoryPills');
     const catalog = getCatalog();
-    let html = `<button class="pill active" data-cat="all">✦ All Categories</button>`;
+    let html = `<button class="pill ${activeCategory==='all'?'active':''}" data-cat="all">✦ All Categories</button>`;
     catalog.forEach(c => {
-      html += `<button class="pill" data-cat="${c.id}">${c.emoji} ${c.label}</button>`;
+      html += `<button class="pill ${activeCategory===c.id?'active':''}" data-cat="${c.id}">${c.emoji} ${c.label}</button>`;
     });
     container.innerHTML = html;
     container.querySelectorAll('.pill').forEach(p => {
@@ -700,6 +700,9 @@
   renderCategoryPills();
   buildNavStrip();
   renderSections();
+  if (activeCategory !== 'all') {
+    setTimeout(() => document.getElementById('products')?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 250);
+  }
 
   // Re-render after fetching from Google Sheet (picks up any new products)
   initCatalog().then(() => {
