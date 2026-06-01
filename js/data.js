@@ -387,7 +387,7 @@ function renderHeader(activePage) {
   return `
     <div class="brand-bar">
       <div class="brand-bar-inner">
-        <a class="brand-tab" href="https://bespokepromos.com">Bespoke Promotions</a>
+        <a class="brand-tab" href="https://bespokepromos.com"><img class="brand-logo-img" src="images/bp-logo.png" alt="">Bespoke Promotions</a>
         <span class="brand-tab active">
           <svg class="brand-tab-logo" viewBox="0 0 100 110" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M34 20 L34 38 L16 38 Q12 38 12 42 L12 58 Q12 62 16 62 L34 62 L34 80 Q34 84 38 84 L62 84 Q66 84 66 80 L66 62 L84 62 Q88 62 88 58 L88 42 Q88 38 84 38 L66 38 L66 20 Q66 16 62 16 L38 16 Q34 16 34 20 Z" stroke="#fff" stroke-width="6" stroke-linejoin="round"/>

@@ -70,6 +70,7 @@ body {
   cursor: default;
 }
 .brand-tab-logo { width: 18px; height: 20px; display: block; flex-shrink: 0; }
+.brand-logo-img { height: 19px; width: auto; display: block; flex-shrink: 0; filter: brightness(0) invert(1); }
 .brand-tab.soon { color: rgba(255,255,255,0.4); cursor: default; }
 .brand-tab em {
   font-style: normal;
