@@ -388,7 +388,14 @@ function renderHeader(activePage) {
     <div class="brand-bar">
       <div class="brand-bar-inner">
         <a class="brand-tab" href="https://bespokepromos.com">Bespoke Promotions</a>
-        <span class="brand-tab active">HealthPromo</span>
+        <span class="brand-tab active">
+          <svg class="brand-tab-logo" viewBox="0 0 100 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M34 20 L34 38 L16 38 Q12 38 12 42 L12 58 Q12 62 16 62 L34 62 L34 80 Q34 84 38 84 L62 84 Q66 84 66 80 L66 62 L84 62 Q88 62 88 58 L88 42 Q88 38 84 38 L66 38 L66 20 Q66 16 62 16 L38 16 Q34 16 34 20 Z" stroke="#fff" stroke-width="6" stroke-linejoin="round"/>
+            <polyline points="18,52 26,52 29,43 33,61 37,47 41,52 46,52 51,44 55,60 59,52 64,52 82,52" fill="none" stroke="#6dd4cc" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M50 27 Q50 23 46.5 23 Q43 23 43 27 Q43 30 50 35 Q57 30 57 27 Q57 23 53.5 23 Q50 23 50 27 Z" fill="#6dd4cc"/>
+          </svg>
+          HealthPromo
+        </span>
         <span class="brand-tab soon">Bespoke Events <em>soon</em></span>
         <span class="brand-tab soon">Bespoke Sports <em>soon</em></span>
       </div>

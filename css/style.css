@@ -59,15 +59,17 @@ body {
   display: flex;
   align-items: center;
   gap: 0.45rem;
+  border-bottom: 2px solid transparent;
   transition: color 0.2s, background 0.2s;
 }
 .brand-tab:hover { color: #fff; }
 .brand-tab.active {
-  background: var(--warm);
-  color: var(--navy);
-  border-radius: 10px 10px 0 0;
+  color: #fff;
+  background: rgba(255,255,255,0.05);
+  border-bottom-color: var(--accent);
   cursor: default;
 }
+.brand-tab-logo { width: 18px; height: 20px; display: block; flex-shrink: 0; }
 .brand-tab.soon { color: rgba(255,255,255,0.4); cursor: default; }
 .brand-tab em {
   font-style: normal;
