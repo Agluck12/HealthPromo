@@ -396,8 +396,8 @@ function renderHeader(activePage) {
           </svg>
           HealthPromo
         </span>
-        <span class="brand-tab soon">Bespoke Events <em>soon</em></span>
-        <span class="brand-tab soon">Bespoke Sports <em>soon</em></span>
+        <span class="brand-tab soon"><img class="brand-logo-color" src="images/events-mark.png" alt="">Bespoke Events <em>soon</em></span>
+        <span class="brand-tab soon"><img class="brand-logo-color" src="images/sports-mark.png" alt="">Bespoke Sports <em>soon</em></span>
       </div>
     </div>
     <header>
