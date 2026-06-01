@@ -385,6 +385,14 @@ function renderHeader(activePage) {
   const cart = getCart();
   const cartTotal = cart.reduce((s, i) => s + (i.qty || 1), 0);
   return `
+    <div class="brand-bar">
+      <div class="brand-bar-inner">
+        <a class="brand-tab" href="https://bespokepromos.com">Bespoke Promotions</a>
+        <span class="brand-tab active">HealthPromo</span>
+        <span class="brand-tab soon">Bespoke Events <em>soon</em></span>
+        <span class="brand-tab soon">Bespoke Sports <em>soon</em></span>
+      </div>
+    </div>
     <header>
       <div class="header-inner">
         <a class="logo" href="index.html">

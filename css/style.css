@@ -33,6 +33,54 @@ body {
   overflow-x: clip;
 }
 
+/* ── BRAND SWITCHER BAR ── */
+.brand-bar {
+  background: #1e2b59;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.brand-bar::-webkit-scrollbar { display: none; }
+.brand-bar-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  gap: 0.15rem;
+  align-items: flex-end;
+}
+.brand-tab {
+  color: rgba(255,255,255,0.72);
+  font-family: 'Urbanist', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 0.5rem 1.1rem;
+  text-decoration: none;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  transition: color 0.2s, background 0.2s;
+}
+.brand-tab:hover { color: #fff; }
+.brand-tab.active {
+  background: var(--warm);
+  color: var(--navy);
+  border-radius: 10px 10px 0 0;
+  cursor: default;
+}
+.brand-tab.soon { color: rgba(255,255,255,0.4); cursor: default; }
+.brand-tab em {
+  font-style: normal;
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  background: rgba(255,255,255,0.14);
+  color: rgba(255,255,255,0.7);
+  padding: 1px 6px;
+  border-radius: 10px;
+}
+
 /* ── HEADER ── */
 header {
   background: var(--navy);
