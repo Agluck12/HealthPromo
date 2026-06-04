@@ -118,6 +118,17 @@
   .product-price { font-size: 0.82rem; font-weight: 600; color: var(--teal); }
   .product-price .original { color: var(--muted); text-decoration: line-through; font-weight: 400; margin-right: 0.3rem; }
   .product-price .as-low-as { color: var(--muted); font-weight: 400; }
+
+  /* ── PAGINATION ── */
+  .shop-tools { display: flex; justify-content: flex-end; align-items: center; margin: 0 0 0.8rem; }
+  .per-page { display: flex; align-items: center; gap: 0.45rem; font-size: 0.8rem; color: var(--muted); white-space: nowrap; }
+  .per-page select { padding: 0.45rem 0.55rem; border: 1.5px solid var(--border); border-radius: 8px; font-size: 0.82rem; font-family: inherit; background: white; outline: none; cursor: pointer; }
+  .per-page select:focus { border-color: var(--teal); }
+  .pager { display: flex; align-items: center; justify-content: center; gap: 0.4rem; flex-wrap: wrap; padding: 1.2rem 0 0.4rem; }
+  .page-btn { font-family: inherit; font-size: 0.8rem; font-weight: 600; min-width: 34px; height: 34px; padding: 0 0.65rem; border-radius: 8px; border: 1.5px solid var(--border); background: white; color: var(--text); cursor: pointer; transition: border-color 0.15s, color 0.15s, background 0.15s; }
+  .page-btn:hover:not(:disabled):not(.active) { border-color: var(--teal); color: var(--teal); }
+  .page-btn.active { background: var(--teal); border-color: var(--teal); color: white; cursor: default; }
+  .page-btn:disabled { opacity: 0.4; cursor: default; }
   .product-min { font-size: 0.72rem; color: var(--muted); margin-top: 0.2rem; }
   .tag { display: inline-block; font-size: 0.65rem; font-weight: 600; padding: 0.15rem 0.45rem; border-radius: 4px; letter-spacing: 0.05em; text-transform: uppercase; margin-top: 0.35rem; }
   .tag-colors { background: var(--teal-light); color: var(--teal); }
@@ -405,6 +416,18 @@
 <main class="main" id="products">
 
   <div class="category-pills" id="categoryPills"></div>
+  <div class="shop-tools">
+    <div class="per-page">
+      <label for="perPageSel">Show</label>
+      <select id="perPageSel">
+        <option value="25">25</option>
+        <option value="50">50</option>
+        <option value="100">100</option>
+        <option value="all">All</option>
+      </select>
+      <span>per page</span>
+    </div>
+  </div>
   <div id="productSections"></div>
 </main>
 
@@ -562,7 +585,7 @@
       : `<div class="product-img-placeholder">🏥</div>`;
     let priceHtml = p.price
       ? (p.originalPrice ? `<div class="product-price"><span class="as-low-as">As low as: </span><span class="original">${p.originalPrice}</span>${p.price}</div>` : `<div class="product-price"><span class="as-low-as">As low as: </span>${p.price}</div>`)
-      : `<div class="product-price"><span class="as-low-as">As low as: </span>$--</div>`;
+      : `<div class="product-price"><span class="as-low-as">Contact for pricing</span></div>`;
     const minHtml = p.min ? `<div class="product-min">Min. qty: ${p.min.toLocaleString()}</div>` : '';
     const colorsHtml = p.colors ? `<div class="tag tag-colors">${p.colors} colors</div>` : '';
     const isTradeshow = categoryLabel === 'Tradeshows';
@@ -594,6 +617,26 @@
   const expandedCategories = new Set();
   let lastActiveCategory = 'all';
 
+  // ── Pagination state ──
+  let perPage = (() => {
+    const v = localStorage.getItem('shopPerPage');
+    return v === 'all' ? Infinity : (parseInt(v) || 25);
+  })();
+  const pageState = {};  // category id -> current page
+
+  function pagerHtml(catId, page, total) {
+    if (total <= 1) return '';
+    let btns = '';
+    for (let i = 1; i <= total; i++) {
+      btns += `<button class="page-btn ${i === page ? 'active' : ''}" data-pcat="${catId}" data-page="${i}">${i}</button>`;
+    }
+    return `<div class="pager">
+      <button class="page-btn nav" ${page === 1 ? 'disabled' : ''} data-pcat="${catId}" data-page="${page - 1}">‹ Prev</button>
+      ${btns}
+      <button class="page-btn nav" ${page === total ? 'disabled' : ''} data-pcat="${catId}" data-page="${page + 1}">Next ›</button>
+    </div>`;
+  }
+
   function renderSections() {
     const container = document.getElementById('productSections');
     const catalog = getCatalog();
@@ -601,6 +644,7 @@
     if (activeCategory !== lastActiveCategory) {
       expandedCategories.clear();
       lastActiveCategory = activeCategory;
+      Object.keys(pageState).forEach(k => pageState[k] = 1);
     }
     const filtered = activeCategory === 'all' ? catalog : catalog.filter(c => c.id === activeCategory);
     let html = '';
@@ -608,18 +652,36 @@
       const prods = q ? cat.products.filter(p => p.name.toLowerCase().includes(q)) : cat.products;
       if (!prods.length) return;
       const showAll = activeCategory !== 'all' || q || expandedCategories.has(cat.id);
-      const visible = showAll ? prods : prods.slice(0, PREVIEW_LIMIT);
+      let visible, pager = '';
+      if (showAll) {
+        const page = Math.min(pageState[cat.id] || 1, perPage === Infinity ? 1 : Math.max(1, Math.ceil(prods.length / perPage)));
+        const totalPages = perPage === Infinity ? 1 : Math.ceil(prods.length / perPage);
+        visible = perPage === Infinity ? prods : prods.slice((page - 1) * perPage, (page - 1) * perPage + perPage);
+        pager = pagerHtml(cat.id, page, totalPages);
+      } else {
+        visible = prods.slice(0, PREVIEW_LIMIT);
+      }
       const remaining = prods.length - PREVIEW_LIMIT;
       const viewAllLink = (!showAll && remaining > 0)
         ? `<a href="#" class="view-all expand-cat-btn" data-cat="${cat.id}">View all →</a>`
         : `<a href="#" class="view-all" data-cat="${cat.id}" style="visibility:hidden">View all →</a>`;
-      html += `<div class="section-header">
+      html += `<div class="section-header" id="sec-${cat.id}">
         <div class="section-title"><span class="dot"></span>${cat.emoji} ${cat.label}</div>
         ${viewAllLink}
       </div>
-      <div class="product-grid">${visible.map(p => productCard(p, cat.label)).join('')}</div>`;
+      <div class="product-grid">${visible.map(p => productCard(p, cat.label)).join('')}</div>${pager}`;
     });
     container.innerHTML = html || `<p style="color:var(--muted);padding:2rem 0;">No products found for "${q}".</p>`;
+
+    // Pagination buttons
+    container.querySelectorAll('.page-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        if (btn.disabled) return;
+        pageState[btn.dataset.pcat] = parseInt(btn.dataset.page);
+        renderSections();
+        document.getElementById('sec-' + btn.dataset.pcat)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
 
     // Expand category buttons
     container.querySelectorAll('.expand-cat-btn').forEach(btn => {
@@ -690,11 +752,25 @@
     if (e.target.id === 'searchInput') {
       searchQuery = e.target.value;
       activeCategory = 'all';
+      Object.keys(pageState).forEach(k => pageState[k] = 1);
       document.querySelectorAll('.pill, .nav-link').forEach(x => x.classList.remove('active'));
       document.querySelectorAll('[data-cat="all"]').forEach(x => x.classList.add('active'));
       renderSections();
     }
   });
+
+  // Per-page selector
+  const ppSel = document.getElementById('perPageSel');
+  if (ppSel) {
+    ppSel.value = localStorage.getItem('shopPerPage') || '25';
+    ppSel.addEventListener('change', () => {
+      const v = ppSel.value;
+      perPage = v === 'all' ? Infinity : parseInt(v);
+      localStorage.setItem('shopPerPage', v);
+      Object.keys(pageState).forEach(k => pageState[k] = 1);
+      renderSections();
+    });
+  }
 
   // Render immediately with DEFAULT_CATALOG (instant)
   renderCategoryPills();
